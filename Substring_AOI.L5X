@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Substring" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-30T09:45:34.530Z" ContainsContext="true" ExportDate="Mon May 30 11:45:38 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Substring" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-30T09:47:16.312Z" ContainsContext="true" ExportDate="Mon May 30 11:47:22 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="Substring" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-10-11T06:37:37.774Z" CreatedBy="WPI\engineer" EditedDate="2022-05-30T09:45:34.530Z"
+<AddOnInstructionDefinition Use="Target" Name="Substring" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-10-11T06:37:37.774Z" CreatedBy="WPI\engineer" EditedDate="2022-05-30T09:47:16.312Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
@@ -131,9 +131,6 @@
 </Line>
 <Line Number="21">
 <![CDATA[#endregion]]>
-</Line>
-<Line Number="22">
-<![CDATA[//oei]]>
 </Line>
 </STContent>
 </Routine>
