@@ -1,0 +1,2903 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-05-23T07:30:44.882Z" ContainsContext="true" ExportDate="Mon May 30 11:44:05 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Depositor_PackML">
+<DataTypes Use="Context">
+<DataType Name="ISA88_PackML" Family="NoFamily" Class="User">
+<Members>
+<Member Name="Cmd" DataType="ISA88_PackML_Cmd" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program Events / Tasks]]>
+</Description>
+</Member>
+<Member Name="Seq" DataType="ISA88_PackML_SEQ" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program Sequence]]>
+</Description>
+</Member>
+<Member Name="Sts" DataType="ISA88_PackML_STS" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program status]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Pack3" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Disable_Module" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack3" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[disables equipment module, bypasses everything in the module.]]>
+</Description>
+</Member>
+<Member Name="SC" DataType="ISA88_State_SC" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program SC]]>
+</Description>
+</Member>
+<Member Name="EM_Name" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program name]]>
+</Description>
+</Member>
+<Member Name="PackTags" DataType="ISA88_PackML_PackTags" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[PackTags for MES]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Pack8" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="EM_Faulted" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack8" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule Faulted locally]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_PackML_Cmd"/>
+<Dependency Type="DataType" Name="ISA88_PackML_SEQ"/>
+<Dependency Type="DataType" Name="ISA88_PackML_STS"/>
+<Dependency Type="DataType" Name="ISA88_State_SC"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_Cmd" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Pack0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="ClearFaults" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program call to ClearFaults]]>
+</Description>
+</Member>
+<Member Name="Clearing_ons" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Initialize to ClearFaults]]>
+</Description>
+</Member>
+<Member Name="Hold_EM_Clear" DataType="TIMER" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Holding time EM_Clear]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Pack4" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Resetting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack4" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program call to Resetting]]>
+</Description>
+</Member>
+<Member Name="Resetting_ons" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack4" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Initialize Resetting]]>
+</Description>
+</Member>
+<Member Name="Starting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack4" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program call to Starting]]>
+</Description>
+</Member>
+<Member Name="Starting_ons" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack4" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Initialize Starting]]>
+</Description>
+</Member>
+<Member Name="Stopping" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack4" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Program call to Stopping]]>
+</Description>
+</Member>
+<Member Name="Stopping_ons" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack4" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Initialize Stopping]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[PackTags provide a uniform set of naming conventions for data elements used within the procedural elements of the base state model. They are named data elements used for open architecture and interoperable data exchange in automated machinery.
+
+The library provides the PackTags, as defined in ANSI/ISA TR88.00.02-2015.]]>
+</Description>
+<Members>
+<Member Name="Command" DataType="ISA88_PackML_PackTags_Command" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[These variables mainly represent the control interface. By using these tags, operation modes can be selected, state transitions can be forced, and recipes as well as formats can be transmitted]]>
+</Description>
+</Member>
+<Member Name="Status" DataType="ISA88_PackML_PackTags_Status" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[These variables contain status information (such as which operation mode is active, which state is active, and so on).]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Pack2" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Administration" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack2" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[These variables contain important OEE data (for example, downtime, reasons for downtime, and so on). Furthermore production information.]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Command"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Status"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Command" Family="NoFamily" Class="User">
+<Members>
+<Member Name="OpperationMode" DataType="ISA88_PackML_PackTags_Command_Opperation" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to obj model]]>
+</Description>
+</Member>
+<Member Name="StateTransmittion" DataType="ISA88_State_UserInputs" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Recept" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[currently not in use]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Command_Opperation"/>
+<Dependency Type="DataType" Name="ISA88_State_UserInputs"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Command_Opperation" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Pack0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Automatic" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Automatic]]>
+</Description>
+</Member>
+<Member Name="Maintenance" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Maintenance]]>
+</Description>
+</Member>
+<Member Name="Manual" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Manual]]>
+</Description>
+</Member>
+<Member Name="Cleaning" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Cleaning]]>
+</Description>
+</Member>
+<Member Name="MES_Controlled" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to CustomerDefined1]]>
+</Description>
+</Member>
+<Member Name="CustomerDefined2" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to CustomerDefined2]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Status" Family="NoFamily" Class="User">
+<Members>
+<Member Name="CurrentState" DataType="ISA88_State_UserOutputs" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="CurrentMode" DataType="ISA88_PackML_PackTags_Status_Mode" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="CurrentState_Time" DataType="ISA88_PackML_PackTags_Status_Time" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_State_UserOutputs"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Status_Mode"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Status_Time"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Status_Mode" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Feedback which mode is active]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Pack0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Automatic" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Automatic]]>
+</Description>
+</Member>
+<Member Name="Maintenance" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Maintenance]]>
+</Description>
+</Member>
+<Member Name="Manual" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Manual]]>
+</Description>
+</Member>
+<Member Name="Cleaning" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Cleaning]]>
+</Description>
+</Member>
+<Member Name="MES_Controlled" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is CustomerDefined1]]>
+</Description>
+</Member>
+<Member Name="CustomerDefined2" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is CustomerDefined2]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Status_Time" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[shows how long each state is active]]>
+</Description>
+<Members>
+<Member Name="Held" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Unholding" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Holding" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Idle" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Starting" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Execute" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Completing" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Complete" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Resetting" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Unsuspending" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Suspended" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Suspending" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Stopped" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Stopping" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Clearing" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Aborted" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Aborting" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_SEQ" Family="NoFamily" Class="User">
+<Members>
+<Member Name="Clear" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Clearing step number]]>
+</Description>
+</Member>
+<Member Name="Resetting" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Resetting step number]]>
+</Description>
+</Member>
+<Member Name="Starting" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Starting step number]]>
+</Description>
+</Member>
+<Member Name="Stopping" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Stopping step number]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_STS" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Pack0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="ClearSeq_PC" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Clearing complete]]>
+</Description>
+</Member>
+<Member Name="CompletingSeq_PC" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Completing complete]]>
+</Description>
+</Member>
+<Member Name="ResettingSeq_PC" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Resetting complete]]>
+</Description>
+</Member>
+<Member Name="StartingSeq_PC" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Starting complete]]>
+</Description>
+</Member>
+<Member Name="StoppingSeq_PC" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Stopping complete]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_State_SC" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Stat0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Execute_to_Completing" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Execute 
+to 
+Completing]]>
+</Description>
+</Member>
+<Member Name="Unholding_to_Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Unholding
+to 
+Execute]]>
+</Description>
+</Member>
+<Member Name="Starting_to_Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Starting
+to 
+Execute]]>
+</Description>
+</Member>
+<Member Name="Holding_to_Held" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Holding
+to 
+Held]]>
+</Description>
+</Member>
+<Member Name="Completing_to_Completed" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Completing
+to 
+Completed]]>
+</Description>
+</Member>
+<Member Name="Suspending_to_Suspended" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Suspending 
+to 
+Suspended]]>
+</Description>
+</Member>
+<Member Name="Unsuspending_to_Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="6" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Unsuspending
+to 
+Execute]]>
+</Description>
+</Member>
+<Member Name="Resetting_to_Idle" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="7" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Resetting 
+to 
+Idle]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Stat9" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Stopping_to_Stopped" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Stopping
+to 
+Stopped]]>
+</Description>
+</Member>
+<Member Name="Clearing_to_Stopped" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Clearing
+to 
+Stopped]]>
+</Description>
+</Member>
+<Member Name="Aborting_to_Aborted" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Aborting
+to 
+Aborted]]>
+</Description>
+</Member>
+<Member Name="Wrk_Module_Disabled" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Disables the module]]>
+</Description>
+</Member>
+<Member Name="Wrk_Stop_trigger" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to Stopped]]>
+</Description>
+</Member>
+<Member Name="Wrk_Abort_trigger" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to fault]]>
+</Description>
+</Member>
+<Member Name="Sts_CurrentJob" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Description of current job]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Stat17" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Wrk_Suspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat17" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to suspend]]>
+</Description>
+</Member>
+<Member Name="Wrk_Unsuspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat17" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to Execute from Suspend]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_State_UserInputs" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[operations from the HMI]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Stat0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Hold" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="UnHold" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="Start" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="Suspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="UnSuspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Reset" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="Stop" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Abort" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="7" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZISA88_Stat9" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Clear" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="0" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="ISA88_State_UserOutputs" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Stat0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Held" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="Unholding" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="Holding" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="Idle" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="Starting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="Completing" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Complete" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="7" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZISA88_Stat9" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Resetting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="Unsuspending" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="Suspended" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="Suspending" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="Stopped" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Stopping" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="Clearing" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Aborted" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="7" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZISA88_Stat18" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Aborting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat18" BitNumber="0" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="Servo_Object" Class="Standard" Revision="1.2" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-05-06T08:56:11.685Z" CreatedBy="WPI\tom.reit" EditedDate="2022-05-23T07:30:44.882Z" EditedBy="WPI\tom.reit"
+ SoftwareRevision="v33.00">
+<RevisionNote>
+<![CDATA[Added motion intrustions reset command, once reset is active set all flags back to 0. so no previous state is in memory. Also unlatch all input signals if they were previous active while error occoured.]]>
+</RevisionNote>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Axis_Object" TagType="Base" DataType="AXIS_CIP_DRIVE" Usage="InOut" Required="true" Visible="true">
+<Description>
+<![CDATA[Axis to control / monitor]]>
+</Description>
+</Parameter>
+<Parameter Name="Module" TagType="Base" DataType="MODULE" Usage="InOut" Required="true" Visible="true">
+<Description>
+<![CDATA[Servo Drive ]]>
+</Description>
+</Parameter>
+<Parameter Name="Sts_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Axis faulted, check faultlist for detailed information.]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Enabled" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Drive is enabled(MSO)
+ and "Running"on drive display]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Disabled" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Drive is disabeld(MSF) and "Stopped" on drive display]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_StandStill" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Axis is not in motion]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_FaultMessage" TagType="Base" DataType="STRING" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[Contains data about error and what coased it]]>
+</Description>
+</Parameter>
+<Parameter Name="Inp_Enable" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Set to true to enable the drive, once completed or faulted signal will be set low as feedback]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Reset" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[User reset, most likely EM_Clear]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Disable" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Set to true to disable the drive, once completed or faulted signal will be set low as feedback]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Stop" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Stop current motion, if retreive lost postions is set to true, axis will move back to its stopping position)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cnf_DecelRate" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[based on user  units per sec ²]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cnf_DecelJerk" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[% of time]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cnf_RetrieveStoppingPositions" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[If set to true the servo will start its stopping sequence but after is done it will move back to the position where the stopping command was given. 
+
+for example if the stopping motion coased 15 user units the axis will move back 15 units. ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cnf_Retrieve_Accel" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[in user units per sec ²
+(accel and decel are the same for retrieve position)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cnf_Retrieve_Speed" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Retrieve_Speed in user units per sec]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PackML" TagType="Base" DataType="ISA88_PackML" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+</Parameters>
+<LocalTags>
+<LocalTag Name="SEQ_Enable" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[statemodel for enabling drive]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Error" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local error ocoured, check fault list ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="TRUE" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[always 1 ( true)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="FALSE" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[always 0( false)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="reset_ons" DataType="FBD_ONESHOT" ExternalAccess="None">
+<Description>
+<![CDATA[falling edge function for reset]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[1,0,5.60519386e-045]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_ONESHOT">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="InputBit" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OutputBit" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MAFR_Axis" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<Description>
+<![CDATA[reset axis ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MSO_Axis" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<Description>
+<![CDATA[local MSO to turn on servo]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MSF_Axis" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<Description>
+<![CDATA[local turn off servo]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="DriveStatus" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_InhibitModule" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[Local mem to set object into certain mode]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_InhibitAxis" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local mem to set axis in centain mode]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_ModuleFaultCode" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local module fault code to generate FaultMessage]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_AxisFaultBits" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local Axis fault code to generate FaultMessage]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_MotionFaultBits" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local Axis fault code to generate FaultMessage]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="S_ModuleFaultCode" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[String conversion]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="0">
+<![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="S_AxisFaultBits" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[Conversion]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[2,'$r$l$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="2">
+<![CDATA['$r$l']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="S_MotionFaultBits" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[Conversion]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="0">
+<![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="i" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local index num]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="temp_num" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[temporary number 
+only used for calculations as step inbetween because studio 5000 is idiot software]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_FaultMessage" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[building string]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="0">
+<![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="SEQ_Stopping" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[statemodel for stopping motion]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_CurrentPosition" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[last position before stopping]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MAS_Axis" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<Description>
+<![CDATA[Stopping motion instruction
+]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_Max_DecelRate" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[based on motion settings]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MAM_Axis" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<Description>
+<![CDATA[Retrieve postion motion instruction]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_MaximumSpeed" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[local max speed ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_CIPAxisFault" DataType="LINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local copy of CIPAxisFaults ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="S_CIPAxisFault" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[Local string to add all CIP axis faults to ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="0">
+<![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Alarm_Texts" DataType="STRING" Dimensions="100" ExternalAccess="None">
+<Description>
+<![CDATA[Placeholder, just used to COP out of. ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[[23,'MotorOvercurrentFault$r$l$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[23,'MotorCommutationFault$r$l$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[21,'MotorOverspeedFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[21,'MotorOverspeedULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'MotorOvertemperatureFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'MotorOvertemperatureULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'MotorThermalOverloadFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'MotorThermalOverloadULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[19,'MotorPhaseLossFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[24,'InverterOvercurrentFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[30,'InverterOvertemperatureFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[30,'InverterOvertemperatureULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[30,'InverterThermalOverloadFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[30,'InverterThermalOverloadULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[25,'ConverterOvercurrentFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[29,'ConverterGroundCurrentFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[29,'ConverterGroundCurrentULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'ConverterOvertemperatureFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'ConverterOvertemperatureULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'ConverterThermalOverloadFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'ConverterThermalOverloadULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[25,'ConverterACPowerLossFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'ConverterACSinglePhaseLossFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[26,'ConverterACPhaseShortFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[23,'ConverterPreChargeFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[34,'BusRegulatorOvertemperatureFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[34,'BusRegulatorOvertemperatureULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[34,'BusRegulatorThermalOverloadFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[34,'BusRegulatorThermalOverloadULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[17,'BusRegulatorFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[14,'BusModuleFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[22,'BusUndervoltageFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[22,'BusUndervoltageULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[21,'BusOvervoltageFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[21,'BusOvervoltageULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[17,'BusPowerLossFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[22,'BusPowerBlownFuseFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[20,'BusPowerLeakageFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[20,'BusPowerSharingFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[26,'FeedbackSignalNoiseFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[26,'FeedbackSignalNoiseULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[25,'FeedbackSignalLossFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[25,'FeedbackSignalLossULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[23,'FeedbackDataLossFLFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[23,'FeedbackDataLossULFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[19,'FeedbackDeviceFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[11,'SensorFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[14,'BrakeSlipFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'HardwareOvertravelPositiveFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[31,'HardwareOvertravelNegativeFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'ExcessivePositionErrorFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'ExcessiveVelocityErrorFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[20,'OvertorqueLimitFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[21,'UndertorqueLimitFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[29,'ExcessiveBusVoltageErrorFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'AmbientTemperatureRiseFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[23,'IllegalControlModeFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[27,'EnableInputDeactivatedFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[24,'ControllerInitiatedFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[18,'ExternalInputFault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[15,'Undefined Fault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[15,'Undefined Fault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[15,'Undefined Fault$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[5,'spare$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="STRING" Dimensions="100">
+<Element Index="[0]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorOvercurrentFault$r$l']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[1]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorCommutationFault$r$l']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[2]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="21"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorOverspeedFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[3]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="21"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorOverspeedULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[4]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorOvertemperatureFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[5]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorOvertemperatureULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[6]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorThermalOverloadFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[7]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorThermalOverloadULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[8]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="19"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['MotorPhaseLossFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[9]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="24"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['InverterOvercurrentFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[10]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="30"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['InverterOvertemperatureFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[11]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="30"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['InverterOvertemperatureULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[12]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="30"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['InverterThermalOverloadFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[13]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="30"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['InverterThermalOverloadULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[14]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="25"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterOvercurrentFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[15]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="29"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterGroundCurrentFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[16]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="29"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterGroundCurrentULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[17]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterOvertemperatureFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[18]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterOvertemperatureULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[19]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterThermalOverloadFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[20]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterThermalOverloadULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[21]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="25"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterACPowerLossFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[22]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterACSinglePhaseLossFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[23]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="26"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterACPhaseShortFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[24]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ConverterPreChargeFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[25]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="34"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusRegulatorOvertemperatureFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[26]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="34"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusRegulatorOvertemperatureULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[27]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="34"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusRegulatorThermalOverloadFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[28]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="34"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusRegulatorThermalOverloadULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[29]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="17"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusRegulatorFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[30]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="14"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusModuleFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[31]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="22"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusUndervoltageFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[32]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="22"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusUndervoltageULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[33]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="21"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusOvervoltageFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[34]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="21"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusOvervoltageULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[35]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="17"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusPowerLossFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[36]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="22"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusPowerBlownFuseFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[37]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="20"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusPowerLeakageFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[38]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="20"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BusPowerSharingFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[39]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="26"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackSignalNoiseFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[40]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="26"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackSignalNoiseULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[41]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="25"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackSignalLossFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[42]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="25"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackSignalLossULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[43]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackDataLossFLFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[44]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackDataLossULFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[45]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="19"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['FeedbackDeviceFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[46]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="11"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['SensorFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[47]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="14"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['BrakeSlipFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[48]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['HardwareOvertravelPositiveFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[49]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['HardwareOvertravelNegativeFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[50]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ExcessivePositionErrorFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[51]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ExcessiveVelocityErrorFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[52]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="20"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['OvertorqueLimitFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[53]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="21"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['UndertorqueLimitFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[54]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="29"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ExcessiveBusVoltageErrorFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[55]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['AmbientTemperatureRiseFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[56]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['IllegalControlModeFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[57]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="27"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['EnableInputDeactivatedFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[58]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="24"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ControllerInitiatedFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[59]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="18"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['ExternalInputFault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[60]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="15"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Undefined Fault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[61]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="15"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Undefined Fault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[62]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="15"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Undefined Fault']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[63]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="5"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['spare']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[64]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[65]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[66]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[67]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[68]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[69]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[70]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[71]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[72]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[73]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[74]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[75]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[76]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[77]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[78]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[79]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[80]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[81]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[82]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[83]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[84]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[85]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[86]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[87]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[88]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[89]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[90]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[91]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[92]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[93]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[94]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[95]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[96]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[97]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[98]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[99]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+</Array>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_ModuleFaultBits" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[axis group module faults]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_AxisState" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[current axis state]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="S_FaultCode_Base" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[contains begin of fault message]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[14,'Current Fault:$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="14">
+<![CDATA['Current Fault:']]>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  ]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: Servo_Object - Logic]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\tom.reit]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 6-5-2022]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//           ]]>
+</Line>
+<Line Number="9">
+<![CDATA[//]]>
+</Line>
+<Line Number="10">
+<![CDATA[//   History:]]>
+</Line>
+<Line Number="11">
+<![CDATA[//]]>
+</Line>
+<Line Number="12">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="13">
+<![CDATA[#region Macros ]]>
+</Line>
+<Line Number="14">
+<![CDATA[	TRUE	:=1;]]>
+</Line>
+<Line Number="15">
+<![CDATA[	FALSE	:=0;]]>
+</Line>
+<Line Number="16">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="17">
+<![CDATA[#region Reset axis ]]>
+</Line>
+<Line Number="18">
+<![CDATA[	OSFI(reset_ons);													// onshot (fallingedge) reset object]]>
+</Line>
+<Line Number="19">
+<![CDATA[	reset_ons.InputBit:=Inp_Reset;										// input reset signal]]>
+</Line>
+<Line Number="20">
+<![CDATA[	if reset_ons.OutputBit then MSO_Axis.FLAGS:=0; end_if;				// set MSO flags to 0.]]>
+</Line>
+<Line Number="21">
+<![CDATA[	if reset_ons.OutputBit then MSF_Axis.FLAGS:=0; end_if;				// set MSF flags to 0.]]>
+</Line>
+<Line Number="22">
+<![CDATA[	if reset_ons.OutputBit then MAM_Axis.FLAGS:=0; end_if;				// set MAM flags to 0.]]>
+</Line>
+<Line Number="23">
+<![CDATA[	if reset_ons.OutputBit then MAS_Axis.FLAGS:=0; end_if;				// set MAS flags to 0.]]>
+</Line>
+<Line Number="24">
+<![CDATA[	]]>
+</Line>
+<Line Number="25">
+<![CDATA[	if reset_ons.OutputBit then SEQ_Enable:=0; end_if;					// set SEQ_Enable to 0.]]>
+</Line>
+<Line Number="26">
+<![CDATA[	if reset_ons.OutputBit then SEQ_Stopping:=0; end_if;				// set SEQ_Stopping to 0.]]>
+</Line>
+<Line Number="27">
+<![CDATA[	]]>
+</Line>
+<Line Number="28">
+<![CDATA[	if Inp_Enable AND reset_ons.OutputBit AND Sts_Faulted 	then Inp_Enable	:=	FALSE; end_if;]]>
+</Line>
+<Line Number="29">
+<![CDATA[	if Inp_Disable AND reset_ons.OutputBit AND Sts_Faulted	then Inp_Disable:=	FALSE; end_if;]]>
+</Line>
+<Line Number="30">
+<![CDATA[	if Inp_Stop AND reset_ons.OutputBit AND Sts_Faulted		then Inp_Stop	:=	FALSE; end_if;]]>
+</Line>
+<Line Number="31">
+<![CDATA[	]]>
+</Line>
+<Line Number="32">
+<![CDATA[	if reset_ons.OutputBit and Error then Error:=FALSE; end_if;			// if Error is active, set error to false. ]]>
+</Line>
+<Line Number="33">
+<![CDATA[	if reset_ons.OutputBit then MAFR(Axis_Object,MAFR_Axis); end_if;	// Reset axis on output from reset signal.]]>
+</Line>
+<Line Number="34">
+<![CDATA[	if MAFR_Axis.ER AND MAFR_Axis.EN then Error:=TRUE; end_if;			// if while resetting axis fault occours, set Error back to true. ]]>
+</Line>
+<Line Number="35">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="36">
+<![CDATA[#region Fault handler ]]>
+</Line>
+<Line Number="37">
+<![CDATA[	//if Wrk_AxisState 					=8		then Error:=TRUE; end_if;	// tijdelijk uit ]]>
+</Line>
+<Line Number="38">
+<![CDATA[	//if Wrk_AxisState 					=5		then Error:=TRUE; end_if;  // tijdelijk uit ]]>
+</Line>
+<Line Number="39">
+<![CDATA[	if Axis_Object.MotionAlarmStatus	<>0 	then Error:=TRUE; end_if;]]>
+</Line>
+<Line Number="40">
+<![CDATA[	if Axis_Object.AxisFault			<>0 	then Error:=TRUE; end_if;	]]>
+</Line>
+<Line Number="41">
+<![CDATA[	if Axis_Object.MotionFaultStatus	<>0		then Error:=TRUE; end_if;]]>
+</Line>
+<Line Number="42">
+<![CDATA[	if MSO_Axis.ER AND MSO_Axis.EN				THEN Error:=TRUE; end_if;]]>
+</Line>
+<Line Number="43">
+<![CDATA[	if MSF_Axis.ER AND MSF_Axis.EN				THEN Error:=TRUE; end_if;]]>
+</Line>
+<Line Number="44">
+<![CDATA[	if MAS_Axis.ER AND MAS_Axis.EN				THEN Error:=TRUE; end_if;]]>
+</Line>
+<Line Number="45">
+<![CDATA[	if MAM_Axis.ER AND MAM_Axis.EN				THEN Error:=TRUE; end_if;]]>
+</Line>
+<Line Number="46">
+<![CDATA[	]]>
+</Line>
+<Line Number="47">
+<![CDATA[	Sts_Faulted:=Error;]]>
+</Line>
+<Line Number="48">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="49">
+<![CDATA[#region Drive Enable / Disable]]>
+</Line>
+<Line Number="50">
+<![CDATA[	if Inp_Enable 	AND SEQ_Enable=0 then SEQ_Enable:=10; end_if;]]>
+</Line>
+<Line Number="51">
+<![CDATA[	if Inp_Disable 	AND SEQ_Enable=0 then SEQ_Enable:=110; end_if;]]>
+</Line>
+<Line Number="52">
+<![CDATA[	case SEQ_Enable of]]>
+</Line>
+<Line Number="53">
+<![CDATA[		/* ]]>
+</Line>
+<Line Number="54">
+<![CDATA[		state transmittions ]]>
+</Line>
+<Line Number="55">
+<![CDATA[		 10 -> 40 	= Enable ]]>
+</Line>
+<Line Number="56">
+<![CDATA[		110 -> 140 	= Disable]]>
+</Line>
+<Line Number="57">
+<![CDATA[		*/]]>
+</Line>
+<Line Number="58">
+<![CDATA[		0: /* waiting for command */]]>
+</Line>
+<Line Number="59">
+<![CDATA[			Sts_Enabled		:=		Axis_Object.DriveEnableStatus;]]>
+</Line>
+<Line Number="60">
+<![CDATA[			Sts_Disabled	:= NOT 	Axis_Object.DriveEnableStatus;			]]>
+</Line>
+<Line Number="61">
+<![CDATA[		#region Enable drive	]]>
+</Line>
+<Line Number="62">
+<![CDATA[		10: /* Recieve command from user, start enabling drive */]]>
+</Line>
+<Line Number="63">
+<![CDATA[			if 		Axis_Object.DriveEnableStatus then SEQ_Enable:=0; Sts_Enabled:=FALSE; 	end_if;// drive was already enabled.]]>
+</Line>
+<Line Number="64">
+<![CDATA[			if 	NOT Axis_Object.DriveEnableStatus then SEQ_Enable:=20; 	end_if;// drive was not enabled start enabling.]]>
+</Line>
+<Line Number="65">
+<![CDATA[			]]>
+</Line>
+<Line Number="66">
+<![CDATA[		20: /* Check for servo faults, if there are any */]]>
+</Line>
+<Line Number="67">
+<![CDATA[			if 		Error then SEQ_Enable	:=999; 	end_if;]]>
+</Line>
+<Line Number="68">
+<![CDATA[			if NOT 	Error then SEQ_Enable	:=30; 	end_if;]]>
+</Line>
+<Line Number="69">
+<![CDATA[		30:	/* Enable servo */]]>
+</Line>
+<Line Number="70">
+<![CDATA[			MSO(Axis_Object,MSO_Axis);]]>
+</Line>
+<Line Number="71">
+<![CDATA[			SEQ_Enable:=35;]]>
+</Line>
+<Line Number="72">
+<![CDATA[		35: /* wait for feedback from MSO */]]>
+</Line>
+<Line Number="73">
+<![CDATA[			if MSO_Axis.EN AND MSO_Axis.DN then SEQ_Enable:=40; 	end_if;]]>
+</Line>
+<Line Number="74">
+<![CDATA[			if MSO_Axis.EN AND MSO_Axis.ER then SEQ_Enable:=999; 	end_if;]]>
+</Line>
+<Line Number="75">
+<![CDATA[		40:	/* Servo is enabled and ready to recieve commands */]]>
+</Line>
+<Line Number="76">
+<![CDATA[			if NOT 	Axis_Object.PowerStructureEnabledStatus then SEQ_Enable:=999; 	end_if;]]>
+</Line>
+<Line Number="77">
+<![CDATA[			if 		Axis_Object.PowerStructureEnabledStatus then ]]>
+</Line>
+<Line Number="78">
+<![CDATA[				Inp_Enable:=FALSE;		// feedback to user, execution was done.]]>
+</Line>
+<Line Number="79">
+<![CDATA[				SEQ_Enable:=0; 	]]>
+</Line>
+<Line Number="80">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="81">
+<![CDATA[		#endregion	]]>
+</Line>
+<Line Number="82">
+<![CDATA[		#region Disable drive		]]>
+</Line>
+<Line Number="83">
+<![CDATA[		110: /* Recieve command from user, start Disabling drive */]]>
+</Line>
+<Line Number="84">
+<![CDATA[			if 		Axis_Object.DriveEnableStatus then SEQ_Enable:=120; end_if;	// drive was not Disabled start disabling]]>
+</Line>
+<Line Number="85">
+<![CDATA[			if 	NOT Axis_Object.DriveEnableStatus then SEQ_Enable:=0; Inp_Disable:=FALSE; 	end_if;	// drive was already disabled.]]>
+</Line>
+<Line Number="86">
+<![CDATA[			]]>
+</Line>
+<Line Number="87">
+<![CDATA[		120: /* Check for servo faults, if there are any */]]>
+</Line>
+<Line Number="88">
+<![CDATA[			if 		Error then SEQ_Enable	:=999; 	end_if;]]>
+</Line>
+<Line Number="89">
+<![CDATA[			if NOT 	Error then SEQ_Enable	:=130; 	end_if;]]>
+</Line>
+<Line Number="90">
+<![CDATA[		130:	/* Disable servo */]]>
+</Line>
+<Line Number="91">
+<![CDATA[			MSF(Axis_Object,MSF_Axis);]]>
+</Line>
+<Line Number="92">
+<![CDATA[			SEQ_Enable:=135;]]>
+</Line>
+<Line Number="93">
+<![CDATA[		135: /* wait for feedback from MSF */]]>
+</Line>
+<Line Number="94">
+<![CDATA[			if MSF_Axis.EN AND MSF_Axis.DN then SEQ_Enable:=140; 	end_if;]]>
+</Line>
+<Line Number="95">
+<![CDATA[			if MSF_Axis.EN AND MSF_Axis.ER then SEQ_Enable:=999; 	end_if;]]>
+</Line>
+<Line Number="96">
+<![CDATA[		140:	/* Servo is Disabeld and ready to recieve commands */]]>
+</Line>
+<Line Number="97">
+<![CDATA[			if  	Axis_Object.PowerStructureEnabledStatus then SEQ_Enable:=999; 	end_if;]]>
+</Line>
+<Line Number="98">
+<![CDATA[			if 	NOT	Axis_Object.PowerStructureEnabledStatus then ]]>
+</Line>
+<Line Number="99">
+<![CDATA[				Inp_Disable:=FALSE;		// feedback to user, execution was done.]]>
+</Line>
+<Line Number="100">
+<![CDATA[				SEQ_Enable:=0; 	]]>
+</Line>
+<Line Number="101">
+<![CDATA[			end_if;			]]>
+</Line>
+<Line Number="102">
+<![CDATA[		#endregion]]>
+</Line>
+<Line Number="103">
+<![CDATA[		999: /* Error state */]]>
+</Line>
+<Line Number="104">
+<![CDATA[			Inp_Enable:=FALSE;		// feedback to user, execution was done.]]>
+</Line>
+<Line Number="105">
+<![CDATA[			if reset_ons.OutputBit then SEQ_Enable:=0; end_if; // on reset set state back to 0. ]]>
+</Line>
+<Line Number="106">
+<![CDATA[		else]]>
+</Line>
+<Line Number="107">
+<![CDATA[			SEQ_Enable:=0;// undefined state, goes to 0]]>
+</Line>
+<Line Number="108">
+<![CDATA[	end_case;]]>
+</Line>
+<Line Number="109">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="110">
+<![CDATA[#region (Un)Inhibit drive / (Un)Inhibit motion axis]]>
+</Line>
+<Line Number="111">
+<![CDATA[	/* ]]>
+</Line>
+<Line Number="112">
+<![CDATA[		DriveStatus = 16#1000	// Faulted]]>
+</Line>
+<Line Number="113">
+<![CDATA[		DriveStatus = 16#4000	// running]]>
+</Line>
+<Line Number="114">
+<![CDATA[		DriveStatus = 16#6000	// inhibit]]>
+</Line>
+<Line Number="115">
+<![CDATA[	*/]]>
+</Line>
+<Line Number="116">
+<![CDATA[	GSV(Module,Module,EntryStatus,DriveStatus);					// Get entry status of module]]>
+</Line>
+<Line Number="117">
+<![CDATA[	if PackML.Disable_Module then ]]>
+</Line>
+<Line Number="118">
+<![CDATA[		Wrk_InhibitModule	:=4; 	SSV(Module,Module,Mode,Wrk_InhibitModule);			// inhibbit module]]>
+</Line>
+<Line Number="119">
+<![CDATA[		Wrk_InhibitAxis		:=1; 	SSV(Axis,Axis_Object,InhibitAxis,Wrk_InhibitAxis); 	// inhibbit Axis		]]>
+</Line>
+<Line Number="120">
+<![CDATA[	else]]>
+</Line>
+<Line Number="121">
+<![CDATA[		if DriveStatus = 16#6000 then ]]>
+</Line>
+<Line Number="122">
+<![CDATA[			Wrk_InhibitModule	:=0; 	SSV(Module,Module,Mode,Wrk_InhibitModule);			// inhibbit module]]>
+</Line>
+<Line Number="123">
+<![CDATA[			Wrk_InhibitAxis		:=0; 	SSV(Axis,Axis_Object,InhibitAxis,Wrk_InhibitAxis); 	// inhibbit Axis]]>
+</Line>
+<Line Number="124">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="125">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="126">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="127">
+<![CDATA[#region Fault String	]]>
+</Line>
+<Line Number="128">
+<![CDATA[	]]>
+</Line>
+<Line Number="129">
+<![CDATA[	GSV(Module,Module,FaultCode,Wrk_ModuleFaultCode);	]]>
+</Line>
+<Line Number="130">
+<![CDATA[	GSV(Axis,Axis_Object,AxisState,Wrk_AxisState);]]>
+</Line>
+<Line Number="131">
+<![CDATA[	GSV(Axis,Axis_Object,ModuleFaultBits,Wrk_ModuleFaultBits);]]>
+</Line>
+<Line Number="132">
+<![CDATA[	GSV(Axis,Axis_Object,AxisFaultBits,Wrk_AxisFaultBits);]]>
+</Line>
+<Line Number="133">
+<![CDATA[	GSV(Axis,Axis_Object,MotionFaultBits,Wrk_MotionFaultBits);]]>
+</Line>
+<Line Number="134">
+<![CDATA[	Wrk_CIPAxisFault:=Axis_Object.CIPAxisFaults;]]>
+</Line>
+<Line Number="135">
+<![CDATA[	/* Convert dints to String */]]>
+</Line>
+<Line Number="136">
+<![CDATA[	#region Clear strings using for loop to avoid using move etc, old plcs / older software versions 30 and below can't handle these operations, loser software verions]]>
+</Line>
+<Line Number="137">
+<![CDATA[		for i := 0 to 81 do]]>
+</Line>
+<Line Number="138">
+<![CDATA[			S_ModuleFaultCode.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="139">
+<![CDATA[			S_AxisFaultBits.DATA[i]		:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="140">
+<![CDATA[			S_MotionFaultBits.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="141">
+<![CDATA[			S_CIPAxisFault.DATA[i]		:=	0;	// 0 DEC = '$00' ASCII	]]>
+</Line>
+<Line Number="142">
+<![CDATA[			Wrk_FaultMessage.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="143">
+<![CDATA[		end_for;]]>
+</Line>
+<Line Number="144">
+<![CDATA[		i:=0;									// set index to 0 ]]>
+</Line>
+<Line Number="145">
+<![CDATA[		S_CIPAxisFault.LEN		:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="146">
+<![CDATA[		Wrk_FaultMessage.LEN	:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="147">
+<![CDATA[		S_ModuleFaultCode.LEN	:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="148">
+<![CDATA[		S_AxisFaultBits.LEN		:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="149">
+<![CDATA[		S_MotionFaultBits.LEN	:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="150">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="151">
+<![CDATA[	DTOS(Wrk_ModuleFaultCode,S_ModuleFaultCode);]]>
+</Line>
+<Line Number="152">
+<![CDATA[	DTOS(Wrk_AxisFaultBits,S_AxisFaultBits);]]>
+</Line>
+<Line Number="153">
+<![CDATA[	DTOS(Wrk_MotionFaultBits,S_MotionFaultBits);]]>
+</Line>
+<Line Number="154">
+<![CDATA[	#region build string]]>
+</Line>
+<Line Number="155">
+<![CDATA[		if 		Axis_Object.MotorOvercurrentFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[0],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvercurrentFault]]>
+</Line>
+<Line Number="156">
+<![CDATA[		elsif  	Axis_Object.MotorCommutationFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[1],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorCommutationFault]]>
+</Line>
+<Line Number="157">
+<![CDATA[		elsif  	Axis_Object.MotorOverspeedFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[2],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOverspeedFLFault]]>
+</Line>
+<Line Number="158">
+<![CDATA[		elsif  	Axis_Object.MotorOverspeedULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[3],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOverspeedULFault]]>
+</Line>
+<Line Number="159">
+<![CDATA[		elsif  	Axis_Object.MotorOvertemperatureFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[4],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvertemperatureFLFault]]>
+</Line>
+<Line Number="160">
+<![CDATA[		elsif  	Axis_Object.MotorOvertemperatureULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[5],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvertemperatureULFault]]>
+</Line>
+<Line Number="161">
+<![CDATA[		elsif  	Axis_Object.MotorThermalOverloadFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[6],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorThermalOverloadFLFault]]>
+</Line>
+<Line Number="162">
+<![CDATA[		elsif  	Axis_Object.MotorThermalOverloadULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[7],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorThermalOverloadULFault]]>
+</Line>
+<Line Number="163">
+<![CDATA[		elsif  	Axis_Object.MotorPhaseLossFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[8],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorPhaseLossFault]]>
+</Line>
+<Line Number="164">
+<![CDATA[		elsif  	Axis_Object.InverterOvercurrentFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[9],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.InverterOvercurrentFault]]>
+</Line>
+<Line Number="165">
+<![CDATA[		elsif  	Axis_Object.InverterOvertemperatureFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[10],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterOvertemperatureFLFault]]>
+</Line>
+<Line Number="166">
+<![CDATA[		elsif  	Axis_Object.InverterOvertemperatureULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[11],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterOvertemperatureULFault]]>
+</Line>
+<Line Number="167">
+<![CDATA[		elsif  	Axis_Object.InverterThermalOverloadFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[12],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterThermalOverloadFLFault]]>
+</Line>
+<Line Number="168">
+<![CDATA[		elsif  	Axis_Object.InverterThermalOverloadULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[13],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterThermalOverloadULFault]]>
+</Line>
+<Line Number="169">
+<![CDATA[		elsif  	Axis_Object.ConverterOvercurrentFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[14],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvercurrentFault]]>
+</Line>
+<Line Number="170">
+<![CDATA[		elsif  	Axis_Object.ConverterGroundCurrentFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[15],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterGroundCurrentFLFault]]>
+</Line>
+<Line Number="171">
+<![CDATA[		elsif  	Axis_Object.ConverterGroundCurrentULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[16],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterGroundCurrentULFault]]>
+</Line>
+<Line Number="172">
+<![CDATA[		elsif  	Axis_Object.ConverterOvertemperatureFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[17],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvertemperatureFLFault]]>
+</Line>
+<Line Number="173">
+<![CDATA[		elsif  	Axis_Object.ConverterOvertemperatureULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[18],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvertemperatureULFault]]>
+</Line>
+<Line Number="174">
+<![CDATA[		elsif  	Axis_Object.ConverterThermalOverloadFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[19],S_CIPAxisFault,temp_num,S_CIPAxisFault); //	 	Axis_Object.ConverterThermalOverloadFLFault]]>
+</Line>
+<Line Number="175">
+<![CDATA[		elsif  	Axis_Object.ConverterThermalOverloadULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[20],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterThermalOverloadULFault]]>
+</Line>
+<Line Number="176">
+<![CDATA[		elsif  	Axis_Object.ConverterACPowerLossFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[21],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACPowerLossFault]]>
+</Line>
+<Line Number="177">
+<![CDATA[		elsif  	Axis_Object.ConverterACSinglePhaseLossFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[22],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACSinglePhaseLossFault]]>
+</Line>
+<Line Number="178">
+<![CDATA[		elsif  	Axis_Object.ConverterACPhaseShortFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[23],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACPhaseShortFault	]]>
+</Line>
+<Line Number="179">
+<![CDATA[		elsif  	Axis_Object.ConverterPreChargeFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[24],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterPreChargeFault]]>
+</Line>
+<Line Number="180">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorOvertemperatureFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[25],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorOvertemperatureFLFault]]>
+</Line>
+<Line Number="181">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorOvertemperatureULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[26],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorOvertemperatureULFault]]>
+</Line>
+<Line Number="182">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorThermalOverloadFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[27],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorThermalOverloadFLFault]]>
+</Line>
+<Line Number="183">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorThermalOverloadULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[28],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorThermalOverloadULFault]]>
+</Line>
+<Line Number="184">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[29],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorFault]]>
+</Line>
+<Line Number="185">
+<![CDATA[		elsif  	Axis_Object.BusModuleFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[30],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusModuleFault]]>
+</Line>
+<Line Number="186">
+<![CDATA[		elsif   Axis_Object.BusUndervoltageFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[31],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusUndervoltageFLFault		]]>
+</Line>
+<Line Number="187">
+<![CDATA[		elsif  	Axis_Object.BusUndervoltageULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[32],S_CIPAxisFault,temp_num,S_CIPAxisFault); //  	Axis_Object.BusUndervoltageULFault]]>
+</Line>
+<Line Number="188">
+<![CDATA[		elsif  	Axis_Object.BusOvervoltageFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[33],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusOvervoltageFLFault]]>
+</Line>
+<Line Number="189">
+<![CDATA[		elsif  	Axis_Object.BusOvervoltageULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[34],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusOvervoltageULFault]]>
+</Line>
+<Line Number="190">
+<![CDATA[		elsif  	Axis_Object.BusPowerLossFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[35],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerLossFault]]>
+</Line>
+<Line Number="191">
+<![CDATA[		elsif  	Axis_Object.BusPowerBlownFuseFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[36],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerBlownFuseFault]]>
+</Line>
+<Line Number="192">
+<![CDATA[		elsif  	Axis_Object.BusPowerLeakageFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[37],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerLeakageFault]]>
+</Line>
+<Line Number="193">
+<![CDATA[		elsif  	Axis_Object.BusPowerSharingFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[38],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerSharingFault]]>
+</Line>
+<Line Number="194">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalNoiseFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[39],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalNoiseFLFault]]>
+</Line>
+<Line Number="195">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalNoiseULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[40],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalNoiseULFault]]>
+</Line>
+<Line Number="196">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalLossFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[41],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalLossFLFault]]>
+</Line>
+<Line Number="197">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalLossULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[42],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalLossULFault]]>
+</Line>
+<Line Number="198">
+<![CDATA[		elsif  	Axis_Object.FeedbackDataLossFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[43],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackDataLossFLFault]]>
+</Line>
+<Line Number="199">
+<![CDATA[		elsif  	Axis_Object.FeedbackDataLossULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[44],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackDataLossULFault]]>
+</Line>
+<Line Number="200">
+<![CDATA[		elsif  	Axis_Object.FeedbackDeviceFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[45],S_CIPAxisFault,temp_num,S_CIPAxisFault); //  	Axis_Object.FeedbackDeviceFault	]]>
+</Line>
+<Line Number="201">
+<![CDATA[		elsif  	Axis_Object.SensorFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[46],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.SensorFault]]>
+</Line>
+<Line Number="202">
+<![CDATA[		elsif  	Axis_Object.BrakeSlipFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[47],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BrakeSlipFault]]>
+</Line>
+<Line Number="203">
+<![CDATA[		elsif  	Axis_Object.HardwareOvertravelPositiveFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[48],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.HardwareOvertravelPositiveFault]]>
+</Line>
+<Line Number="204">
+<![CDATA[		elsif   Axis_Object.HardwareOvertravelNegativeFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[49],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.HardwareOvertravelNegativeFault]]>
+</Line>
+<Line Number="205">
+<![CDATA[		elsif  	Axis_Object.ExcessivePositionErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[50],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessivePositionErrorFault]]>
+</Line>
+<Line Number="206">
+<![CDATA[		elsif  	Axis_Object.ExcessiveVelocityErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[51],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessiveVelocityErrorFault]]>
+</Line>
+<Line Number="207">
+<![CDATA[		elsif  	Axis_Object.OvertorqueLimitFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[52],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.OvertorqueLimitFault]]>
+</Line>
+<Line Number="208">
+<![CDATA[		elsif  	Axis_Object.UndertorqueLimitFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[53],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.UndertorqueLimitFault]]>
+</Line>
+<Line Number="209">
+<![CDATA[		elsif  	Axis_Object.ExcessiveBusVoltageErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[54],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessiveBusVoltageErrorFault]]>
+</Line>
+<Line Number="210">
+<![CDATA[		elsif  	Axis_Object.AmbientTemperatureRiseFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[55],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.AmbientTemperatureRiseFault]]>
+</Line>
+<Line Number="211">
+<![CDATA[		elsif  	Axis_Object.IllegalControlModeFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[56],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.IllegalControlModeFault]]>
+</Line>
+<Line Number="212">
+<![CDATA[		elsif  	Axis_Object.EnableInputDeactivatedFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[57],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.EnableInputDeactivatedFault]]>
+</Line>
+<Line Number="213">
+<![CDATA[		elsif  	Axis_Object.ControllerInitiatedFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[58],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ControllerInitiatedFault]]>
+</Line>
+<Line Number="214">
+<![CDATA[		elsif  	Axis_Object.ExternalInputFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[59],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExternalInputFault]]>
+</Line>
+<Line Number="215">
+<![CDATA[		elsif  	(Wrk_AxisState = 0 AND Sts_Faulted) 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[60],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
+</Line>
+<Line Number="216">
+<![CDATA[		elsif  	(Wrk_AxisState = 5 AND Sts_Faulted) 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[61],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
+</Line>
+<Line Number="217">
+<![CDATA[		elsif  	(Wrk_AxisState = 8 AND Sts_Faulted)				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[62],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
+</Line>
+<Line Number="218">
+<![CDATA[		elsif  	Wrk_CIPAxisFault.63 							then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[63],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	spare			]]>
+</Line>
+<Line Number="219">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="220">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="221">
+<![CDATA[	/* Build begin of string */]]>
+</Line>
+<Line Number="222">
+<![CDATA[	temp_num:=Wrk_FaultMessage.LEN+1;]]>
+</Line>
+<Line Number="223">
+<![CDATA[	INSERT(S_FaultCode_Base,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="224">
+<![CDATA[	temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="225">
+<![CDATA[]]>
+</Line>
+<Line Number="226">
+<![CDATA[	/* S_ModuleFaultCode Contains data */]]>
+</Line>
+<Line Number="227">
+<![CDATA[	if S_ModuleFaultCode.LEN > 0 then ]]>
+</Line>
+<Line Number="228">
+<![CDATA[		temp_num:=Wrk_FaultMessage.LEN+1;]]>
+</Line>
+<Line Number="229">
+<![CDATA[		INSERT(S_ModuleFaultCode,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="230">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="231">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="232">
+<![CDATA[	/* S_AxisFaultBits Contains data */]]>
+</Line>
+<Line Number="233">
+<![CDATA[	if S_AxisFaultBits.LEN > 0 then ]]>
+</Line>
+<Line Number="234">
+<![CDATA[		temp_num:=S_AxisFaultBits.LEN+1;]]>
+</Line>
+<Line Number="235">
+<![CDATA[		INSERT(S_AxisFaultBits,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="236">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="237">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="238">
+<![CDATA[	/* S_MotionFaultBits Contains data */]]>
+</Line>
+<Line Number="239">
+<![CDATA[	if S_MotionFaultBits.LEN > 0 then ]]>
+</Line>
+<Line Number="240">
+<![CDATA[		temp_num:=S_MotionFaultBits.LEN+1;]]>
+</Line>
+<Line Number="241">
+<![CDATA[		INSERT(S_MotionFaultBits,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="242">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="243">
+<![CDATA[	end_if;	]]>
+</Line>
+<Line Number="244">
+<![CDATA[	/* S_CIPAxisFault Contains data */]]>
+</Line>
+<Line Number="245">
+<![CDATA[	if S_CIPAxisFault.LEN > 0 then ]]>
+</Line>
+<Line Number="246">
+<![CDATA[		temp_num:=S_CIPAxisFault.LEN+1;]]>
+</Line>
+<Line Number="247">
+<![CDATA[		INSERT(S_CIPAxisFault,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="248">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="249">
+<![CDATA[	end_if;	]]>
+</Line>
+<Line Number="250">
+<![CDATA[	]]>
+</Line>
+<Line Number="251">
+<![CDATA[	if Wrk_FaultMessage <> Sts_FaultMessage then COP(Wrk_FaultMessage,Sts_FaultMessage,1); end_if;]]>
+</Line>
+<Line Number="252">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="253">
+<![CDATA[#region Controlled stop]]>
+</Line>
+<Line Number="254">
+<![CDATA[	if Inp_Stop AND SEQ_Stopping=0 then SEQ_Stopping:=10; end_if;]]>
+</Line>
+<Line Number="255">
+<![CDATA[	case SEQ_Stopping of]]>
+</Line>
+<Line Number="256">
+<![CDATA[		0: /* Waiting for command */]]>
+</Line>
+<Line Number="257">
+<![CDATA[			Sts_StandStill:=Axis_Object.VelocityStandstillStatus;]]>
+</Line>
+<Line Number="258">
+<![CDATA[		10: /* Check if axis is moving */]]>
+</Line>
+<Line Number="259">
+<![CDATA[			if 		Axis_Object.VelocityStandstillStatus then SEQ_Stopping:=0; end_if;// no motion, so therfor no stopping.]]>
+</Line>
+<Line Number="260">
+<![CDATA[			if NOT 	Axis_Object.VelocityStandstillStatus then SEQ_Stopping:=20; end_if;// Axis is moving]]>
+</Line>
+<Line Number="261">
+<![CDATA[		20: /* Save current position and Stop drive */]]>
+</Line>
+<Line Number="262">
+<![CDATA[			wrk_CurrentPosition:=0;																// clear previous stopping position.]]>
+</Line>
+<Line Number="263">
+<![CDATA[			wrk_CurrentPosition:=Axis_Object.ActualPosition;									// Save stopping position.]]>
+</Line>
+<Line Number="264">
+<![CDATA[			GSV(Axis,Axis_Object,MaximumDeceleration,wrk_Max_DecelRate);						// get max decel velocity²]]>
+</Line>
+<Line Number="265">
+<![CDATA[			if Cnf_DecelRate > wrk_Max_DecelRate then Cnf_DecelRate:=wrk_Max_DecelRate; end_if;	// if decel rate set by user is not within limits set highest limit.]]>
+</Line>
+<Line Number="266">
+<![CDATA[			if Cnf_DecelRate=0.0 then Cnf_DecelRate:=wrk_Max_DecelRate*0.01; end_if;				// if user forgot to set decel rate, set 1% of max decelrate.]]>
+</Line>
+<Line Number="267">
+<![CDATA[			if Cnf_DecelJerk=0.0 then Cnf_DecelJerk:=10; end_if;									// if user forgot to set Cnf_DecelJerk, set 10% of time.]]>
+</Line>
+<Line Number="268">
+<![CDATA[			MAS(]]>
+</Line>
+<Line Number="269">
+<![CDATA[				Axis_Object,]]>
+</Line>
+<Line Number="270">
+<![CDATA[				MAS_Axis,]]>
+</Line>
+<Line Number="271">
+<![CDATA[				All,]]>
+</Line>
+<Line Number="272">
+<![CDATA[				Yes,]]>
+</Line>
+<Line Number="273">
+<![CDATA[				Cnf_DecelRate,]]>
+</Line>
+<Line Number="274">
+<![CDATA[				Unitspersec2,]]>
+</Line>
+<Line Number="275">
+<![CDATA[				Yes,]]>
+</Line>
+<Line Number="276">
+<![CDATA[				Cnf_DecelJerk,]]>
+</Line>
+<Line Number="277">
+<![CDATA[				%ofTime]]>
+</Line>
+<Line Number="278">
+<![CDATA[			);]]>
+</Line>
+<Line Number="279">
+<![CDATA[			SEQ_Stopping:=25;]]>
+</Line>
+<Line Number="280">
+<![CDATA[		25: /* wait for feedback from MAS */]]>
+</Line>
+<Line Number="281">
+<![CDATA[			if MAS_Axis.EN AND MAS_Axis.PC then SEQ_Stopping:=30; end_if;]]>
+</Line>
+<Line Number="282">
+<![CDATA[			if MAS_Axis.EN AND MAS_Axis.ER then SEQ_Stopping:=999; end_if;]]>
+</Line>
+<Line Number="283">
+<![CDATA[		30: /* check if Cnf_RetrieveStoppingPositions is set */]]>
+</Line>
+<Line Number="284">
+<![CDATA[			Inp_Stop:=FALSE;		// feedback to user, execution was done.]]>
+</Line>
+<Line Number="285">
+<![CDATA[			if Cnf_RetrieveStoppingPositions then SEQ_Stopping:=40; else SEQ_Stopping:=0; end_if;]]>
+</Line>
+<Line Number="286">
+<![CDATA[		40: /* Move back to stoppping position */]]>
+</Line>
+<Line Number="287">
+<![CDATA[			GSV(Axis,Axis_Object,MaximumSpeed,wrk_MaximumSpeed);								// get max velocity]]>
+</Line>
+<Line Number="288">
+<![CDATA[			if Cnf_Retrieve_Speed=0 then Cnf_Retrieve_Speed:=wrk_MaximumSpeed*0.001; end_if;	// if user forgot to set speed, set 0.1% of max speed.]]>
+</Line>
+<Line Number="289">
+<![CDATA[			if Cnf_Retrieve_Accel=0 then Cnf_Retrieve_Accel:=wrk_Max_DecelRate*0.01; end_if;	// if user forgot to set accel rate, set 1% of max decelrate.]]>
+</Line>
+<Line Number="290">
+<![CDATA[			MAM(]]>
+</Line>
+<Line Number="291">
+<![CDATA[				Axis_Object,]]>
+</Line>
+<Line Number="292">
+<![CDATA[				MAM_Axis,]]>
+</Line>
+<Line Number="293">
+<![CDATA[				0/*absolute position*/,]]>
+</Line>
+<Line Number="294">
+<![CDATA[				wrk_CurrentPosition,]]>
+</Line>
+<Line Number="295">
+<![CDATA[				Cnf_Retrieve_Speed,]]>
+</Line>
+<Line Number="296">
+<![CDATA[				Unitspersec,]]>
+</Line>
+<Line Number="297">
+<![CDATA[				Cnf_Retrieve_Accel,]]>
+</Line>
+<Line Number="298">
+<![CDATA[				Unitspersec2,]]>
+</Line>
+<Line Number="299">
+<![CDATA[				Cnf_Retrieve_Accel,]]>
+</Line>
+<Line Number="300">
+<![CDATA[				Unitspersec2,]]>
+</Line>
+<Line Number="301">
+<![CDATA[				SCurve,]]>
+</Line>
+<Line Number="302">
+<![CDATA[				10,]]>
+</Line>
+<Line Number="303">
+<![CDATA[				10,]]>
+</Line>
+<Line Number="304">
+<![CDATA[				%ofTime,]]>
+</Line>
+<Line Number="305">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="306">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="307">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="308">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="309">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="310">
+<![CDATA[				0]]>
+</Line>
+<Line Number="311">
+<![CDATA[			);]]>
+</Line>
+<Line Number="312">
+<![CDATA[			SEQ_Stopping:=45;]]>
+</Line>
+<Line Number="313">
+<![CDATA[		45: /* wait for feedback from MAM */]]>
+</Line>
+<Line Number="314">
+<![CDATA[			if MAM_Axis.EN AND MAM_Axis.PC then SEQ_Stopping:=0; end_if;]]>
+</Line>
+<Line Number="315">
+<![CDATA[			if MAM_Axis.EN AND MAM_Axis.ER then SEQ_Stopping:=999; end_if;]]>
+</Line>
+<Line Number="316">
+<![CDATA[		999: /* Error state */]]>
+</Line>
+<Line Number="317">
+<![CDATA[			Inp_Stop:=FALSE;		// feedback to user, execution was done.]]>
+</Line>
+<Line Number="318">
+<![CDATA[			if reset_ons.OutputBit then SEQ_Stopping:=0; end_if; // on reset set state back to 0. ]]>
+</Line>
+<Line Number="319">
+<![CDATA[		else]]>
+</Line>
+<Line Number="320">
+<![CDATA[	end_case;]]>
+</Line>
+<Line Number="321">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="322">
+<![CDATA[]]>
+</Line>
+<Line Number="323">
+<![CDATA[]]>
+</Line>
+<Line Number="324">
+<![CDATA[]]>
+</Line>
+<Line Number="325">
+<![CDATA[]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_PackML"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>

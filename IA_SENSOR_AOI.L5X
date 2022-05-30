@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="IA_SENSOR" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="2.0 " TargetLastEdited="2021-06-08T13:32:05.803Z" ContainsContext="true" ExportDate="Mon May 30 11:44:20 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Depositor_PackML">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="IA_SENSOR" Class="Standard" Revision="2.0" Vendor="WPI" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2019-12-19T07:57:49.544Z" CreatedBy="WPI\engineer" EditedDate="2021-06-08T13:32:05.803Z"
+ EditedBy="WPI\valentino.violante" SoftwareRevision="v33.00">
+<RevisionNote>
+<![CDATA[Tested by Tom Reit 25-2-2020]]>
+</RevisionNote>
+<AdditionalHelpText>
+<![CDATA[This addon instruction scales an analog input from a sensor.
+
+InRawMax, default: 16383 (20mA)
+InRawMin, default:  3277(4mA)
+
+InEUMax, max sensor value
+InEUmin, min sensor value
+
+RawSensorValue, this is the sensor analog input
+
+MODULE_ENABLE, this enables the module.
+
+SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the OUTPUT will be the same as SIMULATIE_VALUE 
+
+
+
+]]>
+</AdditionalHelpText>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="InRawMax" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[MAX analog value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="InRawMin" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[MIN analog value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="InEUMax" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[MAX scaled value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="InEUMin" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[MIN scaled value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="RawSensorValue" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[raw sensor value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MODULE_ENABLE" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[TURNS ON THE MODULE]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="SIMULATIE_ENABLE" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Turns on the simulation and ignores the RawSensorValue]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="SIMULATIE_VALUE" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Simulation value 
+(make sure it is in the same range to achieve best preformance)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="OUTPUT" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Live Output value from the addon]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="SCL_01" DataType="SCALE" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,1,0.00000000e+000,0,5.60519386e-045,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SCALE">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="In" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InRawMax" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InRawMin" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InEUMax" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InEUMin" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Limiting" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Out" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxAlarm" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinAlarm" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="InRawRangeInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="SEL_01" DataType="SELECT" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0.00000000e+000,0.00000000e+000,0,0.00000000e+000,5.60519386e-045]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SELECT">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="In1" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="In2" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="SelectorIn" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out" DataType="REAL" Radix="Float" Value="0.0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="ScaledSensorValue" DataType="REAL" Radix="Float" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[scaled value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="FBD">
+<FBDContent SheetSize="Letter - 8.5 x 11 in" SheetOrientation="Landscape">
+<Sheet Number="1">
+<IRef ID="0" X="580" Y="520" Operand="1" HideDesc="false"/>
+<IRef ID="1" X="760" Y="280" Operand="InEUMax" HideDesc="false"/>
+<IRef ID="2" X="760" Y="300" Operand="InEUMin" HideDesc="false"/>
+<IRef ID="3" X="760" Y="240" Operand="InRawMax" HideDesc="false"/>
+<IRef ID="4" X="760" Y="260" Operand="InRawMin" HideDesc="false"/>
+<IRef ID="5" X="760" Y="200" Operand="MODULE_ENABLE" HideDesc="false"/>
+<IRef ID="6" X="760" Y="220" Operand="RawSensorValue" HideDesc="false"/>
+<IRef ID="7" X="580" Y="500" Operand="SIMULATIE_ENABLE" HideDesc="false"/>
+<IRef ID="8" X="760" Y="400" Operand="SIMULATIE_VALUE" HideDesc="false"/>
+<IRef ID="9" X="760" Y="380" Operand="ScaledSensorValue" HideDesc="false"/>
+<ORef ID="10" X="980" Y="380" Operand="OUTPUT" HideDesc="false"/>
+<ORef ID="11" X="980" Y="200" Operand="ScaledSensorValue" HideDesc="false"/>
+<Block Type="SCL" ID="12" X="820" Y="140" Operand="SCL_01" VisiblePins="EnableIn In InRawMax InRawMin InEUMax InEUMin Out" HideDesc="false"/>
+<Block Type="SEL" ID="13" X="820" Y="320" Operand="SEL_01" VisiblePins="In1 In2 SelectorIn Out" HideDesc="false"/>
+<Function Type="BAND__F" ID="14" X="640" Y="500"/>
+<Wire FromID="0" ToID="14" ToParam="In2"/>
+<Wire FromID="1" ToID="12" ToParam="InEUMax"/>
+<Wire FromID="2" ToID="12" ToParam="InEUMin"/>
+<Wire FromID="3" ToID="12" ToParam="InRawMax"/>
+<Wire FromID="4" ToID="12" ToParam="InRawMin"/>
+<Wire FromID="5" ToID="12" ToParam="EnableIn"/>
+<Wire FromID="6" ToID="12" ToParam="In"/>
+<Wire FromID="7" ToID="14" ToParam="In1"/>
+<Wire FromID="8" ToID="13" ToParam="In2"/>
+<Wire FromID="9" ToID="13" ToParam="In1"/>
+<Wire FromID="12" FromParam="Out" ToID="11"/>
+<Wire FromID="13" FromParam="Out" ToID="10"/>
+<Wire FromID="14" FromParam="Out" ToID="13" ToParam="SelectorIn"/>
+</Sheet>
+</FBDContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>

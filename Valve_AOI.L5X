@@ -1,0 +1,1949 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Valve" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-10-22T06:52:19.182Z" ContainsContext="true" ExportDate="Mon May 30 11:44:35 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Depositor_PackML">
+<DataTypes Use="Context">
+<DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[PackTags provide a uniform set of naming conventions for data elements used within the procedural elements of the base state model. They are named data elements used for open architecture and interoperable data exchange in automated machinery.
+
+The library provides the PackTags, as defined in ANSI/ISA TR88.00.02-2015.]]>
+</Description>
+<Members>
+<Member Name="Command" DataType="ISA88_PackML_PackTags_Command" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[These variables mainly represent the control interface. By using these tags, operation modes can be selected, state transitions can be forced, and recipes as well as formats can be transmitted]]>
+</Description>
+</Member>
+<Member Name="Status" DataType="ISA88_PackML_PackTags_Status" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[These variables contain status information (such as which operation mode is active, which state is active, and so on).]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Pack2" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Administration" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack2" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[These variables contain important OEE data (for example, downtime, reasons for downtime, and so on). Furthermore production information.]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Command"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Status"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Command" Family="NoFamily" Class="User">
+<Members>
+<Member Name="OpperationMode" DataType="ISA88_PackML_PackTags_Command_Opperation" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to obj model]]>
+</Description>
+</Member>
+<Member Name="StateTransmittion" DataType="ISA88_State_UserInputs" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Recept" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[currently not in use]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Command_Opperation"/>
+<Dependency Type="DataType" Name="ISA88_State_UserInputs"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Command_Opperation" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Pack0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Automatic" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Automatic]]>
+</Description>
+</Member>
+<Member Name="Maintenance" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Maintenance]]>
+</Description>
+</Member>
+<Member Name="Manual" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Manual]]>
+</Description>
+</Member>
+<Member Name="Cleaning" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to Cleaning]]>
+</Description>
+</Member>
+<Member Name="MES_Controlled" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to CustomerDefined1]]>
+</Description>
+</Member>
+<Member Name="CustomerDefined2" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces mode to CustomerDefined2]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Status" Family="NoFamily" Class="User">
+<Members>
+<Member Name="CurrentState" DataType="ISA88_State_UserOutputs" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="CurrentMode" DataType="ISA88_PackML_PackTags_Status_Mode" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="CurrentState_Time" DataType="ISA88_PackML_PackTags_Status_Time" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_State_UserOutputs"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Status_Mode"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags_Status_Time"/>
+</Dependencies>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Status_Mode" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Feedback which mode is active]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Pack0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Automatic" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Automatic]]>
+</Description>
+</Member>
+<Member Name="Maintenance" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Maintenance]]>
+</Description>
+</Member>
+<Member Name="Manual" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Manual]]>
+</Description>
+</Member>
+<Member Name="Cleaning" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is Cleaning]]>
+</Description>
+</Member>
+<Member Name="MES_Controlled" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is CustomerDefined1]]>
+</Description>
+</Member>
+<Member Name="CustomerDefined2" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Pack0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Current mode is CustomerDefined2]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_PackML_PackTags_Status_Time" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[shows how long each state is active]]>
+</Description>
+<Members>
+<Member Name="Held" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Unholding" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Holding" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Idle" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Starting" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Execute" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Completing" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Complete" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Resetting" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Unsuspending" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Suspended" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Suspending" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Stopped" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Stopping" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Clearing" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Aborted" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Aborting" DataType="LINT" Dimension="0" Radix="Date/Time" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="ISA88_State_SC" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Stat0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Execute_to_Completing" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Execute 
+to 
+Completing]]>
+</Description>
+</Member>
+<Member Name="Unholding_to_Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Unholding
+to 
+Execute]]>
+</Description>
+</Member>
+<Member Name="Starting_to_Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Starting
+to 
+Execute]]>
+</Description>
+</Member>
+<Member Name="Holding_to_Held" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Holding
+to 
+Held]]>
+</Description>
+</Member>
+<Member Name="Completing_to_Completed" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Completing
+to 
+Completed]]>
+</Description>
+</Member>
+<Member Name="Suspending_to_Suspended" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Suspending 
+to 
+Suspended]]>
+</Description>
+</Member>
+<Member Name="Unsuspending_to_Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="6" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Unsuspending
+to 
+Execute]]>
+</Description>
+</Member>
+<Member Name="Resetting_to_Idle" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="7" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Resetting 
+to 
+Idle]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Stat9" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Stopping_to_Stopped" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Stopping
+to 
+Stopped]]>
+</Description>
+</Member>
+<Member Name="Clearing_to_Stopped" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Clearing
+to 
+Stopped]]>
+</Description>
+</Member>
+<Member Name="Aborting_to_Aborted" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[EquipmentModule requests to move from 
+Aborting
+to 
+Aborted]]>
+</Description>
+</Member>
+<Member Name="Wrk_Module_Disabled" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Disables the module]]>
+</Description>
+</Member>
+<Member Name="Wrk_Stop_trigger" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to Stopped]]>
+</Description>
+</Member>
+<Member Name="Wrk_Abort_trigger" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="5" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to fault]]>
+</Description>
+</Member>
+<Member Name="Sts_CurrentJob" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Description of current job]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZISA88_Stat17" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Wrk_Suspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat17" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to suspend]]>
+</Description>
+</Member>
+<Member Name="Wrk_Unsuspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat17" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the module to Execute from Suspend]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="ISA88_State_UserInputs" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[operations from the HMI]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Stat0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Hold" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="UnHold" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="Start" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="Suspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="UnSuspend" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Reset" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="Stop" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Abort" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="7" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZISA88_Stat9" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Clear" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="0" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="ISA88_State_UserOutputs" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZISA88_Stat0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Held" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="Unholding" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="Holding" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="Idle" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="Starting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Execute" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="Completing" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Complete" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat0" BitNumber="7" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZISA88_Stat9" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Resetting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="Unsuspending" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="Suspended" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="Suspending" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="Stopped" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Stopping" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="Clearing" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Aborted" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat9" BitNumber="7" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZISA88_Stat18" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Aborting" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZISA88_Stat18" BitNumber="0" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="ISA88_States_txt" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[only holds the text of states]]>
+</Description>
+<Members>
+<Member Name="Aborted" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Aborting" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Clearing" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Complete" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Completing" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Execute" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Held" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Holding" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Idle" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Resetting" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Starting" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Stopped" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Stopping" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Suspended" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Suspending" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="UnSuspending" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="UnHolding" DataType="STRING_16" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="ISA88_WiegersProcessInnovation" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-13T12:57:02.407Z" CreatedBy="WPI\engineer" EditedDate="2021-10-06T13:44:33.487Z" EditedBy="WPI\engineer"
+ SoftwareRevision="v33.00">
+<Description>
+<![CDATA[PackML ]]>
+</Description>
+<AdditionalHelpText>
+<![CDATA[Bij een productie omgeving horen natuurlijk vele fysieke elementen, kleppen, pompen, tanks, koelers en mengers bijvoorbeeld. Deze elementen worden samen gebracht in een fysiek model waardoor vanuit basis elementen (control modules) complexere elementen kunnen worden opgebouwd. Met het samen brengen van deze control modules ontstaat bijvoorbeeld een tank met een functie. Deze tank kan dan als basis(template) dienen voor de volgende gelijke tanks. Op deze manier hoeft maar 1 complex element ontworpen en beschreven te worden. De gehele structuur van het fysieke model is als volgt:
+
+Site – Een fabrieksterrein, bijvoorbeeld productie locatie Y.
+Area – Een deel van een site waar zich een process cell kan bevinden, gebouw X.
+Process Cell – Een deel van een fabriek met verschillende Units
+Unit – Een deel van een fabriek waar een bepaald product een verandering ondergaat.
+Equipment Module – Een verzameling van control modules die een taak verrichten, vullen, koelen, mengen.
+Control Module – Een klep, pomp, motor.]]>
+</AdditionalHelpText>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="PackTag" TagType="Base" DataType="ISA88_PackML_PackTags" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Sts_Production" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = Customer defined
+6 = Customer defined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Maintenance" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = Customer defined
+6 = Customer defined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Manual" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = Customer defined
+6 = Customer defined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Cleaning" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = Customer defined
+6 = Customer defined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_MES_Controlled" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = MES Controlled
+6 = Customer defined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_CustomerDefined2" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = Customer defined
+6 = Customer defined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Modelfault" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[mode is not in valid range. most er wat aan doen]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Mode" TagType="Base" DataType="SINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = spare
+1 = production
+2 = maintenance
+3 = manual
+4 = cleaning
+5 = CustomerDefined 
+6 = CustomerDefined]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="SINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="CurrentStatus" TagType="Base" DataType="STRING" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="HMI_I" TagType="Base" DataType="ISA88_State_UserInputs" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="MNC_I" TagType="Base" DataType="ISA88_State_UserInputs" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[Operations from machine]]>
+</Description>
+</Parameter>
+<Parameter Name="HMI_O" TagType="Base" DataType="ISA88_State_UserOutputs" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="SC" TagType="Base" DataType="ISA88_State_SC" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="wrk_Aborted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Stopped" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Idle" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Execute" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Complete" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Suspended" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Held" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Aborting" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Clearing" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Resetting" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Stopping" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Suspending" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Holding" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Completing" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Starting" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Unholding" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Unsuspending" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[outputs from state model]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MES_Enabled" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Input from MES is enabled when true. 
+
+this will be default set to true]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="ModeSelectedByMes" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Mode is selected by MES
+
+user cant innerupt.]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="StopTrigger" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[triggers the stopping mode]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="AbortingTrigger" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[triggers the Aborting mode]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Suspend_Trigger" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the object model to go to suspending state
+
+this can be an hardware innerupt from outside
+
+such as a digital input]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Unsuspend_Trigger" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Forces the object model to go to unsuspending state
+
+this can be an hardware innerupt from outside
+
+such as a digital input]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Suspend_loop_error" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[if both states are true, that will cause a loop 
+from supsending to suspend to unsuspending to execute and will repeat]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MachineFaulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[The machine has recieved a stop trigger or an Abort trigger]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Time" TagType="Base" DataType="LINT" Usage="Output" Radix="Date/Time" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Date/Time" Value="DT#1970-01-01-00:00:00.000_000Z"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="LastEditDate" TagType="Base" DataType="LINT" Usage="Output" Radix="Date/Time" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Date/Time" Value="DT#1970-01-01-00:00:00.000_000Z"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="StateTxt" DataType="ISA88_States_txt" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[[7,'Aborted$00$00$00$00$00$00$00$00$00'],[8,'Aborting$00$00$00$00$00$00$00$00'],[8,'Clearing$00$00$00$00$00$00$00$00'],[8,'Complete$00$00$00$00$00$00$00$00'],[10,'Completing$00$00$00$00$00$00'],[7,'Execute$00$00$00$00$00$00$00$00$00'],[4,'Held$00$00$00$00$00$00$00$00$00$00$00$00'],[7,'Holding$00$00$00$00$00$00$00$00$00'],[4,'Idle$00$00$00$00$00$00$00$00$00$00$00$00'],[9,'Resetting$00$00$00$00$00$00$00'],[8,'Starting$00$00$00$00$00$00$00$00'],[7,'Stopped$00$00$00$00$00$00$00$00$00'],[8,'Stopping$00$00$00$00$00$00$00$00'],[9,'Suspended$00$00$00$00$00$00$00'],[10,'Suspending$00$00$00$00$00$00'],[12,'UnSuspending$00$00$00$00'],[9,'UnHolding$00$00$00$00$00$00$00']]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="ISA88_States_txt">
+<StructureMember Name="Aborted" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="7"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Aborted']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Aborting" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Aborting']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Clearing" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Clearing']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Complete" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Complete']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Completing" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Completing']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Execute" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="7"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Execute']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Held" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="4"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Held']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Holding" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="7"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Holding']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Idle" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="4"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Idle']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Resetting" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="9"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Resetting']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Starting" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Starting']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Stopped" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="7"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Stopped']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Stopping" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Stopping']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Suspended" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="9"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Suspended']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Suspending" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['Suspending']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="UnSuspending" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="12"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['UnSuspending']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="UnHolding" DataType="STRING_16">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="9"/>
+<DataValueMember Name="DATA" DataType="STRING_16" Radix="ASCII">
+<![CDATA['UnHolding']]>
+</DataValueMember>
+</StructureMember>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Name" DataType="STRING_16" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="0">
+<![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="StopTrigger_ons" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="AbortingTrigger_ons" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="suspend_loop_error_ons" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[moves 1 time aborting into currentstatus]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="ons_time" DataType="BOOL" Dimensions="32" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0,2#0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="BOOL" Dimensions="32" Radix="Decimal">
+<Element Index="[0]" Value="0"/>
+<Element Index="[1]" Value="0"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+<Element Index="[8]" Value="0"/>
+<Element Index="[9]" Value="0"/>
+<Element Index="[10]" Value="0"/>
+<Element Index="[11]" Value="0"/>
+<Element Index="[12]" Value="0"/>
+<Element Index="[13]" Value="0"/>
+<Element Index="[14]" Value="0"/>
+<Element Index="[15]" Value="0"/>
+<Element Index="[16]" Value="0"/>
+<Element Index="[17]" Value="0"/>
+<Element Index="[18]" Value="0"/>
+<Element Index="[19]" Value="0"/>
+<Element Index="[20]" Value="0"/>
+<Element Index="[21]" Value="0"/>
+<Element Index="[22]" Value="0"/>
+<Element Index="[23]" Value="0"/>
+<Element Index="[24]" Value="0"/>
+<Element Index="[25]" Value="0"/>
+<Element Index="[26]" Value="0"/>
+<Element Index="[27]" Value="0"/>
+<Element Index="[28]" Value="0"/>
+<Element Index="[29]" Value="0"/>
+<Element Index="[30]" Value="0"/>
+<Element Index="[31]" Value="0"/>
+</Array>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Begin_Time" DataType="LINT" Radix="Date/Time" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Date/Time" Value="DT#1970-01-01-00:00:00.000_000Z"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="SecondPuls" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="TimeSpend_In_State" DataType="DINT" Dimensions="18" Radix="Decimal" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="DINT" Dimensions="18" Radix="Decimal">
+<Element Index="[0]" Value="0"/>
+<Element Index="[1]" Value="0"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+<Element Index="[8]" Value="0"/>
+<Element Index="[9]" Value="0"/>
+<Element Index="[10]" Value="0"/>
+<Element Index="[11]" Value="0"/>
+<Element Index="[12]" Value="0"/>
+<Element Index="[13]" Value="0"/>
+<Element Index="[14]" Value="0"/>
+<Element Index="[15]" Value="0"/>
+<Element Index="[16]" Value="0"/>
+<Element Index="[17]" Value="0"/>
+</Array>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Created by WPI]]>
+</Comment>
+<Text>
+<![CDATA[GSV(AddOnInstructionDefinition,THIS,Vendor,Name)GSV(AddOnInstructionDefinition,THIS,LastEditDate,LastEditDate);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[GSV(WallClockTime,,CurrentValue,Time);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Production mode]]>
+</Comment>
+<Text>
+<![CDATA[EQU(1,Mode)OTE(Sts_Production);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Text>
+<![CDATA[XIC(Sts_Production)OTE(PackTag.Status.CurrentMode.Automatic);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Maintance mode]]>
+</Comment>
+<Text>
+<![CDATA[EQU(2,Mode)OTE(Sts_Maintenance);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Text>
+<![CDATA[XIC(Sts_Maintenance)OTE(PackTag.Status.CurrentMode.Maintenance);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[Manual mode]]>
+</Comment>
+<Text>
+<![CDATA[EQU(3,Mode)OTE(Sts_Manual);]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Text>
+<![CDATA[XIC(Sts_Manual)OTE(PackTag.Status.CurrentMode.Manual);]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[Cleaning mode]]>
+</Comment>
+<Text>
+<![CDATA[EQU(4,Mode)OTE(Sts_Cleaning);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Text>
+<![CDATA[XIC(Sts_Cleaning)OTE(PackTag.Status.CurrentMode.Cleaning);]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[Customer defined 1 mode]]>
+</Comment>
+<Text>
+<![CDATA[EQU(5,Mode)OTE(Sts_MES_Controlled);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Text>
+<![CDATA[XIC(Sts_MES_Controlled)OTE(PackTag.Status.CurrentMode.MES_Controlled);]]>
+</Text>
+</Rung>
+<Rung Number="12" Type="N">
+<Comment>
+<![CDATA[Customer defined 2 mode]]>
+</Comment>
+<Text>
+<![CDATA[EQU(6,Mode)OTE(Sts_CustomerDefined2);]]>
+</Text>
+</Rung>
+<Rung Number="13" Type="N">
+<Text>
+<![CDATA[XIC(Sts_CustomerDefined2)OTE(PackTag.Status.CurrentMode.CustomerDefined2);]]>
+</Text>
+</Rung>
+<Rung Number="14" Type="N">
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="15" Type="N">
+<Text>
+<![CDATA[NEQ(6,Mode)NEQ(5,Mode)NEQ(4,Mode)NEQ(3,Mode)NEQ(2,Mode)NEQ(1,Mode)OTE(Sts_Modelfault);]]>
+</Text>
+</Rung>
+<Rung Number="16" Type="N">
+<Comment>
+<![CDATA[Held]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Held)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Held) ,ONS(ons_time[0]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Held) ,OTE(PackTag.Status.CurrentState.Held) ,[XIC(HMI_I.UnHold) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.UnHold) ,XIC(MNC_I.UnHold) ] MOV(StateTxt.UnHolding,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="17" Type="N">
+<Comment>
+<![CDATA[unholding]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.UnHolding)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Unholding) ,ONS(ons_time[1]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Unholding) ,OTE(PackTag.Status.CurrentState.Unholding) ,XIC(SC.Unholding_to_Execute) MOV(StateTxt.Execute,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="18" Type="N">
+<Comment>
+<![CDATA[holding]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Holding)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Holding) ,ONS(ons_time[2]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Holding) ,OTE(PackTag.Status.CurrentState.Holding) ,XIC(SC.Holding_to_Held) MOV(StateTxt.Held,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="19" Type="N">
+<Comment>
+<![CDATA[execute]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Execute)[OTE(HMI_O.Execute) ,ONS(ons_time[3]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Execute) ,OTE(PackTag.Status.CurrentState.Execute) ,[XIC(HMI_I.Hold) ,XIC(MNC_I.Hold) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Hold) ] [EQU(5,Mode) ,EQU(4,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ] MOV(StateTxt.Holding,CurrentStatus) ,[[XIC(HMI_I.Suspend) ,XIC(MNC_I.Suspend) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Suspend) ] ,XIC(Suspend_Trigger) ] [EQU(5,Mode) ,EQU(4,Mode) ,EQU(1,Mode) ] MOV(StateTxt.Suspending,CurrentStatus) ,XIC(SC.Execute_to_Completing) [EQU(5,Mode) ,EQU(4,Mode) ,EQU(1,Mode) ] MOV(StateTxt.Completing,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="20" Type="N">
+<Comment>
+<![CDATA[Suspending]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Suspending)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Suspending) ,ONS(ons_time[4]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Suspending) ,OTE(PackTag.Status.CurrentState.Suspending) ,XIC(SC.Suspending_to_Suspended) MOV(StateTxt.Suspended,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="21" Type="N">
+<Comment>
+<![CDATA[suspended]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Suspended)[EQU(1,Mode) ,EQU(5,Mode) ,EQU(4,Mode) ][OTE(HMI_O.Suspended) ,ONS(ons_time[5]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Suspended) ,OTE(PackTag.Status.CurrentState.Suspended) ,[[XIC(HMI_I.UnSuspend) ,XIC(MNC_I.UnSuspend) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.UnSuspend) ] ,XIC(Unsuspend_Trigger) ] MOV(StateTxt.UnSuspending,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="22" Type="N">
+<Comment>
+<![CDATA[Unsuspending]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.UnSuspending)[EQU(1,Mode) ,EQU(5,Mode) ,EQU(4,Mode) ][OTE(HMI_O.Unsuspending) ,ONS(ons_time[6]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Unsuspending) ,OTE(PackTag.Status.CurrentState.Unsuspending) ,XIC(SC.Unsuspending_to_Execute) MOV(StateTxt.Execute,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="23" Type="N">
+<Comment>
+<![CDATA[completing]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Completing)[EQU(1,Mode) ,EQU(5,Mode) ,EQU(4,Mode) ][OTE(HMI_O.Completing) ,ONS(ons_time[7]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Completing) ,OTE(PackTag.Status.CurrentState.Completing) ,XIC(SC.Completing_to_Completed) MOV(StateTxt.Complete,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="24" Type="N">
+<Comment>
+<![CDATA[Complete]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Complete)[EQU(1,Mode) ,EQU(5,Mode) ,EQU(4,Mode) ][OTE(HMI_O.Complete) ,ONS(ons_time[8]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Complete) ,OTE(PackTag.Status.CurrentState.Complete) ,[XIC(HMI_I.Reset) ,XIC(MNC_I.Reset) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Reset) ] MOV(StateTxt.Resetting,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="25" Type="N">
+<Comment>
+<![CDATA[resetting]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Resetting)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(3,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Resetting) ,ONS(ons_time[9]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Resetting) ,OTE(PackTag.Status.CurrentState.Resetting) ,XIC(SC.Resetting_to_Idle) MOV(StateTxt.Idle,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="26" Type="N">
+<Comment>
+<![CDATA[idle]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Idle)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(3,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Idle) ,ONS(ons_time[10]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Idle) ,OTE(PackTag.Status.CurrentState.Idle) ,[XIC(HMI_I.Start) ,XIC(MNC_I.Start) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Start) ] MOV(StateTxt.Starting,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="27" Type="N">
+<Comment>
+<![CDATA[Starting]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Starting)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(3,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Starting) ,ONS(ons_time[11]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Starting) ,OTE(PackTag.Status.CurrentState.Starting) ,XIC(SC.Starting_to_Execute) MOV(StateTxt.Execute,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="28" Type="N">
+<Comment>
+<![CDATA[stopped]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Stopped)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(3,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Stopped) ,ONS(ons_time[12]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Stopped) ,OTE(PackTag.Status.CurrentState.Stopped) ,[XIC(HMI_I.Reset) ,XIC(MNC_I.Reset) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Reset) ] MOV(StateTxt.Resetting,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="29" Type="N">
+<Comment>
+<![CDATA[ trigger stop]]>
+</Comment>
+<Text>
+<![CDATA[[[XIC(StopTrigger) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Stop) ,XIC(MNC_I.Stop) ] XIO(AbortingTrigger) NEQ(StateTxt.Aborted,CurrentStatus) ONS(StopTrigger_ons) MOV(StateTxt.Stopping,CurrentStatus) ,EQU(StateTxt.Stopping,CurrentStatus) OTE(PackTag.Status.CurrentState.Stopping) OTE(HMI_O.Stopping) ,EQU(StateTxt.Stopping,CurrentStatus) ONS(ons_time[13]) MOV(Time,Begin_Time) ,EQU(StateTxt.Stopping,CurrentStatus) SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Stopping) ,XIC(SC.Stopping_to_Stopped) MOV(StateTxt.Stopped,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="30" Type="N">
+<Comment>
+<![CDATA[clearing]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Clearing)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(3,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Clearing) ,ONS(ons_time[14]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Clearing) ,OTE(PackTag.Status.CurrentState.Clearing) ,XIC(SC.Clearing_to_Stopped) MOV(StateTxt.Stopped,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="31" Type="N">
+<Comment>
+<![CDATA[aborted]]>
+</Comment>
+<Text>
+<![CDATA[EQU(CurrentStatus,StateTxt.Aborted)[EQU(5,Mode) ,EQU(4,Mode) ,EQU(3,Mode) ,EQU(2,Mode) ,EQU(1,Mode) ][OTE(HMI_O.Aborted) ,ONS(ons_time[15]) MOV(Time,Begin_Time) ,SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Aborted) ,OTE(PackTag.Status.CurrentState.Aborted) ,[XIC(HMI_I.Clear) ,XIC(MNC_I.Clear) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Clear) ] MOV(StateTxt.Clearing,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="32" Type="N">
+<Comment>
+<![CDATA[aborting]]>
+</Comment>
+<Text>
+<![CDATA[[[XIC(AbortingTrigger) ,XIC(MNC_I.Abort) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Abort) ] ONS(AbortingTrigger_ons) MOV(StateTxt.Aborting,CurrentStatus) ,EQU(StateTxt.Aborting,CurrentStatus) OTE(PackTag.Status.CurrentState.Aborting) OTE(HMI_O.Aborting) ,EQU(StateTxt.Aborting,CurrentStatus) ONS(ons_time[16]) MOV(Time,Begin_Time) ,EQU(StateTxt.Aborting,CurrentStatus) SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Aborting) ,XIC(SC.Aborting_to_Aborted) MOV(StateTxt.Aborted,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="33" Type="N">
+<Comment>
+<![CDATA[Machine faulted state
+
+depending on trigger the state goes to
+Stopping
+or
+Aborting]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(StopTrigger) ,XIC(AbortingTrigger) ]OTL(MachineFaulted);]]>
+</Text>
+</Rung>
+<Rung Number="34" Type="N">
+<Comment>
+<![CDATA[Reset machine faulted]]>
+</Comment>
+<Text>
+<![CDATA[XIC(MachineFaulted)[XIC(wrk_Clearing) ,XIC(wrk_Resetting) ]OTU(MachineFaulted);]]>
+</Text>
+</Rung>
+<Rung Number="35" Type="N">
+<Comment>
+<![CDATA[PackTags
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="36" Type="N">
+<Comment>
+<![CDATA[prevent double input by idiot]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(PackTag.Command.OpperationMode.Automatic) ,XIC(PackTag.Command.OpperationMode.Maintenance) ,XIC(PackTag.Command.OpperationMode.Manual) ,XIC(PackTag.Command.OpperationMode.Cleaning) ,XIC(PackTag.Command.OpperationMode.MES_Controlled) ,XIC(PackTag.Command.OpperationMode.CustomerDefined2) ]XIC(MES_Enabled)OTE(ModeSelectedByMes);]]>
+</Text>
+</Rung>
+<Rung Number="37" Type="N">
+<Text>
+<![CDATA[XIO(Sts_Modelfault)XIC(PackTag.Command.OpperationMode.Automatic)NEQ(1,Mode)XIC(MES_Enabled)MOV(1,Mode);]]>
+</Text>
+</Rung>
+<Rung Number="38" Type="N">
+<Text>
+<![CDATA[XIO(Sts_Modelfault)XIC(PackTag.Command.OpperationMode.Maintenance)NEQ(2,Mode)XIC(MES_Enabled)MOV(2,Mode);]]>
+</Text>
+</Rung>
+<Rung Number="39" Type="N">
+<Text>
+<![CDATA[XIO(Sts_Modelfault)XIC(PackTag.Command.OpperationMode.Manual)NEQ(3,Mode)XIC(MES_Enabled)MOV(3,Mode);]]>
+</Text>
+</Rung>
+<Rung Number="40" Type="N">
+<Text>
+<![CDATA[XIO(Sts_Modelfault)XIC(PackTag.Command.OpperationMode.Cleaning)NEQ(4,Mode)XIC(MES_Enabled)MOV(4,Mode);]]>
+</Text>
+</Rung>
+<Rung Number="41" Type="N">
+<Text>
+<![CDATA[XIO(Sts_Modelfault)XIC(PackTag.Command.OpperationMode.MES_Controlled)NEQ(5,Mode)XIC(MES_Enabled)MOV(5,Mode);]]>
+</Text>
+</Rung>
+<Rung Number="42" Type="N">
+<Text>
+<![CDATA[XIO(Sts_Modelfault)XIC(PackTag.Command.OpperationMode.CustomerDefined2)NEQ(6,Mode)XIC(MES_Enabled)MOV(6,Mode);]]>
+</Text>
+</Rung>
+<Rung Number="43" Type="N">
+<Comment>
+<![CDATA[ 
+ 
+error handler
+ 
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="44" Type="N">
+<Comment>
+<![CDATA[if both states are true, that will cause a loop that can only be resolved by taking away 1 of the signals. however the model is forced into abort and generate and error message.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Unsuspend_Trigger)XIC(Suspend_Trigger)XIC(HMI_O.Execute)[OTL(Suspend_loop_error) OTE(AbortingTrigger) ,ONS(suspend_loop_error_ons) MOV(StateTxt.Aborting,CurrentStatus) ];]]>
+</Text>
+</Rung>
+<Rung Number="45" Type="N">
+<Text>
+<![CDATA[[XIO(Unsuspend_Trigger) ,XIO(Suspend_Trigger) ]XIC(Suspend_loop_error)OTU(Suspend_loop_error);]]>
+</Text>
+</Rung>
+<Rung Number="46" Type="N">
+<Comment>
+<![CDATA[Time State graph]]>
+</Comment>
+<Text>
+<![CDATA[[TON(SecondPuls,?,?) ,NEQ(1000,SecondPuls.PRE) MOV(1000,SecondPuls.PRE) ,XIC(SecondPuls.DN) [XIC(HMI_O.Aborting) ADD(TimeSpend_In_State[1],1,TimeSpend_In_State[1]) ,XIC(HMI_O.Aborted) ADD(TimeSpend_In_State[2],1,TimeSpend_In_State[2]) ,XIC(HMI_O.Clearing) ADD(TimeSpend_In_State[3],1,TimeSpend_In_State[3]) ,XIC(HMI_O.Stopping) ADD(TimeSpend_In_State[4],1,TimeSpend_In_State[4]) ,XIC(HMI_O.Stopped) ADD(TimeSpend_In_State[5],1,TimeSpend_In_State[5]) ,XIC(HMI_O.Suspending) ADD(TimeSpend_In_State[6],1,TimeSpend_In_State[6]) ,XIC(HMI_O.Suspended) ADD(TimeSpend_In_State[7],1,TimeSpend_In_State[7]) ,XIC(HMI_O.Unsuspending) ADD(TimeSpend_In_State[8],1,TimeSpend_In_State[8]) ,XIC(HMI_O.Resetting) ADD(TimeSpend_In_State[9],1,TimeSpend_In_State[9]) ,XIC(HMI_O.Complete) ADD(TimeSpend_In_State[10],1,TimeSpend_In_State[10]) ,XIC(HMI_O.Completing) ADD(TimeSpend_In_State[11],1,TimeSpend_In_State[11]) ,XIC(HMI_O.Execute) ADD(TimeSpend_In_State[12],1,TimeSpend_In_State[12]) ,XIC(HMI_O.Starting) ADD(TimeSpend_In_State[13],1,TimeSpend_In_State[13]) ,XIC(HMI_O.Idle) ADD(TimeSpend_In_State[14],1,TimeSpend_In_State[14]) ,XIC(HMI_O.Holding) ADD(TimeSpend_In_State[15],1,TimeSpend_In_State[15]) ,XIC(HMI_O.Unholding) ADD(TimeSpend_In_State[16],1,TimeSpend_In_State[16]) ,XIC(HMI_O.Held) ADD(TimeSpend_In_State[17],1,TimeSpend_In_State[17]) ] RES(SecondPuls) ];]]>
+</Text>
+</Rung>
+<Rung Number="47" Type="N">
+<Comment>
+<![CDATA[ 
+ 
+ 
+Output from state model to wrk bits
+ 
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="48" Type="N">
+<Text>
+<![CDATA[[XIC(HMI_O.Aborting) OTE(wrk_Aborting) ,XIC(HMI_O.Aborted) OTE(wrk_Aborted) ,XIC(HMI_O.Clearing) OTE(wrk_Clearing) ,XIC(HMI_O.Stopping) OTE(wrk_Stopping) ,XIC(HMI_O.Stopped) OTE(wrk_Stopped) ,XIC(HMI_O.Suspending) OTE(wrk_Suspending) ,XIC(HMI_O.Suspended) OTE(wrk_Suspended) ,XIC(HMI_O.Unsuspending) OTE(wrk_Unsuspending) ,XIC(HMI_O.Resetting) OTE(wrk_Resetting) ,XIC(HMI_O.Complete) OTE(wrk_Complete) ,XIC(HMI_O.Completing) OTE(wrk_Completing) ,XIC(HMI_O.Execute) OTE(wrk_Execute) ,XIC(HMI_O.Starting) OTE(wrk_Starting) ,XIC(HMI_O.Idle) OTE(wrk_Idle) ,XIC(HMI_O.Holding) OTE(wrk_Holding) ,XIC(HMI_O.Unholding) OTE(wrk_Unholding) ,XIC(HMI_O.Held) OTE(wrk_Held) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="Prescan" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[Mode 			:= 		1;			// state set to production]]>
+</Line>
+<Line Number="1">
+<![CDATA[CurrentStatus 	:= 		'Aborting';	// set mode in Aboritng, thus the machine requires reset after booting]]>
+</Line>
+<Line Number="2">
+<![CDATA[MES_Enabled		:= 		1;			// Listen to commands from MES system.]]>
+</Line>
+<Line Number="3">
+<![CDATA[// set all states back to 0]]>
+</Line>
+<Line Number="4">
+<![CDATA[wrk_Aborted			:= 0;]]>
+</Line>
+<Line Number="5">
+<![CDATA[wrk_Aborting		:= 0;]]>
+</Line>
+<Line Number="6">
+<![CDATA[wrk_Clearing		:= 0;]]>
+</Line>
+<Line Number="7">
+<![CDATA[wrk_Resetting		:= 0;]]>
+</Line>
+<Line Number="8">
+<![CDATA[wrk_Complete		:= 0;]]>
+</Line>
+<Line Number="9">
+<![CDATA[wrk_Completing		:= 0;]]>
+</Line>
+<Line Number="10">
+<![CDATA[wrk_Execute			:= 0;]]>
+</Line>
+<Line Number="11">
+<![CDATA[wrk_Held			:= 0;]]>
+</Line>
+<Line Number="12">
+<![CDATA[wrk_Holding			:= 0;]]>
+</Line>
+<Line Number="13">
+<![CDATA[wrk_Idle			:= 0;]]>
+</Line>
+<Line Number="14">
+<![CDATA[wrk_Starting		:= 0;]]>
+</Line>
+<Line Number="15">
+<![CDATA[wrk_Stopped			:= 0;]]>
+</Line>
+<Line Number="16">
+<![CDATA[wrk_Stopping		:= 0;]]>
+</Line>
+<Line Number="17">
+<![CDATA[wrk_Suspended		:= 0;]]>
+</Line>
+<Line Number="18">
+<![CDATA[wrk_Suspending		:= 0;]]>
+</Line>
+<Line Number="19">
+<![CDATA[wrk_Unholding		:= 0;]]>
+</Line>
+<Line Number="20">
+<![CDATA[wrk_Unsuspending	:= 0;]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="DataType" Name="ISA88_State_UserInputs"/>
+<Dependency Type="DataType" Name="ISA88_State_UserOutputs"/>
+<Dependency Type="DataType" Name="ISA88_PackML_PackTags"/>
+<Dependency Type="DataType" Name="ISA88_State_SC"/>
+<Dependency Type="DataType" Name="ISA88_States_txt"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+<AddOnInstructionDefinition Use="Target" Name="Valve" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-03-27T21:44:40.788Z" CreatedBy="WPI\engineer" EditedDate="2021-10-22T06:52:19.182Z"
+ EditedBy="WPI\engineer" SoftwareRevision="v33.00">
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Turn_On" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Turn on the valve by program]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Manual_Turn_On" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Turn on the valve from HMI]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Valve_Out" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Connection to valve tag]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_color" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[color of valve]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="FeedbackTime" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[time before feedback signal has to be set high]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Feedback_signal" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[feedback signal from valve
+
+if valve has no feedback use Valve_Out tag]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="NO_or_NC" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[normally open 
+or 
+normally closed
+
+0 = NO
+1 = NC
+]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Error" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Valve did not open within feedback time]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="reset" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[resets alarm]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PackML" TagType="Base" DataType="ISA88_WiegersProcessInnovation" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+</Parameters>
+<LocalTags>
+<LocalTag Name="State" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[State of valve]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="feedbackTimer" DataType="FBD_TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0,0,0,0,0,0,0,0,4,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_TIMER">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TimerEnable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Reset" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PresetInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[feedbackTimer.PRE:=FeedbackTime;]]>
+</Line>
+<Line Number="1">
+<![CDATA[TONR(feedbackTimer);]]>
+</Line>
+<Line Number="2">
+<![CDATA[]]>
+</Line>
+<Line Number="3">
+<![CDATA[if reset then Error:=0; State:=0;  end_if;]]>
+</Line>
+<Line Number="4">
+<![CDATA[]]>
+</Line>
+<Line Number="5">
+<![CDATA[if Manual_Turn_On AND NOT (PackML.Sts_Manual AND PackML.wrk_Execute) then Manual_Turn_On:=0; end_if;		// prevent manual start when machine is not in correct state]]>
+</Line>
+<Line Number="6">
+<![CDATA[]]>
+</Line>
+<Line Number="7">
+<![CDATA[/* if no error, check valve condition */]]>
+</Line>
+<Line Number="8">
+<![CDATA[if NOT Error then]]>
+</Line>
+<Line Number="9">
+<![CDATA[	if NO_or_NC then]]>
+</Line>
+<Line Number="10">
+<![CDATA[		/* Normaly closed valve turn on */]]>
+</Line>
+<Line Number="11">
+<![CDATA[		if Turn_On OR (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) then]]>
+</Line>
+<Line Number="12">
+<![CDATA[			Valve_Out:=0; // turn on valve]]>
+</Line>
+<Line Number="13">
+<![CDATA[		else ]]>
+</Line>
+<Line Number="14">
+<![CDATA[			Valve_Out:=1;// turn off valve]]>
+</Line>
+<Line Number="15">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="16">
+<![CDATA[	else]]>
+</Line>
+<Line Number="17">
+<![CDATA[		/* Normaly open valve turn on */]]>
+</Line>
+<Line Number="18">
+<![CDATA[		if Turn_On OR (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) then]]>
+</Line>
+<Line Number="19">
+<![CDATA[			Valve_Out:=1;// turn on valve]]>
+</Line>
+<Line Number="20">
+<![CDATA[		else]]>
+</Line>
+<Line Number="21">
+<![CDATA[			Valve_Out:=0;// turn off valve]]>
+</Line>
+<Line Number="22">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="23">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="24">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="25">
+<![CDATA[]]>
+</Line>
+<Line Number="26">
+<![CDATA[/* Turn off valve on error */]]>
+</Line>
+<Line Number="27">
+<![CDATA[if Error then ]]>
+</Line>
+<Line Number="28">
+<![CDATA[	if NO_or_NC 	then Valve_Out:=1; end_if;]]>
+</Line>
+<Line Number="29">
+<![CDATA[	if NOT NO_or_NC then Valve_Out:=0; end_if;]]>
+</Line>
+<Line Number="30">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="31">
+<![CDATA[]]>
+</Line>
+<Line Number="32">
+<![CDATA[/* check if feedback is active, on turn on and on turn off*/]]>
+</Line>
+<Line Number="33">
+<![CDATA[if ((Turn_On & Valve_Out & NOT Feedback_signal) OR (NOT Turn_On & NOT Valve_Out & Feedback_signal) & NOT Error) then]]>
+</Line>
+<Line Number="34">
+<![CDATA[	if feedbackTimer.Reset 				then feedbackTimer.Reset:=0; 		end_If;	 	// clear timer reset ]]>
+</Line>
+<Line Number="35">
+<![CDATA[	if NOT feedbackTimer.EN 			then feedbackTimer.EN:=1; 			end_If;		// Enable timer if timer was not enabled]]>
+</Line>
+<Line Number="36">
+<![CDATA[	if NOT feedbackTimer.TimerEnable 	then feedbackTimer.TimerEnable:=1; 	end_If;		// Enable timer if timer was not enabled]]>
+</Line>
+<Line Number="37">
+<![CDATA[else]]>
+</Line>
+<Line Number="38">
+<![CDATA[	if feedbackTimer.EN 				then feedbackTimer.EN:=0; 			end_If;		// disable timer if timer was enabled]]>
+</Line>
+<Line Number="39">
+<![CDATA[	if feedbackTimer.TimerEnable 		then feedbackTimer.TimerEnable:=0; 	end_If;		// disable timer if timer was enabled]]>
+</Line>
+<Line Number="40">
+<![CDATA[	feedbackTimer.Reset:=1;			// reset timer]]>
+</Line>
+<Line Number="41">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="42">
+<![CDATA[]]>
+</Line>
+<Line Number="43">
+<![CDATA[]]>
+</Line>
+<Line Number="44">
+<![CDATA[/* state selection */]]>
+</Line>
+<Line Number="45">
+<![CDATA[if NOT Error then ]]>
+</Line>
+<Line Number="46">
+<![CDATA[	if (NOT Valve_Out & NOT NO_or_NC) & NOT feedbackTimer.TimerEnable then														// valve is not turned on]]>
+</Line>
+<Line Number="47">
+<![CDATA[		State:=0;]]>
+</Line>
+<Line Number="48">
+<![CDATA[	elsif (NOT NO_or_NC & NOT (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & Valve_Out & NOT feedbackTimer.DN) & NOT feedbackTimer.TimerEnable then			// valve NC is turned on by program]]>
+</Line>
+<Line Number="49">
+<![CDATA[		State:=1;]]>
+</Line>
+<Line Number="50">
+<![CDATA[	elsif (NO_or_NC & NOT (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & Turn_On & NOT feedbackTimer.DN) then													// valve NO is turned on by program]]>
+</Line>
+<Line Number="51">
+<![CDATA[		State:=0;]]>
+</Line>
+<Line Number="52">
+<![CDATA[	elsif (NO_or_NC & NOT (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & NOT Turn_On & NOT feedbackTimer.DN) then												// valve NO is turned on by program]]>
+</Line>
+<Line Number="53">
+<![CDATA[		State:=1;	]]>
+</Line>
+<Line Number="54">
+<![CDATA[	elsif (Valve_Out & (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & NOT feedbackTimer.DN) & NOT feedbackTimer.TimerEnable then								// valve is turned on by HMI]]>
+</Line>
+<Line Number="55">
+<![CDATA[		State:=3;]]>
+</Line>
+<Line Number="56">
+<![CDATA[	elsif (NOT Valve_Out & (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & NOT Turn_On & NOT feedbackTimer.DN) & NOT feedbackTimer.TimerEnable then			// valve is turned on by HMI]]>
+</Line>
+<Line Number="57">
+<![CDATA[		State:=0;]]>
+</Line>
+<Line Number="58">
+<![CDATA[		HMI_color:=3;	]]>
+</Line>
+<Line Number="59">
+<![CDATA[	elsif feedbackTimer.DN then]]>
+</Line>
+<Line Number="60">
+<![CDATA[		State:=4;]]>
+</Line>
+<Line Number="61">
+<![CDATA[		Error:=1;]]>
+</Line>
+<Line Number="62">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="63">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="64">
+<![CDATA[]]>
+</Line>
+<Line Number="65">
+<![CDATA[]]>
+</Line>
+<Line Number="66">
+<![CDATA[]]>
+</Line>
+<Line Number="67">
+<![CDATA[/* HMI valve color selection */]]>
+</Line>
+<Line Number="68">
+<![CDATA[case State of]]>
+</Line>
+<Line Number="69">
+<![CDATA[	0:// valve is not active]]>
+</Line>
+<Line Number="70">
+<![CDATA[		if NOT NO_or_NC then HMI_color:=State; end_if;]]>
+</Line>
+<Line Number="71">
+<![CDATA[		if NO_or_NC AND Turn_On then HMI_color:=1; end_if;]]>
+</Line>
+<Line Number="72">
+<![CDATA[		if NO_or_NC AND (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) then HMI_color:=3; end_if;]]>
+</Line>
+<Line Number="73">
+<![CDATA[	1:// valve is active]]>
+</Line>
+<Line Number="74">
+<![CDATA[		if NOT NO_or_NC then HMI_color:=State; end_if;]]>
+</Line>
+<Line Number="75">
+<![CDATA[		if NO_or_NC then HMI_color:=0; end_if;]]>
+</Line>
+<Line Number="76">
+<![CDATA[	2:// spare]]>
+</Line>
+<Line Number="77">
+<![CDATA[		HMI_color:=State;]]>
+</Line>
+<Line Number="78">
+<![CDATA[	3:// Manual turned on]]>
+</Line>
+<Line Number="79">
+<![CDATA[		if NOT NO_or_NC then HMI_color:=State; end_if;]]>
+</Line>
+<Line Number="80">
+<![CDATA[		if NO_or_NC then HMI_color:=0; end_if;]]>
+</Line>
+<Line Number="81">
+<![CDATA[	4:// Feedback fault]]>
+</Line>
+<Line Number="82">
+<![CDATA[		HMI_color:=State;]]>
+</Line>
+<Line Number="83">
+<![CDATA[	else]]>
+</Line>
+<Line Number="84">
+<![CDATA[	// state is outside of range, set to 0]]>
+</Line>
+<Line Number="85">
+<![CDATA[	State:=0;]]>
+</Line>
+<Line Number="86">
+<![CDATA[end_case;]]>
+</Line>
+</STContent>
+</Routine>
+<Routine Name="Prescan" Type="ST">
+<Description>
+<![CDATA[set values]]>
+</Description>
+<STContent>
+<Line Number="0">
+<![CDATA[if FeedbackTime=0 then// if no feedback time has been set, move 50ms to feedback time. ]]>
+</Line>
+<Line Number="1">
+<![CDATA[	FeedbackTime:=50;]]>
+</Line>
+<Line Number="2">
+<![CDATA[	feedbackTimer.PRE:=FeedbackTime;]]>
+</Line>
+<Line Number="3">
+<![CDATA[end_if;]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="AddOnInstructionDefinition" Name="ISA88_WiegersProcessInnovation"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>
