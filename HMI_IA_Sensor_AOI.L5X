@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-31T10:09:29.313Z" ContainsContext="true" ExportDate="Tue May 31 12:15:06 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-31T10:29:31.788Z" ContainsContext="true" ExportDate="Tue May 31 12:29:51 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 </DataTypes>
@@ -228,7 +228,7 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </Routine>
 </Routines>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-05-31T10:09:29.313Z"
+<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-05-31T10:29:31.788Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
@@ -241,7 +241,43 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <![CDATA[Enable Output - System Defined Parameter]]>
 </Description>
 </Parameter>
+<Parameter Name="Alarm" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[once outputvalue is not within alarmvalue low and high]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="AlarmValue_HIGH" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[highest alarm value, based on scaled_max]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="AlarmValue_LOW" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[lowest alarm value based on scaled min]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
 <Parameter Name="InRawMax" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[highest measurable value]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0.00000000e+000]]>
 </DefaultData>
@@ -250,6 +286,9 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 </Parameter>
 <Parameter Name="inRawMin" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Lowest measurable value]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0.00000000e+000]]>
 </DefaultData>
@@ -258,6 +297,9 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 </Parameter>
 <Parameter Name="Scaled_Max" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[used defined Highest value (Temperature, pressure, etc)]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0.00000000e+000]]>
 </DefaultData>
@@ -266,6 +308,9 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 </Parameter>
 <Parameter Name="Scaled_Min" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[used defined lowest value (Temperature, pressure, etc)]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0.00000000e+000]]>
 </DefaultData>
@@ -274,22 +319,9 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 </Parameter>
 <Parameter Name="RawSensorValue" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
-<DefaultData Format="L5K">
-<![CDATA[0.00000000e+000]]>
-</DefaultData>
-<DefaultData Format="Decorated">
-<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
-</DefaultData>
-</Parameter>
-<Parameter Name="Simulation" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
-<DefaultData Format="L5K">
-<![CDATA[0]]>
-</DefaultData>
-<DefaultData Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</DefaultData>
-</Parameter>
-<Parameter Name="SimulationValue" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Sensor input from point IO card]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0.00000000e+000]]>
 </DefaultData>
@@ -308,23 +340,21 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <DataValue DataType="REAL" Radix="Float" Value="0.0"/>
 </DefaultData>
 </Parameter>
-<Parameter Name="AlarmValue_HIGH" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Parameter Name="cnf_Set_100" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Set inrawmax at current raw value]]>
+</Description>
 <DefaultData Format="L5K">
-<![CDATA[0.00000000e+000]]>
+<![CDATA[0]]>
 </DefaultData>
 <DefaultData Format="Decorated">
-<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
 </DefaultData>
 </Parameter>
-<Parameter Name="AlarmValue_LOW" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
-<DefaultData Format="L5K">
-<![CDATA[0.00000000e+000]]>
-</DefaultData>
-<DefaultData Format="Decorated">
-<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
-</DefaultData>
-</Parameter>
-<Parameter Name="Alarm" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Parameter Name="cnf_Set_0" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Set inrawmin at current raw value]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0]]>
 </DefaultData>
@@ -333,6 +363,21 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 </Parameter>
 <Parameter Name="reset" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Reset the alarm if alarm was true]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="cnf_Use_MovingAvg" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = no moving avg
+1 = use moving avg]]>
+</Description>
 <DefaultData Format="L5K">
 <![CDATA[0]]>
 </DefaultData>
@@ -351,18 +396,6 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </DefaultData>
 </Parameter>
-<Parameter Name="cnf_Use_MovingAvg" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[0 = no moving avg
-1 = use moving avg]]>
-</Description>
-<DefaultData Format="L5K">
-<![CDATA[0]]>
-</DefaultData>
-<DefaultData Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</DefaultData>
-</Parameter>
 <Parameter Name="MovingAvgSampleRate" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
 <Description>
 <![CDATA[in ms]]>
@@ -372,6 +405,28 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 <DefaultData Format="Decorated">
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Simulation" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Set to true to bypass input rawvalue and use simulationvalue]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="SimulationValue" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Value to use for sensor once simulation is set to true]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
 </DefaultData>
 </Parameter>
 </Parameters>
@@ -693,222 +748,267 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <![CDATA[////////////////////////////////////////////////////////////]]>
 </Line>
 <Line Number="13">
-<![CDATA[#region connect input values to local addon]]>
+<![CDATA[#region Read sensor value]]>
 </Line>
 <Line Number="14">
-<![CDATA[	IA_SENSOR(]]>
+<![CDATA[	#region connect input values to local addon]]>
 </Line>
 <Line Number="15">
-<![CDATA[				HMI_Sensor,]]>
+<![CDATA[		IA_SENSOR(]]>
 </Line>
 <Line Number="16">
-<![CDATA[				InRawMax,]]>
+<![CDATA[					HMI_Sensor,]]>
 </Line>
 <Line Number="17">
-<![CDATA[				inRawMin,]]>
+<![CDATA[					InRawMax,]]>
 </Line>
 <Line Number="18">
-<![CDATA[				Scaled_Max,]]>
+<![CDATA[					inRawMin,]]>
 </Line>
 <Line Number="19">
-<![CDATA[				Scaled_Min,]]>
+<![CDATA[					Scaled_Max,]]>
 </Line>
 <Line Number="20">
-<![CDATA[				RawSensorValue,]]>
+<![CDATA[					Scaled_Min,]]>
 </Line>
 <Line Number="21">
-<![CDATA[				1,]]>
+<![CDATA[					RawSensorValue,]]>
 </Line>
 <Line Number="22">
-<![CDATA[				Simulation,]]>
+<![CDATA[					1,]]>
 </Line>
 <Line Number="23">
-<![CDATA[				SimulationValue]]>
+<![CDATA[					Simulation,]]>
 </Line>
 <Line Number="24">
-<![CDATA[			);]]>
+<![CDATA[					SimulationValue]]>
 </Line>
 <Line Number="25">
-<![CDATA[			]]>
+<![CDATA[				);]]>
 </Line>
 <Line Number="26">
-<![CDATA[#endregion]]>
+<![CDATA[				]]>
 </Line>
 <Line Number="27">
-<![CDATA[#region Check if value is between alarm values]]>
-</Line>
-<Line Number="28">
-<![CDATA[/* for example alarmvalue_high is 10 & alarmvalue_low is 5. */]]>
-</Line>
-<Line Number="29">
-<![CDATA[	if HMI_Sensor.OUTPUT>AlarmValue_HIGH then]]>
-</Line>
-<Line Number="30">
-<![CDATA[		Alarm:=1;]]>
-</Line>
-<Line Number="31">
-<![CDATA[	end_if;]]>
-</Line>
-<Line Number="32">
-<![CDATA[	if AlarmValue_LOW>HMI_Sensor.OUTPUT then]]>
-</Line>
-<Line Number="33">
-<![CDATA[		Alarm:=1;]]>
-</Line>
-<Line Number="34">
-<![CDATA[	end_if;]]>
-</Line>
-<Line Number="35">
-<![CDATA[#endregion]]>
-</Line>
-<Line Number="36">
-<![CDATA[#region reset alarm]]>
-</Line>
-<Line Number="37">
-<![CDATA[	if Alarm AND reset then]]>
-</Line>
-<Line Number="38">
-<![CDATA[		Alarm:=0;]]>
-</Line>
-<Line Number="39">
-<![CDATA[	end_if;]]>
-</Line>
-<Line Number="40">
-<![CDATA[#endregion]]>
-</Line>
-<Line Number="41">
-<![CDATA[]]>
-</Line>
-<Line Number="42">
-<![CDATA[#region Moving average]]>
-</Line>
-<Line Number="43">
-<![CDATA[	TONR(T_MovingAvg);]]>
-</Line>
-<Line Number="44">
-<![CDATA[	#region moving avg interval]]>
-</Line>
-<Line Number="45">
-<![CDATA[		#region set sample rate of moving avg.]]>
-</Line>
-<Line Number="46">
-<![CDATA[			if MovingAvgSampleRate=0 then							// no sample rate is set, this means the scantime of the PLC is the sample rate. ]]>
-</Line>
-<Line Number="47">
-<![CDATA[				T_MovingAvg.TimerEnable:=0;							// disable timer]]>
-</Line>
-<Line Number="48">
-<![CDATA[				MovingAvg.In:=HMI_Sensor.OUTPUT;					// Sensor output is the moving avg input.]]>
-</Line>
-<Line Number="49">
-<![CDATA[				else												// Samplerate is set, so the input is based on the timer input]]>
-</Line>
-<Line Number="50">
-<![CDATA[				T_MovingAvg.PRE:=MovingAvgSampleRate;				// Timer pre is set by user.]]>
-</Line>
-<Line Number="51">
-<![CDATA[				T_MovingAvg.TimerEnable:=1;							// Enable timer]]>
-</Line>
-<Line Number="52">
-<![CDATA[			end_if;		]]>
-</Line>
-<Line Number="53">
-<![CDATA[		#endregion]]>
-</Line>
-<Line Number="54">
-<![CDATA[		if T_MovingAvg.DN then 										// once timer is done,set copy the inputvalue to the moving avg input.]]>
-</Line>
-<Line Number="55">
-<![CDATA[			MovingAvg.In:=HMI_Sensor.OUTPUT;						// Sensor output is the moving avg input.]]>
-</Line>
-<Line Number="56">
-<![CDATA[		end_if;]]>
-</Line>
-<Line Number="57">
 <![CDATA[	#endregion]]>
 </Line>
+<Line Number="28">
+<![CDATA[	#region Check if value is between alarm values]]>
+</Line>
+<Line Number="29">
+<![CDATA[	/* for example alarmvalue_high is 10 & alarmvalue_low is 5. */]]>
+</Line>
+<Line Number="30">
+<![CDATA[		if HMI_Sensor.OUTPUT>AlarmValue_HIGH then]]>
+</Line>
+<Line Number="31">
+<![CDATA[			Alarm:=1;]]>
+</Line>
+<Line Number="32">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="33">
+<![CDATA[		if AlarmValue_LOW>HMI_Sensor.OUTPUT then]]>
+</Line>
+<Line Number="34">
+<![CDATA[			Alarm:=1;]]>
+</Line>
+<Line Number="35">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="36">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="37">
+<![CDATA[	#region reset alarm]]>
+</Line>
+<Line Number="38">
+<![CDATA[		if Alarm AND reset then]]>
+</Line>
+<Line Number="39">
+<![CDATA[			Alarm:=0;]]>
+</Line>
+<Line Number="40">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="41">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="42">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="43">
+<![CDATA[#region Moving average]]>
+</Line>
+<Line Number="44">
+<![CDATA[	TONR(T_MovingAvg);]]>
+</Line>
+<Line Number="45">
+<![CDATA[	#region moving avg interval]]>
+</Line>
+<Line Number="46">
+<![CDATA[		#region set sample rate of moving avg.]]>
+</Line>
+<Line Number="47">
+<![CDATA[			if MovingAvgSampleRate=0 then							// no sample rate is set, this means the scantime of the PLC is the sample rate. ]]>
+</Line>
+<Line Number="48">
+<![CDATA[				T_MovingAvg.TimerEnable:=0;							// disable timer]]>
+</Line>
+<Line Number="49">
+<![CDATA[				MovingAvg.In:=HMI_Sensor.OUTPUT;					// Sensor output is the moving avg input.]]>
+</Line>
+<Line Number="50">
+<![CDATA[				else												// Samplerate is set, so the input is based on the timer input]]>
+</Line>
+<Line Number="51">
+<![CDATA[				T_MovingAvg.PRE:=MovingAvgSampleRate;				// Timer pre is set by user.]]>
+</Line>
+<Line Number="52">
+<![CDATA[				T_MovingAvg.TimerEnable:=1;							// Enable timer]]>
+</Line>
+<Line Number="53">
+<![CDATA[			end_if;		]]>
+</Line>
+<Line Number="54">
+<![CDATA[		#endregion]]>
+</Line>
+<Line Number="55">
+<![CDATA[		if T_MovingAvg.DN then 										// once timer is done,set copy the inputvalue to the moving avg input.]]>
+</Line>
+<Line Number="56">
+<![CDATA[			MovingAvg.In:=HMI_Sensor.OUTPUT;						// Sensor output is the moving avg input.]]>
+</Line>
+<Line Number="57">
+<![CDATA[		end_if;]]>
+</Line>
 <Line Number="58">
-<![CDATA[	if cnf_Use_MovingAvg then]]>
+<![CDATA[	#endregion]]>
 </Line>
 <Line Number="59">
-<![CDATA[		if HMI_Sensor.MODULE_ENABLE AND NOT Alarm then]]>
+<![CDATA[	if cnf_Use_MovingAvg then]]>
 </Line>
 <Line Number="60">
-<![CDATA[			MovingAvg.Initialize:=0;								// not required ]]>
+<![CDATA[		if HMI_Sensor.MODULE_ENABLE AND NOT Alarm then]]>
 </Line>
 <Line Number="61">
-<![CDATA[			SIZE(StorageArrayMovingAvg,0,wrk_arraySize);			// get array size, so num of samples can never be larger. ]]>
+<![CDATA[			MovingAvg.Initialize:=0;								// not required ]]>
 </Line>
 <Line Number="62">
-<![CDATA[			if MovingAvgNumberOfSamples > wrk_arraySize then MovingAvgNumberOfSamples:=wrk_arraySize; end_if;	// prevent controller faulted]]>
+<![CDATA[			SIZE(StorageArrayMovingAvg,0,wrk_arraySize);			// get array size, so num of samples can never be larger. ]]>
 </Line>
 <Line Number="63">
-<![CDATA[			MovingAvg.NumberOfSamples:=MovingAvgNumberOfSamples;	// set function num of samples.]]>
+<![CDATA[			if MovingAvgNumberOfSamples > wrk_arraySize then MovingAvgNumberOfSamples:=wrk_arraySize; end_if;	// prevent controller faulted]]>
 </Line>
 <Line Number="64">
-<![CDATA[			]]>
+<![CDATA[			MovingAvg.NumberOfSamples:=MovingAvgNumberOfSamples;	// set function num of samples.]]>
 </Line>
 <Line Number="65">
-<![CDATA[			/* if interval is set, then look at timer done */]]>
+<![CDATA[			]]>
 </Line>
 <Line Number="66">
-<![CDATA[			if T_MovingAvg.TimerEnable then]]>
+<![CDATA[			/* if interval is set, then look at timer done */]]>
 </Line>
 <Line Number="67">
-<![CDATA[				MovingAvg.SampleEnable:=T_MovingAvg.DN;				// SampleEnable to timer enable]]>
+<![CDATA[			if T_MovingAvg.TimerEnable then]]>
 </Line>
 <Line Number="68">
-<![CDATA[			end_if;]]>
+<![CDATA[				MovingAvg.SampleEnable:=T_MovingAvg.DN;				// SampleEnable to timer enable]]>
 </Line>
 <Line Number="69">
-<![CDATA[			]]>
-</Line>
-<Line Number="70">
-<![CDATA[			/* if interval is not set, then bypass timer */]]>
-</Line>
-<Line Number="71">
-<![CDATA[			if NOT T_MovingAvg.TimerEnable then]]>
-</Line>
-<Line Number="72">
-<![CDATA[				MovingAvg.SampleEnable:=1;							// SampleEnable to true.]]>
-</Line>
-<Line Number="73">
 <![CDATA[			end_if;]]>
 </Line>
-<Line Number="74">
+<Line Number="70">
 <![CDATA[			]]>
+</Line>
+<Line Number="71">
+<![CDATA[			/* if interval is not set, then bypass timer */]]>
+</Line>
+<Line Number="72">
+<![CDATA[			if NOT T_MovingAvg.TimerEnable then]]>
+</Line>
+<Line Number="73">
+<![CDATA[				MovingAvg.SampleEnable:=1;							// SampleEnable to true.]]>
+</Line>
+<Line Number="74">
+<![CDATA[			end_if;]]>
 </Line>
 <Line Number="75">
 <![CDATA[			]]>
 </Line>
 <Line Number="76">
-<![CDATA[			MAVE(MovingAvg,StorageArrayMovingAvg);					// moving average function.		]]>
+<![CDATA[			]]>
 </Line>
 <Line Number="77">
-<![CDATA[			OutputValue:=MovingAvg.Out;								// Copy moving avg output to addon output.]]>
+<![CDATA[			MAVE(MovingAvg,StorageArrayMovingAvg);					// moving average function.		]]>
 </Line>
 <Line Number="78">
-<![CDATA[		else]]>
+<![CDATA[			OutputValue:=MovingAvg.Out;								// Copy moving avg output to addon output.]]>
 </Line>
 <Line Number="79">
-<![CDATA[			OutputValue:=HMI_Sensor.OUTPUT;							// if there is an alarm in the value, move the real value to the output of the sensor addon.]]>
+<![CDATA[		else]]>
 </Line>
 <Line Number="80">
-<![CDATA[		end_if;]]>
+<![CDATA[			OutputValue:=HMI_Sensor.OUTPUT;							// if there is an alarm in the value, move the real value to the output of the sensor addon.]]>
 </Line>
 <Line Number="81">
-<![CDATA[	else]]>
+<![CDATA[		end_if;]]>
 </Line>
 <Line Number="82">
-<![CDATA[		OutputValue:=HMI_Sensor.OUTPUT;								// cnf_Use_MovingAvg is not set, so use the real value form the sensor to output.(bypass moving avg)]]>
+<![CDATA[	else]]>
 </Line>
 <Line Number="83">
-<![CDATA[	end_if;]]>
+<![CDATA[		OutputValue:=HMI_Sensor.OUTPUT;								// cnf_Use_MovingAvg is not set, so use the real value form the sensor to output.(bypass moving avg)]]>
 </Line>
 <Line Number="84">
-<![CDATA[	T_MovingAvg.Reset:=T_MovingAvg.DN;							// timer resets itself. ]]>
+<![CDATA[	end_if;]]>
 </Line>
 <Line Number="85">
+<![CDATA[	T_MovingAvg.Reset:=T_MovingAvg.DN;							// timer resets itself. ]]>
+</Line>
+<Line Number="86">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="87">
+<![CDATA[#region Calibrate sensor]]>
+</Line>
+<Line Number="88">
+<![CDATA[	#region Save InRawMax]]>
+</Line>
+<Line Number="89">
+<![CDATA[		if cnf_Set_100 then]]>
+</Line>
+<Line Number="90">
+<![CDATA[			InRawMax:=HMI_Sensor.RawSensorValue;	// copy rawvalue to highest value point]]>
+</Line>
+<Line Number="91">
+<![CDATA[			cnf_Set_100:=0;							// set signal back to false, only run once on user input.]]>
+</Line>
+<Line Number="92">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="93">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="94">
+<![CDATA[	#region Save InRawMin]]>
+</Line>
+<Line Number="95">
+<![CDATA[		if cnf_Set_0 then]]>
+</Line>
+<Line Number="96">
+<![CDATA[			inRawMin:=HMI_Sensor.RawSensorValue;	// copy rawvalue to lowest value point]]>
+</Line>
+<Line Number="97">
+<![CDATA[			cnf_Set_0:=0;							// set signal back to false, only run once on user input.]]>
+</Line>
+<Line Number="98">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="99">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="100">
 <![CDATA[#endregion]]>
 </Line>
 </STContent>
