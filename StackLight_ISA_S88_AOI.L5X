@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="StackLight_ISA_S88" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-11-09T07:33:21.581Z" ContainsContext="true" ExportDate="Mon May 30 11:43:57 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="StackLight_ISA_S88" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-11-09T07:33:21.581Z" ContainsContext="true" ExportDate="Tue May 31 11:00:03 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">

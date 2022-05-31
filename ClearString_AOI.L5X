@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="ClearString" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-19T09:05:41.998Z" ContainsContext="true" ExportDate="Tue May 31 10:59:22 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Depositor_PackML">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="ClearString" Class="Standard" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-05-19T08:59:24.523Z" CreatedBy="WPI\tom.reit" EditedDate="2022-05-19T09:05:41.998Z" EditedBy="WPI\tom.reit"
+ SoftwareRevision="v33.00">
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="StartValue" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="final_value" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="String" TagType="Base" DataType="STRING" Dimensions="100" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="cmd_Clear" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="i" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local index]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  ]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: ClearString - Logic]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\tom.reit]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 19-5-2022]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//           ]]>
+</Line>
+<Line Number="9">
+<![CDATA[//]]>
+</Line>
+<Line Number="10">
+<![CDATA[//   History:]]>
+</Line>
+<Line Number="11">
+<![CDATA[//]]>
+</Line>
+<Line Number="12">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="13">
+<![CDATA[if cmd_Clear then]]>
+</Line>
+<Line Number="14">
+<![CDATA[	for i := StartValue to final_value do]]>
+</Line>
+<Line Number="15">
+<![CDATA[		String[i]:='';]]>
+</Line>
+<Line Number="16">
+<![CDATA[	end_for;]]>
+</Line>
+<Line Number="17">
+<![CDATA[	cmd_Clear:=0;]]>
+</Line>
+<Line Number="18">
+<![CDATA[end_if;]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>

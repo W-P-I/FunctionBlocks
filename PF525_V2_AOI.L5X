@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--Control a PF525
 -->
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="PF525_V2" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-11-04T08:53:10.554Z" ContainsContext="true" ExportDate="Mon May 30 11:44:15 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="PF525_V2" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-11-04T08:53:10.554Z" ContainsContext="true" ExportDate="Tue May 31 10:59:57 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
