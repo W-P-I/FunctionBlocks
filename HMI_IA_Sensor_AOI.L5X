@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-31T09:21:52.702Z" ContainsContext="true" ExportDate="Tue May 31 11:23:44 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-31T10:09:29.313Z" ContainsContext="true" ExportDate="Tue May 31 12:15:06 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 </DataTypes>
@@ -228,7 +228,7 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </Routine>
 </Routines>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-05-31T09:21:52.702Z"
+<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-05-31T10:09:29.313Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
@@ -340,6 +340,40 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
 </DefaultData>
 </Parameter>
+<Parameter Name="MovingAvgNumberOfSamples" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Set size of moving avg, can never be larger then array size]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="cnf_Use_MovingAvg" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = no moving avg
+1 = use moving avg]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MovingAvgSampleRate" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[in ms]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
 </Parameters>
 <LocalTags>
 <LocalTag Name="HMI_Sensor" DataType="IA_SENSOR" ExternalAccess="None">
@@ -400,6 +434,219 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </DefaultData>
 <DefaultData Format="String" Length="0">
 <![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MovingAvg" DataType="MOVING_AVERAGE" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[9,0.00000000e+000,1,0,0.00000000e+000,0,5.60519386e-045,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOVING_AVERAGE">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="In" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Initialize" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SampleEnable" DataType="BOOL" Value="1"/>
+<DataValueMember Name="NumberOfSamples" DataType="DINT" Radix="Decimal" Value="1"/>
+<DataValueMember Name="UseWeights" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="InFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="NumberOfSampInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="StorageArrayMovingAvg" DataType="REAL" Dimensions="150" Radix="Float" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="REAL" Dimensions="150" Radix="Float">
+<Element Index="[0]" Value="0.0"/>
+<Element Index="[1]" Value="0.0"/>
+<Element Index="[2]" Value="0.0"/>
+<Element Index="[3]" Value="0.0"/>
+<Element Index="[4]" Value="0.0"/>
+<Element Index="[5]" Value="0.0"/>
+<Element Index="[6]" Value="0.0"/>
+<Element Index="[7]" Value="0.0"/>
+<Element Index="[8]" Value="0.0"/>
+<Element Index="[9]" Value="0.0"/>
+<Element Index="[10]" Value="0.0"/>
+<Element Index="[11]" Value="0.0"/>
+<Element Index="[12]" Value="0.0"/>
+<Element Index="[13]" Value="0.0"/>
+<Element Index="[14]" Value="0.0"/>
+<Element Index="[15]" Value="0.0"/>
+<Element Index="[16]" Value="0.0"/>
+<Element Index="[17]" Value="0.0"/>
+<Element Index="[18]" Value="0.0"/>
+<Element Index="[19]" Value="0.0"/>
+<Element Index="[20]" Value="0.0"/>
+<Element Index="[21]" Value="0.0"/>
+<Element Index="[22]" Value="0.0"/>
+<Element Index="[23]" Value="0.0"/>
+<Element Index="[24]" Value="0.0"/>
+<Element Index="[25]" Value="0.0"/>
+<Element Index="[26]" Value="0.0"/>
+<Element Index="[27]" Value="0.0"/>
+<Element Index="[28]" Value="0.0"/>
+<Element Index="[29]" Value="0.0"/>
+<Element Index="[30]" Value="0.0"/>
+<Element Index="[31]" Value="0.0"/>
+<Element Index="[32]" Value="0.0"/>
+<Element Index="[33]" Value="0.0"/>
+<Element Index="[34]" Value="0.0"/>
+<Element Index="[35]" Value="0.0"/>
+<Element Index="[36]" Value="0.0"/>
+<Element Index="[37]" Value="0.0"/>
+<Element Index="[38]" Value="0.0"/>
+<Element Index="[39]" Value="0.0"/>
+<Element Index="[40]" Value="0.0"/>
+<Element Index="[41]" Value="0.0"/>
+<Element Index="[42]" Value="0.0"/>
+<Element Index="[43]" Value="0.0"/>
+<Element Index="[44]" Value="0.0"/>
+<Element Index="[45]" Value="0.0"/>
+<Element Index="[46]" Value="0.0"/>
+<Element Index="[47]" Value="0.0"/>
+<Element Index="[48]" Value="0.0"/>
+<Element Index="[49]" Value="0.0"/>
+<Element Index="[50]" Value="0.0"/>
+<Element Index="[51]" Value="0.0"/>
+<Element Index="[52]" Value="0.0"/>
+<Element Index="[53]" Value="0.0"/>
+<Element Index="[54]" Value="0.0"/>
+<Element Index="[55]" Value="0.0"/>
+<Element Index="[56]" Value="0.0"/>
+<Element Index="[57]" Value="0.0"/>
+<Element Index="[58]" Value="0.0"/>
+<Element Index="[59]" Value="0.0"/>
+<Element Index="[60]" Value="0.0"/>
+<Element Index="[61]" Value="0.0"/>
+<Element Index="[62]" Value="0.0"/>
+<Element Index="[63]" Value="0.0"/>
+<Element Index="[64]" Value="0.0"/>
+<Element Index="[65]" Value="0.0"/>
+<Element Index="[66]" Value="0.0"/>
+<Element Index="[67]" Value="0.0"/>
+<Element Index="[68]" Value="0.0"/>
+<Element Index="[69]" Value="0.0"/>
+<Element Index="[70]" Value="0.0"/>
+<Element Index="[71]" Value="0.0"/>
+<Element Index="[72]" Value="0.0"/>
+<Element Index="[73]" Value="0.0"/>
+<Element Index="[74]" Value="0.0"/>
+<Element Index="[75]" Value="0.0"/>
+<Element Index="[76]" Value="0.0"/>
+<Element Index="[77]" Value="0.0"/>
+<Element Index="[78]" Value="0.0"/>
+<Element Index="[79]" Value="0.0"/>
+<Element Index="[80]" Value="0.0"/>
+<Element Index="[81]" Value="0.0"/>
+<Element Index="[82]" Value="0.0"/>
+<Element Index="[83]" Value="0.0"/>
+<Element Index="[84]" Value="0.0"/>
+<Element Index="[85]" Value="0.0"/>
+<Element Index="[86]" Value="0.0"/>
+<Element Index="[87]" Value="0.0"/>
+<Element Index="[88]" Value="0.0"/>
+<Element Index="[89]" Value="0.0"/>
+<Element Index="[90]" Value="0.0"/>
+<Element Index="[91]" Value="0.0"/>
+<Element Index="[92]" Value="0.0"/>
+<Element Index="[93]" Value="0.0"/>
+<Element Index="[94]" Value="0.0"/>
+<Element Index="[95]" Value="0.0"/>
+<Element Index="[96]" Value="0.0"/>
+<Element Index="[97]" Value="0.0"/>
+<Element Index="[98]" Value="0.0"/>
+<Element Index="[99]" Value="0.0"/>
+<Element Index="[100]" Value="0.0"/>
+<Element Index="[101]" Value="0.0"/>
+<Element Index="[102]" Value="0.0"/>
+<Element Index="[103]" Value="0.0"/>
+<Element Index="[104]" Value="0.0"/>
+<Element Index="[105]" Value="0.0"/>
+<Element Index="[106]" Value="0.0"/>
+<Element Index="[107]" Value="0.0"/>
+<Element Index="[108]" Value="0.0"/>
+<Element Index="[109]" Value="0.0"/>
+<Element Index="[110]" Value="0.0"/>
+<Element Index="[111]" Value="0.0"/>
+<Element Index="[112]" Value="0.0"/>
+<Element Index="[113]" Value="0.0"/>
+<Element Index="[114]" Value="0.0"/>
+<Element Index="[115]" Value="0.0"/>
+<Element Index="[116]" Value="0.0"/>
+<Element Index="[117]" Value="0.0"/>
+<Element Index="[118]" Value="0.0"/>
+<Element Index="[119]" Value="0.0"/>
+<Element Index="[120]" Value="0.0"/>
+<Element Index="[121]" Value="0.0"/>
+<Element Index="[122]" Value="0.0"/>
+<Element Index="[123]" Value="0.0"/>
+<Element Index="[124]" Value="0.0"/>
+<Element Index="[125]" Value="0.0"/>
+<Element Index="[126]" Value="0.0"/>
+<Element Index="[127]" Value="0.0"/>
+<Element Index="[128]" Value="0.0"/>
+<Element Index="[129]" Value="0.0"/>
+<Element Index="[130]" Value="0.0"/>
+<Element Index="[131]" Value="0.0"/>
+<Element Index="[132]" Value="0.0"/>
+<Element Index="[133]" Value="0.0"/>
+<Element Index="[134]" Value="0.0"/>
+<Element Index="[135]" Value="0.0"/>
+<Element Index="[136]" Value="0.0"/>
+<Element Index="[137]" Value="0.0"/>
+<Element Index="[138]" Value="0.0"/>
+<Element Index="[139]" Value="0.0"/>
+<Element Index="[140]" Value="0.0"/>
+<Element Index="[141]" Value="0.0"/>
+<Element Index="[142]" Value="0.0"/>
+<Element Index="[143]" Value="0.0"/>
+<Element Index="[144]" Value="0.0"/>
+<Element Index="[145]" Value="0.0"/>
+<Element Index="[146]" Value="0.0"/>
+<Element Index="[147]" Value="0.0"/>
+<Element Index="[148]" Value="0.0"/>
+<Element Index="[149]" Value="0.0"/>
+</Array>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_arraySize" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[array size]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_MovingAvg" DataType="FBD_TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0,0,0,0,0,0,0,0,4,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_TIMER">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TimerEnable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Reset" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PresetInv" DataType="BOOL" Value="0"/>
+</Structure>
 </DefaultData>
 </LocalTag>
 </LocalTags>
@@ -482,7 +729,7 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <![CDATA[			);]]>
 </Line>
 <Line Number="25">
-<![CDATA[			OutputValue:=HMI_Sensor.OUTPUT;]]>
+<![CDATA[			]]>
 </Line>
 <Line Number="26">
 <![CDATA[#endregion]]>
@@ -527,6 +774,141 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 <![CDATA[	end_if;]]>
 </Line>
 <Line Number="40">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="41">
+<![CDATA[]]>
+</Line>
+<Line Number="42">
+<![CDATA[#region Moving average]]>
+</Line>
+<Line Number="43">
+<![CDATA[	TONR(T_MovingAvg);]]>
+</Line>
+<Line Number="44">
+<![CDATA[	#region moving avg interval]]>
+</Line>
+<Line Number="45">
+<![CDATA[		#region set sample rate of moving avg.]]>
+</Line>
+<Line Number="46">
+<![CDATA[			if MovingAvgSampleRate=0 then							// no sample rate is set, this means the scantime of the PLC is the sample rate. ]]>
+</Line>
+<Line Number="47">
+<![CDATA[				T_MovingAvg.TimerEnable:=0;							// disable timer]]>
+</Line>
+<Line Number="48">
+<![CDATA[				MovingAvg.In:=HMI_Sensor.OUTPUT;					// Sensor output is the moving avg input.]]>
+</Line>
+<Line Number="49">
+<![CDATA[				else												// Samplerate is set, so the input is based on the timer input]]>
+</Line>
+<Line Number="50">
+<![CDATA[				T_MovingAvg.PRE:=MovingAvgSampleRate;				// Timer pre is set by user.]]>
+</Line>
+<Line Number="51">
+<![CDATA[				T_MovingAvg.TimerEnable:=1;							// Enable timer]]>
+</Line>
+<Line Number="52">
+<![CDATA[			end_if;		]]>
+</Line>
+<Line Number="53">
+<![CDATA[		#endregion]]>
+</Line>
+<Line Number="54">
+<![CDATA[		if T_MovingAvg.DN then 										// once timer is done,set copy the inputvalue to the moving avg input.]]>
+</Line>
+<Line Number="55">
+<![CDATA[			MovingAvg.In:=HMI_Sensor.OUTPUT;						// Sensor output is the moving avg input.]]>
+</Line>
+<Line Number="56">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="57">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="58">
+<![CDATA[	if cnf_Use_MovingAvg then]]>
+</Line>
+<Line Number="59">
+<![CDATA[		if HMI_Sensor.MODULE_ENABLE AND NOT Alarm then]]>
+</Line>
+<Line Number="60">
+<![CDATA[			MovingAvg.Initialize:=0;								// not required ]]>
+</Line>
+<Line Number="61">
+<![CDATA[			SIZE(StorageArrayMovingAvg,0,wrk_arraySize);			// get array size, so num of samples can never be larger. ]]>
+</Line>
+<Line Number="62">
+<![CDATA[			if MovingAvgNumberOfSamples > wrk_arraySize then MovingAvgNumberOfSamples:=wrk_arraySize; end_if;	// prevent controller faulted]]>
+</Line>
+<Line Number="63">
+<![CDATA[			MovingAvg.NumberOfSamples:=MovingAvgNumberOfSamples;	// set function num of samples.]]>
+</Line>
+<Line Number="64">
+<![CDATA[			]]>
+</Line>
+<Line Number="65">
+<![CDATA[			/* if interval is set, then look at timer done */]]>
+</Line>
+<Line Number="66">
+<![CDATA[			if T_MovingAvg.TimerEnable then]]>
+</Line>
+<Line Number="67">
+<![CDATA[				MovingAvg.SampleEnable:=T_MovingAvg.DN;				// SampleEnable to timer enable]]>
+</Line>
+<Line Number="68">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="69">
+<![CDATA[			]]>
+</Line>
+<Line Number="70">
+<![CDATA[			/* if interval is not set, then bypass timer */]]>
+</Line>
+<Line Number="71">
+<![CDATA[			if NOT T_MovingAvg.TimerEnable then]]>
+</Line>
+<Line Number="72">
+<![CDATA[				MovingAvg.SampleEnable:=1;							// SampleEnable to true.]]>
+</Line>
+<Line Number="73">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="74">
+<![CDATA[			]]>
+</Line>
+<Line Number="75">
+<![CDATA[			]]>
+</Line>
+<Line Number="76">
+<![CDATA[			MAVE(MovingAvg,StorageArrayMovingAvg);					// moving average function.		]]>
+</Line>
+<Line Number="77">
+<![CDATA[			OutputValue:=MovingAvg.Out;								// Copy moving avg output to addon output.]]>
+</Line>
+<Line Number="78">
+<![CDATA[		else]]>
+</Line>
+<Line Number="79">
+<![CDATA[			OutputValue:=HMI_Sensor.OUTPUT;							// if there is an alarm in the value, move the real value to the output of the sensor addon.]]>
+</Line>
+<Line Number="80">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="81">
+<![CDATA[	else]]>
+</Line>
+<Line Number="82">
+<![CDATA[		OutputValue:=HMI_Sensor.OUTPUT;								// cnf_Use_MovingAvg is not set, so use the real value form the sensor to output.(bypass moving avg)]]>
+</Line>
+<Line Number="83">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="84">
+<![CDATA[	T_MovingAvg.Reset:=T_MovingAvg.DN;							// timer resets itself. ]]>
+</Line>
+<Line Number="85">
 <![CDATA[#endregion]]>
 </Line>
 </STContent>
