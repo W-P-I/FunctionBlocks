@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-06-08T13:32:05.720Z" ContainsContext="true" ExportDate="Tue May 31 10:59:50 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-31T09:21:52.702Z" ContainsContext="true" ExportDate="Tue May 31 11:23:44 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 </DataTypes>
@@ -228,8 +228,8 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </Routine>
 </Routines>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2021-06-08T13:32:05.720Z"
- EditedBy="WPI\valentino.violante" SoftwareRevision="v33.00">
+<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-05-31T09:21:52.702Z"
+ EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
 <Description>
@@ -404,24 +404,132 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </LocalTag>
 </LocalTags>
 <Routines>
-<Routine Name="Logic" Type="RLL">
-<RLLContent>
-<Rung Number="0" Type="N">
-<Text>
-<![CDATA[[IA_SENSOR(HMI_Sensor,InRawMax,inRawMin,Scaled_Max,Scaled_Min,RawSensorValue,1,Simulation,SimulationValue) ,MOV(HMI_Sensor.OUTPUT,OutputValue) ];]]>
-</Text>
-</Rung>
-<Rung Number="1" Type="N">
-<Text>
-<![CDATA[[GRT(OutputValue,AlarmValue_HIGH) ,LES(OutputValue,AlarmValue_LOW) ]OTL(Alarm);]]>
-</Text>
-</Rung>
-<Rung Number="2" Type="N">
-<Text>
-<![CDATA[XIC(reset)XIC(Alarm)LES(OutputValue,AlarmValue_HIGH)OTU(Alarm);]]>
-</Text>
-</Rung>
-</RLLContent>
+<Routine Name="Logic" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  ]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: Logic]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\tom.reit]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 31-5-2022]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//           ]]>
+</Line>
+<Line Number="9">
+<![CDATA[//]]>
+</Line>
+<Line Number="10">
+<![CDATA[//   History:]]>
+</Line>
+<Line Number="11">
+<![CDATA[//]]>
+</Line>
+<Line Number="12">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="13">
+<![CDATA[#region connect input values to local addon]]>
+</Line>
+<Line Number="14">
+<![CDATA[	IA_SENSOR(]]>
+</Line>
+<Line Number="15">
+<![CDATA[				HMI_Sensor,]]>
+</Line>
+<Line Number="16">
+<![CDATA[				InRawMax,]]>
+</Line>
+<Line Number="17">
+<![CDATA[				inRawMin,]]>
+</Line>
+<Line Number="18">
+<![CDATA[				Scaled_Max,]]>
+</Line>
+<Line Number="19">
+<![CDATA[				Scaled_Min,]]>
+</Line>
+<Line Number="20">
+<![CDATA[				RawSensorValue,]]>
+</Line>
+<Line Number="21">
+<![CDATA[				1,]]>
+</Line>
+<Line Number="22">
+<![CDATA[				Simulation,]]>
+</Line>
+<Line Number="23">
+<![CDATA[				SimulationValue]]>
+</Line>
+<Line Number="24">
+<![CDATA[			);]]>
+</Line>
+<Line Number="25">
+<![CDATA[			OutputValue:=HMI_Sensor.OUTPUT;]]>
+</Line>
+<Line Number="26">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="27">
+<![CDATA[#region Check if value is between alarm values]]>
+</Line>
+<Line Number="28">
+<![CDATA[/* for example alarmvalue_high is 10 & alarmvalue_low is 5. */]]>
+</Line>
+<Line Number="29">
+<![CDATA[	if HMI_Sensor.OUTPUT>AlarmValue_HIGH then]]>
+</Line>
+<Line Number="30">
+<![CDATA[		Alarm:=1;]]>
+</Line>
+<Line Number="31">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="32">
+<![CDATA[	if AlarmValue_LOW>HMI_Sensor.OUTPUT then]]>
+</Line>
+<Line Number="33">
+<![CDATA[		Alarm:=1;]]>
+</Line>
+<Line Number="34">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="35">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="36">
+<![CDATA[#region reset alarm]]>
+</Line>
+<Line Number="37">
+<![CDATA[	if Alarm AND reset then]]>
+</Line>
+<Line Number="38">
+<![CDATA[		Alarm:=0;]]>
+</Line>
+<Line Number="39">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="40">
+<![CDATA[#endregion]]>
+</Line>
+</STContent>
 </Routine>
 <Routine Name="Prescan" Type="ST">
 <Description>
@@ -429,18 +537,60 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </Description>
 <STContent>
 <Line Number="0">
-<![CDATA[split_char := '_';]]>
+<![CDATA[// in scale both can never be the same, only if not valid input OR if user forgot to fillin data. lets take care of that :)]]>
 </Line>
 <Line Number="1">
-<![CDATA[]]>
+<![CDATA[if InRawMax=inRawMin then]]>
 </Line>
 <Line Number="2">
-<![CDATA[]]>
+<![CDATA[	InRawMax:=20000;]]>
 </Line>
 <Line Number="3">
-<![CDATA[]]>
+<![CDATA[	inRawMin:=4000;]]>
 </Line>
 <Line Number="4">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="5">
+<![CDATA[]]>
+</Line>
+<Line Number="6">
+<![CDATA[// in scale both can never be the same, only if not valid input OR if user forgot to fillin data. lets take care of that :)]]>
+</Line>
+<Line Number="7">
+<![CDATA[if Scaled_Max=Scaled_Min then]]>
+</Line>
+<Line Number="8">
+<![CDATA[	Scaled_Max:=100;]]>
+</Line>
+<Line Number="9">
+<![CDATA[	Scaled_Min:=0;]]>
+</Line>
+<Line Number="10">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="11">
+<![CDATA[]]>
+</Line>
+<Line Number="12">
+<![CDATA[// in scale both can never be the same, only if not valid input OR if user forgot to fillin data. lets take care of that :)]]>
+</Line>
+<Line Number="13">
+<![CDATA[if AlarmValue_HIGH=AlarmValue_LOW then]]>
+</Line>
+<Line Number="14">
+<![CDATA[	AlarmValue_HIGH:=Scaled_Max;]]>
+</Line>
+<Line Number="15">
+<![CDATA[	AlarmValue_LOW:=Scaled_Min;]]>
+</Line>
+<Line Number="16">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="17">
+<![CDATA[]]>
+</Line>
+<Line Number="18">
 <![CDATA[]]>
 </Line>
 </STContent>
