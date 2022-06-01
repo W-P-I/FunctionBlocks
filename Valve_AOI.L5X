@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Valve" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-10-22T06:52:19.182Z" ContainsContext="true" ExportDate="Tue May 31 11:00:08 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Valve" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-06-01T12:53:43.203Z" ContainsContext="true" ExportDate="Wed Jun 01 14:54:25 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
@@ -1498,8 +1498,8 @@ Output from state model to wrk bits
 <Dependency Type="DataType" Name="ISA88_States_txt"/>
 </Dependencies>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="Valve" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-03-27T21:44:40.788Z" CreatedBy="WPI\engineer" EditedDate="2021-10-22T06:52:19.182Z"
- EditedBy="WPI\engineer" SoftwareRevision="v33.00">
+<AddOnInstructionDefinition Use="Target" Name="Valve" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-03-27T21:44:40.788Z" CreatedBy="WPI\engineer" EditedDate="2022-06-01T12:53:43.203Z"
+ EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
 <Description>
@@ -1653,270 +1653,248 @@ normally closed
 </Structure>
 </DefaultData>
 </LocalTag>
+<LocalTag Name="reset_ons" DataType="FBD_ONESHOT" ExternalAccess="None">
+<Description>
+<![CDATA[reset on falling edge]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[1,0,5.60519386e-045]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_ONESHOT">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="InputBit" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OutputBit" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="TRUE" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[ati]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="FALSE" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[afi]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
 </LocalTags>
 <Routines>
 <Routine Name="Logic" Type="ST">
 <STContent>
 <Line Number="0">
-<![CDATA[feedbackTimer.PRE:=FeedbackTime;]]>
+<![CDATA[TRUE:=1;								// macro for bool]]>
 </Line>
 <Line Number="1">
-<![CDATA[TONR(feedbackTimer);]]>
+<![CDATA[FALSE:=0;								// macro for bool]]>
 </Line>
 <Line Number="2">
-<![CDATA[]]>
+<![CDATA[feedbackTimer.PRE:=FeedbackTime;		// timer.pre]]>
 </Line>
 <Line Number="3">
-<![CDATA[if reset then Error:=0; State:=0;  end_if;]]>
+<![CDATA[TONR(feedbackTimer);					// timer object]]>
 </Line>
 <Line Number="4">
-<![CDATA[]]>
+<![CDATA[reset_ons.InputBit:=reset;				// map reset signal to oneshot ]]>
 </Line>
 <Line Number="5">
-<![CDATA[if Manual_Turn_On AND NOT (PackML.Sts_Manual AND PackML.wrk_Execute) then Manual_Turn_On:=0; end_if;		// prevent manual start when machine is not in correct state]]>
+<![CDATA[OSFI(reset_ons);						// reset on falling edge object]]>
 </Line>
 <Line Number="6">
-<![CDATA[]]>
+<![CDATA[if Manual_Turn_On AND NOT (PackML.Sts_Manual AND PackML.wrk_Execute) then Manual_Turn_On:=0; end_if;		// prevent manual start when machine is not in correct state]]>
 </Line>
 <Line Number="7">
-<![CDATA[/* if no error, check valve condition */]]>
+<![CDATA[#region reset once faulted]]>
 </Line>
 <Line Number="8">
-<![CDATA[if NOT Error then]]>
+<![CDATA[	if reset_ons.OutputBit then				]]>
 </Line>
 <Line Number="9">
-<![CDATA[	if NO_or_NC then]]>
+<![CDATA[		if Error OR State=4 then	]]>
 </Line>
 <Line Number="10">
-<![CDATA[		/* Normaly closed valve turn on */]]>
+<![CDATA[			Error	:=FALSE;			// reset error state]]>
 </Line>
 <Line Number="11">
-<![CDATA[		if Turn_On OR (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) then]]>
+<![CDATA[			State	:=0;				// set valve in 0 state]]>
 </Line>
 <Line Number="12">
-<![CDATA[			Valve_Out:=0; // turn on valve]]>
+<![CDATA[		end_if;]]>
 </Line>
 <Line Number="13">
-<![CDATA[		else ]]>
+<![CDATA[	end_if;]]>
 </Line>
 <Line Number="14">
-<![CDATA[			Valve_Out:=1;// turn off valve]]>
+<![CDATA[#endregion]]>
 </Line>
 <Line Number="15">
-<![CDATA[		end_if;]]>
+<![CDATA[#region Valve is normally closed]]>
 </Line>
 <Line Number="16">
-<![CDATA[	else]]>
+<![CDATA[/* ]]>
 </Line>
 <Line Number="17">
-<![CDATA[		/* Normaly open valve turn on */]]>
+<![CDATA[NO_or_NC = TRUE,	then valve will be Normally closed]]>
 </Line>
 <Line Number="18">
-<![CDATA[		if Turn_On OR (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) then]]>
+<![CDATA[NO_or_NC = FALSE, 	then valve will be Normally open]]>
 </Line>
 <Line Number="19">
-<![CDATA[			Valve_Out:=1;// turn on valve]]>
+<![CDATA[*/]]>
 </Line>
 <Line Number="20">
-<![CDATA[		else]]>
+<![CDATA[	if NO_or_NC then]]>
 </Line>
 <Line Number="21">
-<![CDATA[			Valve_Out:=0;// turn off valve]]>
+<![CDATA[		if NOT 	Manual_Turn_On AND 		Turn_On then State:=1; HMI_color:=1; end_if; // valve is turned on by program.]]>
 </Line>
 <Line Number="22">
-<![CDATA[		end_if;]]>
+<![CDATA[		if 		Manual_Turn_On AND 	NOT	Turn_On then State:=3; HMI_color:=3; end_if; // valve is turned on by manual.]]>
 </Line>
 <Line Number="23">
-<![CDATA[	end_if;]]>
+<![CDATA[		if NOT	Manual_Turn_On AND 	NOT	Turn_On then State:=0; HMI_color:=0; end_if; // valve is turned NOT turned on.		]]>
 </Line>
 <Line Number="24">
-<![CDATA[end_if;]]>
-</Line>
-<Line Number="25">
-<![CDATA[]]>
-</Line>
-<Line Number="26">
-<![CDATA[/* Turn off valve on error */]]>
-</Line>
-<Line Number="27">
-<![CDATA[if Error then ]]>
-</Line>
-<Line Number="28">
-<![CDATA[	if NO_or_NC 	then Valve_Out:=1; end_if;]]>
-</Line>
-<Line Number="29">
-<![CDATA[	if NOT NO_or_NC then Valve_Out:=0; end_if;]]>
-</Line>
-<Line Number="30">
-<![CDATA[end_if;]]>
-</Line>
-<Line Number="31">
-<![CDATA[]]>
-</Line>
-<Line Number="32">
-<![CDATA[/* check if feedback is active, on turn on and on turn off*/]]>
-</Line>
-<Line Number="33">
-<![CDATA[if ((Turn_On & Valve_Out & NOT Feedback_signal) OR (NOT Turn_On & NOT Valve_Out & Feedback_signal) & NOT Error) then]]>
-</Line>
-<Line Number="34">
-<![CDATA[	if feedbackTimer.Reset 				then feedbackTimer.Reset:=0; 		end_If;	 	// clear timer reset ]]>
-</Line>
-<Line Number="35">
-<![CDATA[	if NOT feedbackTimer.EN 			then feedbackTimer.EN:=1; 			end_If;		// Enable timer if timer was not enabled]]>
-</Line>
-<Line Number="36">
-<![CDATA[	if NOT feedbackTimer.TimerEnable 	then feedbackTimer.TimerEnable:=1; 	end_If;		// Enable timer if timer was not enabled]]>
-</Line>
-<Line Number="37">
-<![CDATA[else]]>
-</Line>
-<Line Number="38">
-<![CDATA[	if feedbackTimer.EN 				then feedbackTimer.EN:=0; 			end_If;		// disable timer if timer was enabled]]>
-</Line>
-<Line Number="39">
-<![CDATA[	if feedbackTimer.TimerEnable 		then feedbackTimer.TimerEnable:=0; 	end_If;		// disable timer if timer was enabled]]>
-</Line>
-<Line Number="40">
-<![CDATA[	feedbackTimer.Reset:=1;			// reset timer]]>
-</Line>
-<Line Number="41">
-<![CDATA[end_if;]]>
-</Line>
-<Line Number="42">
-<![CDATA[]]>
-</Line>
-<Line Number="43">
-<![CDATA[]]>
-</Line>
-<Line Number="44">
-<![CDATA[/* state selection */]]>
-</Line>
-<Line Number="45">
-<![CDATA[if NOT Error then ]]>
-</Line>
-<Line Number="46">
-<![CDATA[	if (NOT Valve_Out & NOT NO_or_NC) & NOT feedbackTimer.TimerEnable then														// valve is not turned on]]>
-</Line>
-<Line Number="47">
-<![CDATA[		State:=0;]]>
-</Line>
-<Line Number="48">
-<![CDATA[	elsif (NOT NO_or_NC & NOT (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & Valve_Out & NOT feedbackTimer.DN) & NOT feedbackTimer.TimerEnable then			// valve NC is turned on by program]]>
-</Line>
-<Line Number="49">
-<![CDATA[		State:=1;]]>
-</Line>
-<Line Number="50">
-<![CDATA[	elsif (NO_or_NC & NOT (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & Turn_On & NOT feedbackTimer.DN) then													// valve NO is turned on by program]]>
-</Line>
-<Line Number="51">
-<![CDATA[		State:=0;]]>
-</Line>
-<Line Number="52">
-<![CDATA[	elsif (NO_or_NC & NOT (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & NOT Turn_On & NOT feedbackTimer.DN) then												// valve NO is turned on by program]]>
-</Line>
-<Line Number="53">
-<![CDATA[		State:=1;	]]>
-</Line>
-<Line Number="54">
-<![CDATA[	elsif (Valve_Out & (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & NOT feedbackTimer.DN) & NOT feedbackTimer.TimerEnable then								// valve is turned on by HMI]]>
-</Line>
-<Line Number="55">
-<![CDATA[		State:=3;]]>
-</Line>
-<Line Number="56">
-<![CDATA[	elsif (NOT Valve_Out & (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) & NOT Turn_On & NOT feedbackTimer.DN) & NOT feedbackTimer.TimerEnable then			// valve is turned on by HMI]]>
-</Line>
-<Line Number="57">
-<![CDATA[		State:=0;]]>
-</Line>
-<Line Number="58">
-<![CDATA[		HMI_color:=3;	]]>
-</Line>
-<Line Number="59">
-<![CDATA[	elsif feedbackTimer.DN then]]>
-</Line>
-<Line Number="60">
-<![CDATA[		State:=4;]]>
-</Line>
-<Line Number="61">
-<![CDATA[		Error:=1;]]>
-</Line>
-<Line Number="62">
 <![CDATA[	end_if;]]>
 </Line>
+<Line Number="25">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="26">
+<![CDATA[#region Valve is normally open]]>
+</Line>
+<Line Number="27">
+<![CDATA[	if NOT NO_or_NC then]]>
+</Line>
+<Line Number="28">
+<![CDATA[		if NOT 	Manual_Turn_On AND 		Turn_On then State:=0; HMI_color:=1; end_if; // valve is turned off.]]>
+</Line>
+<Line Number="29">
+<![CDATA[		if 		Manual_Turn_On AND 	NOT	Turn_On then State:=0; HMI_color:=3; end_if; // valve is turned off by manual.]]>
+</Line>
+<Line Number="30">
+<![CDATA[		if NOT	Manual_Turn_On AND 	NOT	Turn_On then State:=1; HMI_color:=0; end_if; // valve is turned on.	]]>
+</Line>
+<Line Number="31">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="32">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="33">
+<![CDATA[#region feedback timer]]>
+</Line>
+<Line Number="34">
+<![CDATA[/*]]>
+</Line>
+<Line Number="35">
+<![CDATA[once feedback signal is not equals to valveout signal start feedback timer, if timer reaches .dn generate an error. ]]>
+</Line>
+<Line Number="36">
+<![CDATA[if feedback signal is ealier back then timeout time reset the timer. ]]>
+</Line>
+<Line Number="37">
+<![CDATA[*/]]>
+</Line>
+<Line Number="38">
+<![CDATA[	if ( Valve_Out AND NOT Feedback_signal ) OR ( NOT Valve_Out AND Feedback_signal ) then]]>
+</Line>
+<Line Number="39">
+<![CDATA[		feedbackTimer.Reset			:=FALSE;]]>
+</Line>
+<Line Number="40">
+<![CDATA[		feedbackTimer.TimerEnable	:=TRUE;]]>
+</Line>
+<Line Number="41">
+<![CDATA[	else]]>
+</Line>
+<Line Number="42">
+<![CDATA[		feedbackTimer.Reset			:=TRUE;]]>
+</Line>
+<Line Number="43">
+<![CDATA[		feedbackTimer.TimerEnable	:=FALSE;]]>
+</Line>
+<Line Number="44">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="45">
+<![CDATA[	if feedbackTimer.DN then]]>
+</Line>
+<Line Number="46">
+<![CDATA[		Error:=TRUE;]]>
+</Line>
+<Line Number="47">
+<![CDATA[		State:=4;]]>
+</Line>
+<Line Number="48">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="49">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="50">
+<![CDATA[#region Valve output signal]]>
+</Line>
+<Line Number="51">
+<![CDATA[	case State of]]>
+</Line>
+<Line Number="52">
+<![CDATA[		0:/*Valve not active*/]]>
+</Line>
+<Line Number="53">
+<![CDATA[			Valve_Out:=0;	]]>
+</Line>
+<Line Number="54">
+<![CDATA[		1:/*Valve is turned on*/]]>
+</Line>
+<Line Number="55">
+<![CDATA[			Valve_Out:=1;]]>
+</Line>
+<Line Number="56">
+<![CDATA[		2:/*spare*/]]>
+</Line>
+<Line Number="57">
+<![CDATA[			// currently no operation ]]>
+</Line>
+<Line Number="58">
+<![CDATA[		3:/*Valve is turned on manually*/]]>
+</Line>
+<Line Number="59">
+<![CDATA[			Valve_Out:=1;]]>
+</Line>
+<Line Number="60">
+<![CDATA[		4:/*faulted*/]]>
+</Line>
+<Line Number="61">
+<![CDATA[			if 		NO_or_NC then Valve_Out:=0; end_if;]]>
+</Line>
+<Line Number="62">
+<![CDATA[			if NOT 	NO_or_NC then Valve_Out:=1; end_if;]]>
+</Line>
 <Line Number="63">
-<![CDATA[end_if;]]>
+<![CDATA[		else]]>
 </Line>
 <Line Number="64">
-<![CDATA[]]>
+<![CDATA[	end_case;]]>
 </Line>
 <Line Number="65">
-<![CDATA[]]>
+<![CDATA[#endregion]]>
 </Line>
 <Line Number="66">
 <![CDATA[]]>
-</Line>
-<Line Number="67">
-<![CDATA[/* HMI valve color selection */]]>
-</Line>
-<Line Number="68">
-<![CDATA[case State of]]>
-</Line>
-<Line Number="69">
-<![CDATA[	0:// valve is not active]]>
-</Line>
-<Line Number="70">
-<![CDATA[		if NOT NO_or_NC then HMI_color:=State; end_if;]]>
-</Line>
-<Line Number="71">
-<![CDATA[		if NO_or_NC AND Turn_On then HMI_color:=1; end_if;]]>
-</Line>
-<Line Number="72">
-<![CDATA[		if NO_or_NC AND (Manual_Turn_On AND PackML.Sts_Manual AND PackML.wrk_Execute) then HMI_color:=3; end_if;]]>
-</Line>
-<Line Number="73">
-<![CDATA[	1:// valve is active]]>
-</Line>
-<Line Number="74">
-<![CDATA[		if NOT NO_or_NC then HMI_color:=State; end_if;]]>
-</Line>
-<Line Number="75">
-<![CDATA[		if NO_or_NC then HMI_color:=0; end_if;]]>
-</Line>
-<Line Number="76">
-<![CDATA[	2:// spare]]>
-</Line>
-<Line Number="77">
-<![CDATA[		HMI_color:=State;]]>
-</Line>
-<Line Number="78">
-<![CDATA[	3:// Manual turned on]]>
-</Line>
-<Line Number="79">
-<![CDATA[		if NOT NO_or_NC then HMI_color:=State; end_if;]]>
-</Line>
-<Line Number="80">
-<![CDATA[		if NO_or_NC then HMI_color:=0; end_if;]]>
-</Line>
-<Line Number="81">
-<![CDATA[	4:// Feedback fault]]>
-</Line>
-<Line Number="82">
-<![CDATA[		HMI_color:=State;]]>
-</Line>
-<Line Number="83">
-<![CDATA[	else]]>
-</Line>
-<Line Number="84">
-<![CDATA[	// state is outside of range, set to 0]]>
-</Line>
-<Line Number="85">
-<![CDATA[	State:=0;]]>
-</Line>
-<Line Number="86">
-<![CDATA[end_case;]]>
 </Line>
 </STContent>
 </Routine>
