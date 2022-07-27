@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-07-27T07:01:20.370Z" ContainsContext="true" ExportDate="Wed Jul 27 09:03:54 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-07-27T07:17:54.030Z" ContainsContext="true" ExportDate="Wed Jul 27 09:18:38 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML" Family="NoFamily" Class="User">
@@ -486,7 +486,7 @@ Aborted]]>
 </DataType>
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="Servo_Object" Class="Standard" Revision="1.2" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-05-06T08:56:11.685Z" CreatedBy="WPI\tom.reit" EditedDate="2022-07-27T07:01:20.370Z" EditedBy="WPI\tom.reit"
+<AddOnInstructionDefinition Use="Target" Name="Servo_Object" Class="Standard" Revision="1.2" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-05-06T08:56:11.685Z" CreatedBy="WPI\tom.reit" EditedDate="2022-07-27T07:17:54.030Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
 <RevisionNote>
 <![CDATA[Added motion intrustions reset command, once reset is active set all flags back to 0. so no previous state is in memory. Also unlatch all input signals if they were previous active while error occoured.]]>
@@ -1944,6 +1944,31 @@ only used for calculations as step inbetween because studio 5000 is idiot softwa
 <DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
 </DefaultData>
 </LocalTag>
+<LocalTag Name="MSF_Axis_Reset" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
 </LocalTags>
 <Routines>
 <Routine Name="Logic" Type="ST">
@@ -2009,966 +2034,981 @@ only used for calculations as step inbetween because studio 5000 is idiot softwa
 <![CDATA[	reset_ons.InputBit:=Inp_Reset;										// input reset signal]]>
 </Line>
 <Line Number="20">
-<![CDATA[	if reset_ons.OutputBit then MSO_Axis.FLAGS:=0; end_if;				// set MSO flags to 0.]]>
+<![CDATA[	if reset_ons.OutputBit then MSO_Axis.FLAGS			:=0; end_if;	// set MSO flags to 0.]]>
 </Line>
 <Line Number="21">
-<![CDATA[	if reset_ons.OutputBit then MSF_Axis.FLAGS:=0; end_if;				// set MSF flags to 0.]]>
+<![CDATA[	if reset_ons.OutputBit then MSF_Axis.FLAGS			:=0; end_if;	// set MSF flags to 0.]]>
 </Line>
 <Line Number="22">
-<![CDATA[	if reset_ons.OutputBit then MAM_Axis.FLAGS:=0; end_if;				// set MAM flags to 0.]]>
+<![CDATA[	if reset_ons.OutputBit then MAM_Axis.FLAGS			:=0; end_if;	// set MAM flags to 0.]]>
 </Line>
 <Line Number="23">
-<![CDATA[	if reset_ons.OutputBit then MAS_Axis.FLAGS:=0; end_if;				// set MAS flags to 0.]]>
+<![CDATA[	if reset_ons.OutputBit then MAS_Axis.FLAGS			:=0; end_if;	// set MAS flags to 0.]]>
 </Line>
 <Line Number="24">
-<![CDATA[	]]>
+<![CDATA[	if reset_ons.OutputBit then MSF_Axis_Reset.FLAGS	:=0; end_if;	// set MAS flags to 0]]>
 </Line>
 <Line Number="25">
-<![CDATA[	if reset_ons.OutputBit then SEQ_Enable:=0; end_if;					// set SEQ_Enable to 0.]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="26">
-<![CDATA[	if reset_ons.OutputBit then SEQ_Stopping:=0; end_if;				// set SEQ_Stopping to 0.]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="27">
-<![CDATA[	]]>
+<![CDATA[	if reset_ons.OutputBit then SEQ_Enable:=0; end_if;					// set SEQ_Enable to 0.]]>
 </Line>
 <Line Number="28">
-<![CDATA[	if Inp_Enable AND reset_ons.OutputBit AND Sts_Faulted 	then Inp_Enable	:=	FALSE; end_if;]]>
+<![CDATA[	if reset_ons.OutputBit then SEQ_Stopping:=0; end_if;				// set SEQ_Stopping to 0.]]>
 </Line>
 <Line Number="29">
-<![CDATA[	if Inp_Disable AND reset_ons.OutputBit AND Sts_Faulted	then Inp_Disable:=	FALSE; end_if;]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="30">
-<![CDATA[	if Inp_Stop AND reset_ons.OutputBit AND Sts_Faulted		then Inp_Stop	:=	FALSE; end_if;]]>
+<![CDATA[	if Inp_Enable AND reset_ons.OutputBit AND Sts_Faulted 	then Inp_Enable	:=	FALSE; end_if;]]>
 </Line>
 <Line Number="31">
-<![CDATA[	]]>
+<![CDATA[	if Inp_Disable AND reset_ons.OutputBit AND Sts_Faulted	then Inp_Disable:=	FALSE; end_if;]]>
 </Line>
 <Line Number="32">
-<![CDATA[	if reset_ons.OutputBit and Error then Error:=FALSE; end_if;			// if Error is active, set error to false. ]]>
+<![CDATA[	if Inp_Stop AND reset_ons.OutputBit AND Sts_Faulted		then Inp_Stop	:=	FALSE; end_if;]]>
 </Line>
 <Line Number="33">
-<![CDATA[	if reset_ons.OutputBit then MAFR(Axis_Object,MAFR_Axis); end_if;	// Reset axis on output from reset signal.]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="34">
-<![CDATA[	if MAFR_Axis.ER AND MAFR_Axis.EN then Error:=TRUE; end_if;			// if while resetting axis fault occours, set Error back to true. ]]>
+<![CDATA[	if reset_ons.OutputBit and Error then Error:=FALSE; end_if;			// if Error is active, set error to false. ]]>
 </Line>
 <Line Number="35">
-<![CDATA[#endregion]]>
+<![CDATA[	if reset_ons.OutputBit then MAFR(Axis_Object,MAFR_Axis); end_if;	// Reset axis on output from reset signal.]]>
 </Line>
 <Line Number="36">
-<![CDATA[#region Fault handler ]]>
+<![CDATA[	if MAFR_Axis.ER AND MAFR_Axis.EN then Error:=TRUE; end_if;			// if while resetting axis fault occours, set Error back to true. ]]>
 </Line>
 <Line Number="37">
-<![CDATA[	//if Wrk_AxisState 					=8		then Error:=TRUE; end_if;	// tijdelijk uit ]]>
+<![CDATA[#endregion]]>
 </Line>
 <Line Number="38">
-<![CDATA[	//if Wrk_AxisState 					=5		then Error:=TRUE; end_if;  // tijdelijk uit ]]>
+<![CDATA[#region Fault handler ]]>
 </Line>
 <Line Number="39">
-<![CDATA[	if Axis_Object.MotionAlarmStatus	<>0 	then Error:=TRUE; end_if;]]>
+<![CDATA[	//if Wrk_AxisState 					=8		then Error:=TRUE; end_if;	// tijdelijk uit ]]>
 </Line>
 <Line Number="40">
-<![CDATA[	if Axis_Object.AxisFault			<>0 	then Error:=TRUE; end_if;	]]>
+<![CDATA[	//if Wrk_AxisState 					=5		then Error:=TRUE; end_if;  // tijdelijk uit ]]>
 </Line>
 <Line Number="41">
-<![CDATA[	if Axis_Object.MotionFaultStatus	<>0		then Error:=TRUE; end_if;]]>
+<![CDATA[	if Axis_Object.MotionAlarmStatus	<>0 	then Error:=TRUE; end_if;]]>
 </Line>
 <Line Number="42">
-<![CDATA[	if MSO_Axis.ER AND MSO_Axis.EN				THEN Error:=TRUE; end_if;]]>
+<![CDATA[	if Axis_Object.AxisFault			<>0 	then Error:=TRUE; end_if;	]]>
 </Line>
 <Line Number="43">
-<![CDATA[	if MSF_Axis.ER AND MSF_Axis.EN				THEN Error:=TRUE; end_if;]]>
+<![CDATA[	if Axis_Object.MotionFaultStatus	<>0		then Error:=TRUE; end_if;]]>
 </Line>
 <Line Number="44">
-<![CDATA[	if MAS_Axis.ER AND MAS_Axis.EN				THEN Error:=TRUE; end_if;]]>
+<![CDATA[	if MSO_Axis.ER AND MSO_Axis.EN				THEN Error:=TRUE; end_if;]]>
 </Line>
 <Line Number="45">
-<![CDATA[	if MAM_Axis.ER AND MAM_Axis.EN				THEN Error:=TRUE; end_if;]]>
+<![CDATA[	if MSF_Axis.ER AND MSF_Axis.EN				THEN Error:=TRUE; end_if;]]>
 </Line>
 <Line Number="46">
-<![CDATA[	]]>
+<![CDATA[	if MAS_Axis.ER AND MAS_Axis.EN				THEN Error:=TRUE; end_if;]]>
 </Line>
 <Line Number="47">
-<![CDATA[	Sts_Faulted:=Error;]]>
+<![CDATA[	if MAM_Axis.ER AND MAM_Axis.EN				THEN Error:=TRUE; end_if;]]>
 </Line>
 <Line Number="48">
-<![CDATA[]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="49">
-<![CDATA[	/* debug list */]]>
+<![CDATA[	Sts_Faulted:=Error;]]>
 </Line>
 <Line Number="50">
-<![CDATA[	if MSO_Axis.ER AND MSO_Axis.EN then Alarm_MSO_Axis:=TRUE; end_if;]]>
+<![CDATA[]]>
 </Line>
 <Line Number="51">
-<![CDATA[	if MSF_Axis.ER AND MSF_Axis.EN then Alarm_MSF_Axis:=TRUE; end_if;]]>
+<![CDATA[	/* debug list */]]>
 </Line>
 <Line Number="52">
-<![CDATA[	if MAS_Axis.ER AND MAS_Axis.EN then Alarm_MAS_Axis:=TRUE; end_if;]]>
+<![CDATA[	if MSO_Axis.ER AND MSO_Axis.EN then Alarm_MSO_Axis:=TRUE; end_if;]]>
 </Line>
 <Line Number="53">
-<![CDATA[	if MAM_Axis.ER AND MAM_Axis.EN then Alarm_MAM_Axis:=TRUE; end_if;]]>
+<![CDATA[	if MSF_Axis.ER AND MSF_Axis.EN then Alarm_MSF_Axis:=TRUE; end_if;]]>
 </Line>
 <Line Number="54">
-<![CDATA[	]]>
+<![CDATA[	if MAS_Axis.ER AND MAS_Axis.EN then Alarm_MAS_Axis:=TRUE; end_if;]]>
 </Line>
 <Line Number="55">
-<![CDATA[	if Inp_Reset then ]]>
+<![CDATA[	if MAM_Axis.ER AND MAM_Axis.EN then Alarm_MAM_Axis:=TRUE; end_if;]]>
 </Line>
 <Line Number="56">
-<![CDATA[		Alarm_MSO_Axis	:=	FALSE;]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="57">
-<![CDATA[		Alarm_MSF_Axis	:=	FALSE;]]>
+<![CDATA[	if Inp_Reset then ]]>
 </Line>
 <Line Number="58">
-<![CDATA[		Alarm_MAS_Axis	:=	FALSE;]]>
+<![CDATA[		Alarm_MSO_Axis	:=	FALSE;]]>
 </Line>
 <Line Number="59">
-<![CDATA[		Alarm_MAM_Axis	:=	FALSE;]]>
+<![CDATA[		Alarm_MSF_Axis	:=	FALSE;]]>
 </Line>
 <Line Number="60">
-<![CDATA[	end_if;]]>
+<![CDATA[		Alarm_MAS_Axis	:=	FALSE;]]>
 </Line>
 <Line Number="61">
-<![CDATA[	]]>
+<![CDATA[		Alarm_MAM_Axis	:=	FALSE;]]>
 </Line>
 <Line Number="62">
-<![CDATA[	]]>
+<![CDATA[	end_if;]]>
 </Line>
 <Line Number="63">
-<![CDATA[#endregion]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="64">
-<![CDATA[#region Drive Enable / Disable]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="65">
-<![CDATA[	if Inp_Enable 	AND SEQ_Enable=0 then SEQ_Enable:=10; end_if;]]>
+<![CDATA[#endregion]]>
 </Line>
 <Line Number="66">
-<![CDATA[	if Inp_Disable 	AND SEQ_Enable=0 then SEQ_Enable:=110; end_if;]]>
+<![CDATA[#region Drive Enable / Disable]]>
 </Line>
 <Line Number="67">
-<![CDATA[	case SEQ_Enable of]]>
+<![CDATA[	if Inp_Enable 	AND SEQ_Enable=0 then SEQ_Enable:=10; end_if;]]>
 </Line>
 <Line Number="68">
-<![CDATA[		/* ]]>
+<![CDATA[	if Inp_Disable 	AND SEQ_Enable=0 then SEQ_Enable:=110; end_if;]]>
 </Line>
 <Line Number="69">
-<![CDATA[		state transmittions ]]>
+<![CDATA[	case SEQ_Enable of]]>
 </Line>
 <Line Number="70">
-<![CDATA[		 10 -> 40 	= Enable ]]>
+<![CDATA[		/* ]]>
 </Line>
 <Line Number="71">
-<![CDATA[		110 -> 140 	= Disable]]>
+<![CDATA[		state transmittions ]]>
 </Line>
 <Line Number="72">
-<![CDATA[		*/]]>
+<![CDATA[		 10 -> 40 	= Enable ]]>
 </Line>
 <Line Number="73">
-<![CDATA[		0: /* waiting for command */]]>
+<![CDATA[		110 -> 140 	= Disable]]>
 </Line>
 <Line Number="74">
-<![CDATA[			Sts_Enabled		:=		Axis_Object.DriveEnableStatus;]]>
+<![CDATA[		*/]]>
 </Line>
 <Line Number="75">
-<![CDATA[			Sts_Disabled	:= NOT 	Axis_Object.DriveEnableStatus;			]]>
+<![CDATA[		0: /* waiting for command */]]>
 </Line>
 <Line Number="76">
-<![CDATA[		#region Enable drive	]]>
+<![CDATA[			Sts_Enabled		:=		Axis_Object.DriveEnableStatus;]]>
 </Line>
 <Line Number="77">
-<![CDATA[		10: /* Recieve command from user, start enabling drive */]]>
+<![CDATA[			Sts_Disabled	:= NOT 	Axis_Object.DriveEnableStatus;			]]>
 </Line>
 <Line Number="78">
-<![CDATA[			if 		Axis_Object.DriveEnableStatus then SEQ_Enable:=0; Sts_Enabled:=FALSE; 	end_if;// drive was already enabled.]]>
+<![CDATA[		#region Enable drive	]]>
 </Line>
 <Line Number="79">
-<![CDATA[			if 	NOT Axis_Object.DriveEnableStatus then SEQ_Enable:=20; 	end_if;// drive was not enabled start enabling.]]>
+<![CDATA[		10: /* Recieve command from user, start enabling drive */]]>
 </Line>
 <Line Number="80">
-<![CDATA[			]]>
+<![CDATA[			if 		Axis_Object.DriveEnableStatus then SEQ_Enable:=0; Sts_Enabled:=FALSE; 	end_if;// drive was already enabled.]]>
 </Line>
 <Line Number="81">
-<![CDATA[		20: /* Check for servo faults, if there are any */]]>
+<![CDATA[			if 	NOT Axis_Object.DriveEnableStatus then SEQ_Enable:=20; 	end_if;// drive was not enabled start enabling.]]>
 </Line>
 <Line Number="82">
-<![CDATA[			if 		Error then SEQ_Enable	:=999; 	end_if;]]>
-</Line>
-<Line Number="83">
-<![CDATA[			if NOT 	Error then SEQ_Enable	:=30; 	end_if;]]>
-</Line>
-<Line Number="84">
-<![CDATA[		30:	/* Enable servo */]]>
-</Line>
-<Line Number="85">
-<![CDATA[			MSO(Axis_Object,MSO_Axis);]]>
-</Line>
-<Line Number="86">
-<![CDATA[			SEQ_Enable:=35;]]>
-</Line>
-<Line Number="87">
-<![CDATA[		35: /* wait for feedback from MSO */]]>
-</Line>
-<Line Number="88">
-<![CDATA[			if MSO_Axis.EN AND MSO_Axis.DN then SEQ_Enable:=40; 	end_if;]]>
-</Line>
-<Line Number="89">
-<![CDATA[			if MSO_Axis.EN AND MSO_Axis.ER then SEQ_Enable:=999; 	end_if;]]>
-</Line>
-<Line Number="90">
-<![CDATA[		40:	/* Servo is enabled and ready to recieve commands */]]>
-</Line>
-<Line Number="91">
-<![CDATA[			if NOT 	Axis_Object.PowerStructureEnabledStatus then SEQ_Enable:=999; 	end_if;]]>
-</Line>
-<Line Number="92">
-<![CDATA[			if 		Axis_Object.PowerStructureEnabledStatus then ]]>
-</Line>
-<Line Number="93">
-<![CDATA[				Inp_Enable:=FALSE;		// feedback to user, execution was done.]]>
-</Line>
-<Line Number="94">
-<![CDATA[				SEQ_Enable:=0; 	]]>
-</Line>
-<Line Number="95">
-<![CDATA[			end_if;]]>
-</Line>
-<Line Number="96">
-<![CDATA[		#endregion	]]>
-</Line>
-<Line Number="97">
-<![CDATA[		#region Disable drive		]]>
-</Line>
-<Line Number="98">
-<![CDATA[		110: /* Recieve command from user, start Disabling drive */]]>
-</Line>
-<Line Number="99">
-<![CDATA[			if 		Axis_Object.DriveEnableStatus then SEQ_Enable:=120; end_if;	// drive was not Disabled start disabling]]>
-</Line>
-<Line Number="100">
-<![CDATA[			if 	NOT Axis_Object.DriveEnableStatus then SEQ_Enable:=0; Inp_Disable:=FALSE; 	end_if;	// drive was already disabled.]]>
-</Line>
-<Line Number="101">
 <![CDATA[			]]>
 </Line>
-<Line Number="102">
-<![CDATA[		120: /* Check for servo faults, if there are any */]]>
+<Line Number="83">
+<![CDATA[		20: /* Check for servo faults, if there are any */]]>
 </Line>
-<Line Number="103">
+<Line Number="84">
 <![CDATA[			if 		Error then SEQ_Enable	:=999; 	end_if;]]>
 </Line>
-<Line Number="104">
-<![CDATA[			if NOT 	Error then SEQ_Enable	:=130; 	end_if;]]>
+<Line Number="85">
+<![CDATA[			if NOT 	Error then SEQ_Enable	:=30; 	end_if;]]>
 </Line>
-<Line Number="105">
-<![CDATA[		130:	/* Disable servo */]]>
+<Line Number="86">
+<![CDATA[		30:	/* Enable servo */]]>
 </Line>
-<Line Number="106">
-<![CDATA[			MSF(Axis_Object,MSF_Axis);]]>
+<Line Number="87">
+<![CDATA[			MSO(Axis_Object,MSO_Axis);]]>
 </Line>
-<Line Number="107">
-<![CDATA[			SEQ_Enable:=135;]]>
+<Line Number="88">
+<![CDATA[			SEQ_Enable:=35;]]>
 </Line>
-<Line Number="108">
-<![CDATA[		135: /* wait for feedback from MSF */]]>
+<Line Number="89">
+<![CDATA[		35: /* wait for feedback from MSO */]]>
 </Line>
-<Line Number="109">
-<![CDATA[			if MSF_Axis.EN AND MSF_Axis.DN then SEQ_Enable:=140; 	end_if;]]>
+<Line Number="90">
+<![CDATA[			if MSO_Axis.EN AND MSO_Axis.DN then SEQ_Enable:=40; 	end_if;]]>
 </Line>
-<Line Number="110">
-<![CDATA[			if MSF_Axis.EN AND MSF_Axis.ER then SEQ_Enable:=999; 	end_if;]]>
+<Line Number="91">
+<![CDATA[			if MSO_Axis.EN AND MSO_Axis.ER then SEQ_Enable:=999; 	end_if;]]>
 </Line>
-<Line Number="111">
-<![CDATA[		140:	/* Servo is Disabeld and ready to recieve commands */]]>
+<Line Number="92">
+<![CDATA[		40:	/* Servo is enabled and ready to recieve commands */]]>
 </Line>
-<Line Number="112">
-<![CDATA[			if  	Axis_Object.PowerStructureEnabledStatus then SEQ_Enable:=999; 	end_if;]]>
+<Line Number="93">
+<![CDATA[			if NOT 	Axis_Object.PowerStructureEnabledStatus then SEQ_Enable:=999; 	end_if;]]>
 </Line>
-<Line Number="113">
-<![CDATA[			if 	NOT	Axis_Object.PowerStructureEnabledStatus then ]]>
+<Line Number="94">
+<![CDATA[			if 		Axis_Object.PowerStructureEnabledStatus then ]]>
 </Line>
-<Line Number="114">
-<![CDATA[				Inp_Disable:=FALSE;		// feedback to user, execution was done.]]>
+<Line Number="95">
+<![CDATA[				Inp_Enable:=FALSE;		// feedback to user, execution was done.]]>
 </Line>
-<Line Number="115">
+<Line Number="96">
 <![CDATA[				SEQ_Enable:=0; 	]]>
 </Line>
+<Line Number="97">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="98">
+<![CDATA[		#endregion	]]>
+</Line>
+<Line Number="99">
+<![CDATA[		#region Disable drive		]]>
+</Line>
+<Line Number="100">
+<![CDATA[		110: /* Recieve command from user, start Disabling drive */]]>
+</Line>
+<Line Number="101">
+<![CDATA[			if 		Axis_Object.DriveEnableStatus then SEQ_Enable:=120; end_if;	// drive was not Disabled start disabling]]>
+</Line>
+<Line Number="102">
+<![CDATA[			if 	NOT Axis_Object.DriveEnableStatus then SEQ_Enable:=0; Inp_Disable:=FALSE; 	end_if;	// drive was already disabled.]]>
+</Line>
+<Line Number="103">
+<![CDATA[			]]>
+</Line>
+<Line Number="104">
+<![CDATA[		120: /* Check for servo faults, if there are any */]]>
+</Line>
+<Line Number="105">
+<![CDATA[			if 		Error then SEQ_Enable	:=999; 	end_if;]]>
+</Line>
+<Line Number="106">
+<![CDATA[			if NOT 	Error then SEQ_Enable	:=130; 	end_if;]]>
+</Line>
+<Line Number="107">
+<![CDATA[		130:	/* Disable servo */]]>
+</Line>
+<Line Number="108">
+<![CDATA[			MSF(Axis_Object,MSF_Axis);]]>
+</Line>
+<Line Number="109">
+<![CDATA[			SEQ_Enable:=135;]]>
+</Line>
+<Line Number="110">
+<![CDATA[		135: /* wait for feedback from MSF */]]>
+</Line>
+<Line Number="111">
+<![CDATA[			if MSF_Axis.EN AND MSF_Axis.DN then SEQ_Enable:=140; 	end_if;]]>
+</Line>
+<Line Number="112">
+<![CDATA[			if MSF_Axis.EN AND MSF_Axis.ER then SEQ_Enable:=999; 	end_if;]]>
+</Line>
+<Line Number="113">
+<![CDATA[		140:	/* Servo is Disabeld and ready to recieve commands */]]>
+</Line>
+<Line Number="114">
+<![CDATA[			if  	Axis_Object.PowerStructureEnabledStatus then SEQ_Enable:=999; 	end_if;]]>
+</Line>
+<Line Number="115">
+<![CDATA[			if 	NOT	Axis_Object.PowerStructureEnabledStatus then ]]>
+</Line>
 <Line Number="116">
-<![CDATA[			end_if;			]]>
+<![CDATA[				Inp_Disable:=FALSE;		// feedback to user, execution was done.]]>
 </Line>
 <Line Number="117">
-<![CDATA[		#endregion]]>
+<![CDATA[				SEQ_Enable:=0; 	]]>
 </Line>
 <Line Number="118">
-<![CDATA[		999: /* Error state */]]>
+<![CDATA[			end_if;			]]>
 </Line>
 <Line Number="119">
-<![CDATA[			Inp_Enable:=FALSE;		// feedback to user, execution was done.]]>
+<![CDATA[		#endregion]]>
 </Line>
 <Line Number="120">
-<![CDATA[			if reset_ons.OutputBit then SEQ_Enable:=0; end_if; // on reset set state back to 0. ]]>
-</Line>
-<Line Number="121">
-<![CDATA[		else]]>
-</Line>
-<Line Number="122">
-<![CDATA[			SEQ_Enable:=0;// undefined state, goes to 0]]>
-</Line>
-<Line Number="123">
-<![CDATA[	end_case;]]>
-</Line>
-<Line Number="124">
-<![CDATA[#endregion]]>
-</Line>
-<Line Number="125">
-<![CDATA[#region (Un)Inhibit drive / (Un)Inhibit motion axis]]>
-</Line>
-<Line Number="126">
-<![CDATA[	/* ]]>
-</Line>
-<Line Number="127">
-<![CDATA[		DriveStatus = 16#1000	// Faulted]]>
-</Line>
-<Line Number="128">
-<![CDATA[		DriveStatus = 16#4000	// running]]>
-</Line>
-<Line Number="129">
-<![CDATA[		DriveStatus = 16#6000	// inhibit]]>
-</Line>
-<Line Number="130">
-<![CDATA[	*/]]>
-</Line>
-<Line Number="131">
-<![CDATA[	GSV(Module,Module,EntryStatus,DriveStatus);					// Get entry status of module]]>
-</Line>
-<Line Number="132">
-<![CDATA[	if PackML.Disable_Module then ]]>
-</Line>
-<Line Number="133">
-<![CDATA[		Wrk_InhibitModule	:=4; 	SSV(Module,Module,Mode,Wrk_InhibitModule);			// inhibbit module]]>
-</Line>
-<Line Number="134">
-<![CDATA[		Wrk_InhibitAxis		:=1; 	SSV(Axis,Axis_Object,InhibitAxis,Wrk_InhibitAxis); 	// inhibbit Axis		]]>
-</Line>
-<Line Number="135">
-<![CDATA[	else]]>
-</Line>
-<Line Number="136">
-<![CDATA[		if DriveStatus = 16#6000 then ]]>
-</Line>
-<Line Number="137">
-<![CDATA[			Wrk_InhibitModule	:=0; 	SSV(Module,Module,Mode,Wrk_InhibitModule);			// inhibbit module]]>
-</Line>
-<Line Number="138">
-<![CDATA[			Wrk_InhibitAxis		:=0; 	SSV(Axis,Axis_Object,InhibitAxis,Wrk_InhibitAxis); 	// inhibbit Axis]]>
-</Line>
-<Line Number="139">
-<![CDATA[		end_if;]]>
-</Line>
-<Line Number="140">
-<![CDATA[	end_if;]]>
-</Line>
-<Line Number="141">
-<![CDATA[#endregion]]>
-</Line>
-<Line Number="142">
-<![CDATA[#region Fault String	]]>
-</Line>
-<Line Number="143">
-<![CDATA[	]]>
-</Line>
-<Line Number="144">
-<![CDATA[	GSV(Module,Module,FaultCode,Wrk_ModuleFaultCode);	]]>
-</Line>
-<Line Number="145">
-<![CDATA[	GSV(Axis,Axis_Object,AxisState,Wrk_AxisState);]]>
-</Line>
-<Line Number="146">
-<![CDATA[	GSV(Axis,Axis_Object,ModuleFaultBits,Wrk_ModuleFaultBits);]]>
-</Line>
-<Line Number="147">
-<![CDATA[	GSV(Axis,Axis_Object,AxisFaultBits,Wrk_AxisFaultBits);]]>
-</Line>
-<Line Number="148">
-<![CDATA[	GSV(Axis,Axis_Object,MotionFaultBits,Wrk_MotionFaultBits);]]>
-</Line>
-<Line Number="149">
-<![CDATA[	Wrk_CIPAxisFault:=Axis_Object.CIPAxisFaults;]]>
-</Line>
-<Line Number="150">
-<![CDATA[	/* Convert dints to String */]]>
-</Line>
-<Line Number="151">
-<![CDATA[	#region Clear strings using for loop to avoid using move etc, old plcs / older software versions 30 and below can't handle these operations, loser software verions]]>
-</Line>
-<Line Number="152">
-<![CDATA[		for i := 0 to 81 do]]>
-</Line>
-<Line Number="153">
-<![CDATA[			S_ModuleFaultCode.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
-</Line>
-<Line Number="154">
-<![CDATA[			S_AxisFaultBits.DATA[i]		:=	0;	// 0 DEC = '$00' ASCII]]>
-</Line>
-<Line Number="155">
-<![CDATA[			S_MotionFaultBits.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
-</Line>
-<Line Number="156">
-<![CDATA[			S_CIPAxisFault.DATA[i]		:=	0;	// 0 DEC = '$00' ASCII	]]>
-</Line>
-<Line Number="157">
-<![CDATA[			Wrk_FaultMessage.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
-</Line>
-<Line Number="158">
-<![CDATA[		end_for;]]>
-</Line>
-<Line Number="159">
-<![CDATA[		i:=0;									// set index to 0 ]]>
-</Line>
-<Line Number="160">
-<![CDATA[		S_CIPAxisFault.LEN		:=i;			// set String length to 0 ]]>
-</Line>
-<Line Number="161">
-<![CDATA[		Wrk_FaultMessage.LEN	:=i;			// set String length to 0 ]]>
-</Line>
-<Line Number="162">
-<![CDATA[		S_ModuleFaultCode.LEN	:=i;			// set String length to 0 ]]>
-</Line>
-<Line Number="163">
-<![CDATA[		S_AxisFaultBits.LEN		:=i;			// set String length to 0 ]]>
-</Line>
-<Line Number="164">
-<![CDATA[		S_MotionFaultBits.LEN	:=i;			// set String length to 0 ]]>
-</Line>
-<Line Number="165">
-<![CDATA[	#endregion]]>
-</Line>
-<Line Number="166">
-<![CDATA[	DTOS(Wrk_ModuleFaultCode,S_ModuleFaultCode);]]>
-</Line>
-<Line Number="167">
-<![CDATA[	DTOS(Wrk_AxisFaultBits,S_AxisFaultBits);]]>
-</Line>
-<Line Number="168">
-<![CDATA[	DTOS(Wrk_MotionFaultBits,S_MotionFaultBits);]]>
-</Line>
-<Line Number="169">
-<![CDATA[	#region build string]]>
-</Line>
-<Line Number="170">
-<![CDATA[		if 		Axis_Object.MotorOvercurrentFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[0],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvercurrentFault]]>
-</Line>
-<Line Number="171">
-<![CDATA[		elsif  	Axis_Object.MotorCommutationFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[1],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorCommutationFault]]>
-</Line>
-<Line Number="172">
-<![CDATA[		elsif  	Axis_Object.MotorOverspeedFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[2],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOverspeedFLFault]]>
-</Line>
-<Line Number="173">
-<![CDATA[		elsif  	Axis_Object.MotorOverspeedULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[3],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOverspeedULFault]]>
-</Line>
-<Line Number="174">
-<![CDATA[		elsif  	Axis_Object.MotorOvertemperatureFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[4],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvertemperatureFLFault]]>
-</Line>
-<Line Number="175">
-<![CDATA[		elsif  	Axis_Object.MotorOvertemperatureULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[5],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvertemperatureULFault]]>
-</Line>
-<Line Number="176">
-<![CDATA[		elsif  	Axis_Object.MotorThermalOverloadFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[6],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorThermalOverloadFLFault]]>
-</Line>
-<Line Number="177">
-<![CDATA[		elsif  	Axis_Object.MotorThermalOverloadULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[7],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorThermalOverloadULFault]]>
-</Line>
-<Line Number="178">
-<![CDATA[		elsif  	Axis_Object.MotorPhaseLossFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[8],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorPhaseLossFault]]>
-</Line>
-<Line Number="179">
-<![CDATA[		elsif  	Axis_Object.InverterOvercurrentFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[9],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.InverterOvercurrentFault]]>
-</Line>
-<Line Number="180">
-<![CDATA[		elsif  	Axis_Object.InverterOvertemperatureFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[10],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterOvertemperatureFLFault]]>
-</Line>
-<Line Number="181">
-<![CDATA[		elsif  	Axis_Object.InverterOvertemperatureULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[11],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterOvertemperatureULFault]]>
-</Line>
-<Line Number="182">
-<![CDATA[		elsif  	Axis_Object.InverterThermalOverloadFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[12],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterThermalOverloadFLFault]]>
-</Line>
-<Line Number="183">
-<![CDATA[		elsif  	Axis_Object.InverterThermalOverloadULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[13],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterThermalOverloadULFault]]>
-</Line>
-<Line Number="184">
-<![CDATA[		elsif  	Axis_Object.ConverterOvercurrentFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[14],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvercurrentFault]]>
-</Line>
-<Line Number="185">
-<![CDATA[		elsif  	Axis_Object.ConverterGroundCurrentFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[15],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterGroundCurrentFLFault]]>
-</Line>
-<Line Number="186">
-<![CDATA[		elsif  	Axis_Object.ConverterGroundCurrentULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[16],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterGroundCurrentULFault]]>
-</Line>
-<Line Number="187">
-<![CDATA[		elsif  	Axis_Object.ConverterOvertemperatureFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[17],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvertemperatureFLFault]]>
-</Line>
-<Line Number="188">
-<![CDATA[		elsif  	Axis_Object.ConverterOvertemperatureULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[18],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvertemperatureULFault]]>
-</Line>
-<Line Number="189">
-<![CDATA[		elsif  	Axis_Object.ConverterThermalOverloadFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[19],S_CIPAxisFault,temp_num,S_CIPAxisFault); //	 	Axis_Object.ConverterThermalOverloadFLFault]]>
-</Line>
-<Line Number="190">
-<![CDATA[		elsif  	Axis_Object.ConverterThermalOverloadULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[20],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterThermalOverloadULFault]]>
-</Line>
-<Line Number="191">
-<![CDATA[		elsif  	Axis_Object.ConverterACPowerLossFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[21],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACPowerLossFault]]>
-</Line>
-<Line Number="192">
-<![CDATA[		elsif  	Axis_Object.ConverterACSinglePhaseLossFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[22],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACSinglePhaseLossFault]]>
-</Line>
-<Line Number="193">
-<![CDATA[		elsif  	Axis_Object.ConverterACPhaseShortFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[23],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACPhaseShortFault	]]>
-</Line>
-<Line Number="194">
-<![CDATA[		elsif  	Axis_Object.ConverterPreChargeFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[24],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterPreChargeFault]]>
-</Line>
-<Line Number="195">
-<![CDATA[		elsif  	Axis_Object.BusRegulatorOvertemperatureFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[25],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorOvertemperatureFLFault]]>
-</Line>
-<Line Number="196">
-<![CDATA[		elsif  	Axis_Object.BusRegulatorOvertemperatureULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[26],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorOvertemperatureULFault]]>
-</Line>
-<Line Number="197">
-<![CDATA[		elsif  	Axis_Object.BusRegulatorThermalOverloadFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[27],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorThermalOverloadFLFault]]>
-</Line>
-<Line Number="198">
-<![CDATA[		elsif  	Axis_Object.BusRegulatorThermalOverloadULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[28],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorThermalOverloadULFault]]>
-</Line>
-<Line Number="199">
-<![CDATA[		elsif  	Axis_Object.BusRegulatorFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[29],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorFault]]>
-</Line>
-<Line Number="200">
-<![CDATA[		elsif  	Axis_Object.BusModuleFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[30],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusModuleFault]]>
-</Line>
-<Line Number="201">
-<![CDATA[		elsif   Axis_Object.BusUndervoltageFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[31],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusUndervoltageFLFault		]]>
-</Line>
-<Line Number="202">
-<![CDATA[		elsif  	Axis_Object.BusUndervoltageULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[32],S_CIPAxisFault,temp_num,S_CIPAxisFault); //  	Axis_Object.BusUndervoltageULFault]]>
-</Line>
-<Line Number="203">
-<![CDATA[		elsif  	Axis_Object.BusOvervoltageFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[33],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusOvervoltageFLFault]]>
-</Line>
-<Line Number="204">
-<![CDATA[		elsif  	Axis_Object.BusOvervoltageULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[34],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusOvervoltageULFault]]>
-</Line>
-<Line Number="205">
-<![CDATA[		elsif  	Axis_Object.BusPowerLossFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[35],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerLossFault]]>
-</Line>
-<Line Number="206">
-<![CDATA[		elsif  	Axis_Object.BusPowerBlownFuseFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[36],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerBlownFuseFault]]>
-</Line>
-<Line Number="207">
-<![CDATA[		elsif  	Axis_Object.BusPowerLeakageFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[37],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerLeakageFault]]>
-</Line>
-<Line Number="208">
-<![CDATA[		elsif  	Axis_Object.BusPowerSharingFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[38],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerSharingFault]]>
-</Line>
-<Line Number="209">
-<![CDATA[		elsif  	Axis_Object.FeedbackSignalNoiseFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[39],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalNoiseFLFault]]>
-</Line>
-<Line Number="210">
-<![CDATA[		elsif  	Axis_Object.FeedbackSignalNoiseULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[40],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalNoiseULFault]]>
-</Line>
-<Line Number="211">
-<![CDATA[		elsif  	Axis_Object.FeedbackSignalLossFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[41],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalLossFLFault]]>
-</Line>
-<Line Number="212">
-<![CDATA[		elsif  	Axis_Object.FeedbackSignalLossULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[42],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalLossULFault]]>
-</Line>
-<Line Number="213">
-<![CDATA[		elsif  	Axis_Object.FeedbackDataLossFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[43],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackDataLossFLFault]]>
-</Line>
-<Line Number="214">
-<![CDATA[		elsif  	Axis_Object.FeedbackDataLossULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[44],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackDataLossULFault]]>
-</Line>
-<Line Number="215">
-<![CDATA[		elsif  	Axis_Object.FeedbackDeviceFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[45],S_CIPAxisFault,temp_num,S_CIPAxisFault); //  	Axis_Object.FeedbackDeviceFault	]]>
-</Line>
-<Line Number="216">
-<![CDATA[		elsif  	Axis_Object.SensorFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[46],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.SensorFault]]>
-</Line>
-<Line Number="217">
-<![CDATA[		elsif  	Axis_Object.BrakeSlipFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[47],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BrakeSlipFault]]>
-</Line>
-<Line Number="218">
-<![CDATA[		elsif  	Axis_Object.HardwareOvertravelPositiveFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[48],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.HardwareOvertravelPositiveFault]]>
-</Line>
-<Line Number="219">
-<![CDATA[		elsif   Axis_Object.HardwareOvertravelNegativeFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[49],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.HardwareOvertravelNegativeFault]]>
-</Line>
-<Line Number="220">
-<![CDATA[		elsif  	Axis_Object.ExcessivePositionErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[50],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessivePositionErrorFault]]>
-</Line>
-<Line Number="221">
-<![CDATA[		elsif  	Axis_Object.ExcessiveVelocityErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[51],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessiveVelocityErrorFault]]>
-</Line>
-<Line Number="222">
-<![CDATA[		elsif  	Axis_Object.OvertorqueLimitFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[52],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.OvertorqueLimitFault]]>
-</Line>
-<Line Number="223">
-<![CDATA[		elsif  	Axis_Object.UndertorqueLimitFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[53],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.UndertorqueLimitFault]]>
-</Line>
-<Line Number="224">
-<![CDATA[		elsif  	Axis_Object.ExcessiveBusVoltageErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[54],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessiveBusVoltageErrorFault]]>
-</Line>
-<Line Number="225">
-<![CDATA[		elsif  	Axis_Object.AmbientTemperatureRiseFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[55],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.AmbientTemperatureRiseFault]]>
-</Line>
-<Line Number="226">
-<![CDATA[		elsif  	Axis_Object.IllegalControlModeFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[56],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.IllegalControlModeFault]]>
-</Line>
-<Line Number="227">
-<![CDATA[		elsif  	Axis_Object.EnableInputDeactivatedFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[57],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.EnableInputDeactivatedFault]]>
-</Line>
-<Line Number="228">
-<![CDATA[		elsif  	Axis_Object.ControllerInitiatedFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[58],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ControllerInitiatedFault]]>
-</Line>
-<Line Number="229">
-<![CDATA[		elsif  	Axis_Object.ExternalInputFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[59],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExternalInputFault]]>
-</Line>
-<Line Number="230">
-<![CDATA[		elsif  	(Wrk_AxisState = 0 AND Sts_Faulted) 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[60],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
-</Line>
-<Line Number="231">
-<![CDATA[		elsif  	(Wrk_AxisState = 5 AND Sts_Faulted) 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[61],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
-</Line>
-<Line Number="232">
-<![CDATA[		elsif  	(Wrk_AxisState = 8 AND Sts_Faulted)				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[62],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
-</Line>
-<Line Number="233">
-<![CDATA[		elsif  	Wrk_CIPAxisFault.63 							then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[63],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	spare			]]>
-</Line>
-<Line Number="234">
-<![CDATA[		end_if;]]>
-</Line>
-<Line Number="235">
-<![CDATA[	#endregion]]>
-</Line>
-<Line Number="236">
-<![CDATA[	/* Build begin of string */]]>
-</Line>
-<Line Number="237">
-<![CDATA[	temp_num:=Wrk_FaultMessage.LEN+1;]]>
-</Line>
-<Line Number="238">
-<![CDATA[	INSERT(S_FaultCode_Base,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
-</Line>
-<Line Number="239">
-<![CDATA[	temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
-</Line>
-<Line Number="240">
-<![CDATA[]]>
-</Line>
-<Line Number="241">
-<![CDATA[	/* S_ModuleFaultCode Contains data */]]>
-</Line>
-<Line Number="242">
-<![CDATA[	if S_ModuleFaultCode.LEN > 0 then ]]>
-</Line>
-<Line Number="243">
-<![CDATA[		temp_num:=Wrk_FaultMessage.LEN+1;]]>
-</Line>
-<Line Number="244">
-<![CDATA[		INSERT(S_ModuleFaultCode,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
-</Line>
-<Line Number="245">
-<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
-</Line>
-<Line Number="246">
-<![CDATA[	end_if;]]>
-</Line>
-<Line Number="247">
-<![CDATA[	/* S_AxisFaultBits Contains data */]]>
-</Line>
-<Line Number="248">
-<![CDATA[	if S_AxisFaultBits.LEN > 0 then ]]>
-</Line>
-<Line Number="249">
-<![CDATA[		temp_num:=S_AxisFaultBits.LEN+1;]]>
-</Line>
-<Line Number="250">
-<![CDATA[		INSERT(S_AxisFaultBits,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
-</Line>
-<Line Number="251">
-<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
-</Line>
-<Line Number="252">
-<![CDATA[	end_if;]]>
-</Line>
-<Line Number="253">
-<![CDATA[	/* S_MotionFaultBits Contains data */]]>
-</Line>
-<Line Number="254">
-<![CDATA[	if S_MotionFaultBits.LEN > 0 then ]]>
-</Line>
-<Line Number="255">
-<![CDATA[		temp_num:=S_MotionFaultBits.LEN+1;]]>
-</Line>
-<Line Number="256">
-<![CDATA[		INSERT(S_MotionFaultBits,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
-</Line>
-<Line Number="257">
-<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
-</Line>
-<Line Number="258">
-<![CDATA[	end_if;	]]>
-</Line>
-<Line Number="259">
-<![CDATA[	/* S_CIPAxisFault Contains data */]]>
-</Line>
-<Line Number="260">
-<![CDATA[	if S_CIPAxisFault.LEN > 0 then ]]>
-</Line>
-<Line Number="261">
-<![CDATA[		temp_num:=S_CIPAxisFault.LEN+1;]]>
-</Line>
-<Line Number="262">
-<![CDATA[		INSERT(S_CIPAxisFault,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
-</Line>
-<Line Number="263">
-<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
-</Line>
-<Line Number="264">
-<![CDATA[	end_if;	]]>
-</Line>
-<Line Number="265">
-<![CDATA[	]]>
-</Line>
-<Line Number="266">
-<![CDATA[	if Wrk_FaultMessage <> Sts_FaultMessage then COP(Wrk_FaultMessage,Sts_FaultMessage,1); end_if;]]>
-</Line>
-<Line Number="267">
-<![CDATA[#endregion]]>
-</Line>
-<Line Number="268">
-<![CDATA[#region Controlled stop]]>
-</Line>
-<Line Number="269">
-<![CDATA[	if Inp_Stop AND SEQ_Stopping=0 then SEQ_Stopping:=10; end_if;]]>
-</Line>
-<Line Number="270">
-<![CDATA[	case SEQ_Stopping of]]>
-</Line>
-<Line Number="271">
-<![CDATA[		0: /* Waiting for command */]]>
-</Line>
-<Line Number="272">
-<![CDATA[			Sts_StandStill:=Axis_Object.VelocityStandstillStatus;]]>
-</Line>
-<Line Number="273">
-<![CDATA[		10: /* Check if axis is moving */]]>
-</Line>
-<Line Number="274">
-<![CDATA[			if 		Axis_Object.VelocityStandstillStatus then SEQ_Stopping:=0; end_if;// no motion, so therfor no stopping.]]>
-</Line>
-<Line Number="275">
-<![CDATA[			if NOT 	Axis_Object.VelocityStandstillStatus then SEQ_Stopping:=20; end_if;// Axis is moving]]>
-</Line>
-<Line Number="276">
-<![CDATA[		20: /* Save current position and Stop drive */]]>
-</Line>
-<Line Number="277">
-<![CDATA[			wrk_CurrentPosition:=0;																// clear previous stopping position.]]>
-</Line>
-<Line Number="278">
-<![CDATA[			wrk_CurrentPosition:=Axis_Object.ActualPosition;									// Save stopping position.]]>
-</Line>
-<Line Number="279">
-<![CDATA[			GSV(Axis,Axis_Object,MaximumDeceleration,wrk_Max_DecelRate);						// get max decel velocity²]]>
-</Line>
-<Line Number="280">
-<![CDATA[			if Cnf_DecelRate > wrk_Max_DecelRate then Cnf_DecelRate:=wrk_Max_DecelRate; end_if;	// if decel rate set by user is not within limits set highest limit.]]>
-</Line>
-<Line Number="281">
-<![CDATA[			if Cnf_DecelRate=0.0 then Cnf_DecelRate:=wrk_Max_DecelRate*0.01; end_if;				// if user forgot to set decel rate, set 1% of max decelrate.]]>
-</Line>
-<Line Number="282">
-<![CDATA[			if Cnf_DecelJerk=0.0 then Cnf_DecelJerk:=10; end_if;									// if user forgot to set Cnf_DecelJerk, set 10% of time.]]>
-</Line>
-<Line Number="283">
-<![CDATA[			MAS(]]>
-</Line>
-<Line Number="284">
-<![CDATA[				Axis_Object,]]>
-</Line>
-<Line Number="285">
-<![CDATA[				MAS_Axis,]]>
-</Line>
-<Line Number="286">
-<![CDATA[				All,]]>
-</Line>
-<Line Number="287">
-<![CDATA[				Yes,]]>
-</Line>
-<Line Number="288">
-<![CDATA[				Cnf_DecelRate,]]>
-</Line>
-<Line Number="289">
-<![CDATA[				Unitspersec2,]]>
-</Line>
-<Line Number="290">
-<![CDATA[				Yes,]]>
-</Line>
-<Line Number="291">
-<![CDATA[				Cnf_DecelJerk,]]>
-</Line>
-<Line Number="292">
-<![CDATA[				%ofTime]]>
-</Line>
-<Line Number="293">
-<![CDATA[			);]]>
-</Line>
-<Line Number="294">
-<![CDATA[			SEQ_Stopping:=25;]]>
-</Line>
-<Line Number="295">
-<![CDATA[		25: /* wait for feedback from MAS */]]>
-</Line>
-<Line Number="296">
-<![CDATA[			if MAS_Axis.EN AND MAS_Axis.PC then SEQ_Stopping:=30; end_if;]]>
-</Line>
-<Line Number="297">
-<![CDATA[			if MAS_Axis.EN AND MAS_Axis.ER then SEQ_Stopping:=999; end_if;]]>
-</Line>
-<Line Number="298">
-<![CDATA[		30: /* check if Cnf_RetrieveStoppingPositions is set */]]>
-</Line>
-<Line Number="299">
-<![CDATA[			Inp_Stop:=FALSE;		// feedback to user, execution was done.]]>
-</Line>
-<Line Number="300">
-<![CDATA[			if Cnf_RetrieveStoppingPositions then SEQ_Stopping:=40; else SEQ_Stopping:=0; end_if;]]>
-</Line>
-<Line Number="301">
-<![CDATA[		40: /* Move back to stoppping position */]]>
-</Line>
-<Line Number="302">
-<![CDATA[			GSV(Axis,Axis_Object,MaximumSpeed,wrk_MaximumSpeed);								// get max velocity]]>
-</Line>
-<Line Number="303">
-<![CDATA[			if Cnf_Retrieve_Speed=0 then Cnf_Retrieve_Speed:=wrk_MaximumSpeed*0.001; end_if;	// if user forgot to set speed, set 0.1% of max speed.]]>
-</Line>
-<Line Number="304">
-<![CDATA[			if Cnf_Retrieve_Accel=0 then Cnf_Retrieve_Accel:=wrk_Max_DecelRate*0.01; end_if;	// if user forgot to set accel rate, set 1% of max decelrate.]]>
-</Line>
-<Line Number="305">
-<![CDATA[			MAM(]]>
-</Line>
-<Line Number="306">
-<![CDATA[				Axis_Object,]]>
-</Line>
-<Line Number="307">
-<![CDATA[				MAM_Axis,]]>
-</Line>
-<Line Number="308">
-<![CDATA[				0/*absolute position*/,]]>
-</Line>
-<Line Number="309">
-<![CDATA[				wrk_CurrentPosition,]]>
-</Line>
-<Line Number="310">
-<![CDATA[				Cnf_Retrieve_Speed,]]>
-</Line>
-<Line Number="311">
-<![CDATA[				Unitspersec,]]>
-</Line>
-<Line Number="312">
-<![CDATA[				Cnf_Retrieve_Accel,]]>
-</Line>
-<Line Number="313">
-<![CDATA[				Unitspersec2,]]>
-</Line>
-<Line Number="314">
-<![CDATA[				Cnf_Retrieve_Accel,]]>
-</Line>
-<Line Number="315">
-<![CDATA[				Unitspersec2,]]>
-</Line>
-<Line Number="316">
-<![CDATA[				SCurve,]]>
-</Line>
-<Line Number="317">
-<![CDATA[				10,]]>
-</Line>
-<Line Number="318">
-<![CDATA[				10,]]>
-</Line>
-<Line Number="319">
-<![CDATA[				%ofTime,]]>
-</Line>
-<Line Number="320">
-<![CDATA[				0,]]>
-</Line>
-<Line Number="321">
-<![CDATA[				0,]]>
-</Line>
-<Line Number="322">
-<![CDATA[				0,]]>
-</Line>
-<Line Number="323">
-<![CDATA[				0,]]>
-</Line>
-<Line Number="324">
-<![CDATA[				0,]]>
-</Line>
-<Line Number="325">
-<![CDATA[				0]]>
-</Line>
-<Line Number="326">
-<![CDATA[			);]]>
-</Line>
-<Line Number="327">
-<![CDATA[			SEQ_Stopping:=45;]]>
-</Line>
-<Line Number="328">
-<![CDATA[		45: /* wait for feedback from MAM */]]>
-</Line>
-<Line Number="329">
-<![CDATA[			if MAM_Axis.EN AND MAM_Axis.PC then SEQ_Stopping:=0; end_if;]]>
-</Line>
-<Line Number="330">
-<![CDATA[			if MAM_Axis.EN AND MAM_Axis.ER then SEQ_Stopping:=999; end_if;]]>
-</Line>
-<Line Number="331">
 <![CDATA[		999: /* Error state */]]>
 </Line>
-<Line Number="332">
-<![CDATA[			Inp_Stop:=FALSE;		// feedback to user, execution was done.]]>
+<Line Number="121">
+<![CDATA[			Inp_Enable:=FALSE;		// feedback to user, execution was done.]]>
 </Line>
-<Line Number="333">
-<![CDATA[			if reset_ons.OutputBit then SEQ_Stopping:=0; end_if; // on reset set state back to 0. ]]>
+<Line Number="122">
+<![CDATA[			if Inp_Reset then ]]>
 </Line>
-<Line Number="334">
+<Line Number="123">
+<![CDATA[				MSF(Axis_Object,MSF_Axis_Reset);// for some reason the axis could get stuck in a stopped state but still requieres a MSF. why? only allen bradley could explain.]]>
+</Line>
+<Line Number="124">
+<![CDATA[				SEQ_Enable:=0; ]]>
+</Line>
+<Line Number="125">
+<![CDATA[			end_if; // on reset set state back to 0. ]]>
+</Line>
+<Line Number="126">
 <![CDATA[		else]]>
 </Line>
-<Line Number="335">
+<Line Number="127">
+<![CDATA[			SEQ_Enable:=0;// undefined state, goes to 0]]>
+</Line>
+<Line Number="128">
 <![CDATA[	end_case;]]>
 </Line>
-<Line Number="336">
+<Line Number="129">
 <![CDATA[#endregion]]>
 </Line>
-<Line Number="337">
+<Line Number="130">
+<![CDATA[#region (Un)Inhibit drive / (Un)Inhibit motion axis]]>
+</Line>
+<Line Number="131">
+<![CDATA[	/* ]]>
+</Line>
+<Line Number="132">
+<![CDATA[		DriveStatus = 16#1000	// Faulted]]>
+</Line>
+<Line Number="133">
+<![CDATA[		DriveStatus = 16#4000	// running]]>
+</Line>
+<Line Number="134">
+<![CDATA[		DriveStatus = 16#6000	// inhibit]]>
+</Line>
+<Line Number="135">
+<![CDATA[	*/]]>
+</Line>
+<Line Number="136">
+<![CDATA[	GSV(Module,Module,EntryStatus,DriveStatus);					// Get entry status of module]]>
+</Line>
+<Line Number="137">
+<![CDATA[	if PackML.Disable_Module then ]]>
+</Line>
+<Line Number="138">
+<![CDATA[		Wrk_InhibitModule	:=4; 	SSV(Module,Module,Mode,Wrk_InhibitModule);			// inhibbit module]]>
+</Line>
+<Line Number="139">
+<![CDATA[		Wrk_InhibitAxis		:=1; 	SSV(Axis,Axis_Object,InhibitAxis,Wrk_InhibitAxis); 	// inhibbit Axis		]]>
+</Line>
+<Line Number="140">
+<![CDATA[	else]]>
+</Line>
+<Line Number="141">
+<![CDATA[		if DriveStatus = 16#6000 then ]]>
+</Line>
+<Line Number="142">
+<![CDATA[			Wrk_InhibitModule	:=0; 	SSV(Module,Module,Mode,Wrk_InhibitModule);			// inhibbit module]]>
+</Line>
+<Line Number="143">
+<![CDATA[			Wrk_InhibitAxis		:=0; 	SSV(Axis,Axis_Object,InhibitAxis,Wrk_InhibitAxis); 	// inhibbit Axis]]>
+</Line>
+<Line Number="144">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="145">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="146">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="147">
+<![CDATA[#region Fault String	]]>
+</Line>
+<Line Number="148">
+<![CDATA[	]]>
+</Line>
+<Line Number="149">
+<![CDATA[	GSV(Module,Module,FaultCode,Wrk_ModuleFaultCode);	]]>
+</Line>
+<Line Number="150">
+<![CDATA[	GSV(Axis,Axis_Object,AxisState,Wrk_AxisState);]]>
+</Line>
+<Line Number="151">
+<![CDATA[	GSV(Axis,Axis_Object,ModuleFaultBits,Wrk_ModuleFaultBits);]]>
+</Line>
+<Line Number="152">
+<![CDATA[	GSV(Axis,Axis_Object,AxisFaultBits,Wrk_AxisFaultBits);]]>
+</Line>
+<Line Number="153">
+<![CDATA[	GSV(Axis,Axis_Object,MotionFaultBits,Wrk_MotionFaultBits);]]>
+</Line>
+<Line Number="154">
+<![CDATA[	Wrk_CIPAxisFault:=Axis_Object.CIPAxisFaults;]]>
+</Line>
+<Line Number="155">
+<![CDATA[	/* Convert dints to String */]]>
+</Line>
+<Line Number="156">
+<![CDATA[	#region Clear strings using for loop to avoid using move etc, old plcs / older software versions 30 and below can't handle these operations, loser software verions]]>
+</Line>
+<Line Number="157">
+<![CDATA[		for i := 0 to 81 do]]>
+</Line>
+<Line Number="158">
+<![CDATA[			S_ModuleFaultCode.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="159">
+<![CDATA[			S_AxisFaultBits.DATA[i]		:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="160">
+<![CDATA[			S_MotionFaultBits.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="161">
+<![CDATA[			S_CIPAxisFault.DATA[i]		:=	0;	// 0 DEC = '$00' ASCII	]]>
+</Line>
+<Line Number="162">
+<![CDATA[			Wrk_FaultMessage.DATA[i]	:=	0;	// 0 DEC = '$00' ASCII]]>
+</Line>
+<Line Number="163">
+<![CDATA[		end_for;]]>
+</Line>
+<Line Number="164">
+<![CDATA[		i:=0;									// set index to 0 ]]>
+</Line>
+<Line Number="165">
+<![CDATA[		S_CIPAxisFault.LEN		:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="166">
+<![CDATA[		Wrk_FaultMessage.LEN	:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="167">
+<![CDATA[		S_ModuleFaultCode.LEN	:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="168">
+<![CDATA[		S_AxisFaultBits.LEN		:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="169">
+<![CDATA[		S_MotionFaultBits.LEN	:=i;			// set String length to 0 ]]>
+</Line>
+<Line Number="170">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="171">
+<![CDATA[	DTOS(Wrk_ModuleFaultCode,S_ModuleFaultCode);]]>
+</Line>
+<Line Number="172">
+<![CDATA[	DTOS(Wrk_AxisFaultBits,S_AxisFaultBits);]]>
+</Line>
+<Line Number="173">
+<![CDATA[	DTOS(Wrk_MotionFaultBits,S_MotionFaultBits);]]>
+</Line>
+<Line Number="174">
+<![CDATA[	#region build string]]>
+</Line>
+<Line Number="175">
+<![CDATA[		if 		Axis_Object.MotorOvercurrentFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[0],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvercurrentFault]]>
+</Line>
+<Line Number="176">
+<![CDATA[		elsif  	Axis_Object.MotorCommutationFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[1],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorCommutationFault]]>
+</Line>
+<Line Number="177">
+<![CDATA[		elsif  	Axis_Object.MotorOverspeedFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[2],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOverspeedFLFault]]>
+</Line>
+<Line Number="178">
+<![CDATA[		elsif  	Axis_Object.MotorOverspeedULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[3],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOverspeedULFault]]>
+</Line>
+<Line Number="179">
+<![CDATA[		elsif  	Axis_Object.MotorOvertemperatureFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[4],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvertemperatureFLFault]]>
+</Line>
+<Line Number="180">
+<![CDATA[		elsif  	Axis_Object.MotorOvertemperatureULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[5],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorOvertemperatureULFault]]>
+</Line>
+<Line Number="181">
+<![CDATA[		elsif  	Axis_Object.MotorThermalOverloadFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[6],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorThermalOverloadFLFault]]>
+</Line>
+<Line Number="182">
+<![CDATA[		elsif  	Axis_Object.MotorThermalOverloadULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[7],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorThermalOverloadULFault]]>
+</Line>
+<Line Number="183">
+<![CDATA[		elsif  	Axis_Object.MotorPhaseLossFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[8],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.MotorPhaseLossFault]]>
+</Line>
+<Line Number="184">
+<![CDATA[		elsif  	Axis_Object.InverterOvercurrentFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[9],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 		Axis_Object.InverterOvercurrentFault]]>
+</Line>
+<Line Number="185">
+<![CDATA[		elsif  	Axis_Object.InverterOvertemperatureFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[10],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterOvertemperatureFLFault]]>
+</Line>
+<Line Number="186">
+<![CDATA[		elsif  	Axis_Object.InverterOvertemperatureULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[11],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterOvertemperatureULFault]]>
+</Line>
+<Line Number="187">
+<![CDATA[		elsif  	Axis_Object.InverterThermalOverloadFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[12],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterThermalOverloadFLFault]]>
+</Line>
+<Line Number="188">
+<![CDATA[		elsif  	Axis_Object.InverterThermalOverloadULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[13],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.InverterThermalOverloadULFault]]>
+</Line>
+<Line Number="189">
+<![CDATA[		elsif  	Axis_Object.ConverterOvercurrentFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[14],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvercurrentFault]]>
+</Line>
+<Line Number="190">
+<![CDATA[		elsif  	Axis_Object.ConverterGroundCurrentFLFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[15],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterGroundCurrentFLFault]]>
+</Line>
+<Line Number="191">
+<![CDATA[		elsif  	Axis_Object.ConverterGroundCurrentULFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[16],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterGroundCurrentULFault]]>
+</Line>
+<Line Number="192">
+<![CDATA[		elsif  	Axis_Object.ConverterOvertemperatureFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[17],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvertemperatureFLFault]]>
+</Line>
+<Line Number="193">
+<![CDATA[		elsif  	Axis_Object.ConverterOvertemperatureULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[18],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterOvertemperatureULFault]]>
+</Line>
+<Line Number="194">
+<![CDATA[		elsif  	Axis_Object.ConverterThermalOverloadFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[19],S_CIPAxisFault,temp_num,S_CIPAxisFault); //	 	Axis_Object.ConverterThermalOverloadFLFault]]>
+</Line>
+<Line Number="195">
+<![CDATA[		elsif  	Axis_Object.ConverterThermalOverloadULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[20],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterThermalOverloadULFault]]>
+</Line>
+<Line Number="196">
+<![CDATA[		elsif  	Axis_Object.ConverterACPowerLossFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[21],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACPowerLossFault]]>
+</Line>
+<Line Number="197">
+<![CDATA[		elsif  	Axis_Object.ConverterACSinglePhaseLossFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[22],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACSinglePhaseLossFault]]>
+</Line>
+<Line Number="198">
+<![CDATA[		elsif  	Axis_Object.ConverterACPhaseShortFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[23],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterACPhaseShortFault	]]>
+</Line>
+<Line Number="199">
+<![CDATA[		elsif  	Axis_Object.ConverterPreChargeFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[24],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ConverterPreChargeFault]]>
+</Line>
+<Line Number="200">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorOvertemperatureFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[25],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorOvertemperatureFLFault]]>
+</Line>
+<Line Number="201">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorOvertemperatureULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[26],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorOvertemperatureULFault]]>
+</Line>
+<Line Number="202">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorThermalOverloadFLFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[27],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorThermalOverloadFLFault]]>
+</Line>
+<Line Number="203">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorThermalOverloadULFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[28],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorThermalOverloadULFault]]>
+</Line>
+<Line Number="204">
+<![CDATA[		elsif  	Axis_Object.BusRegulatorFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[29],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusRegulatorFault]]>
+</Line>
+<Line Number="205">
+<![CDATA[		elsif  	Axis_Object.BusModuleFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[30],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusModuleFault]]>
+</Line>
+<Line Number="206">
+<![CDATA[		elsif   Axis_Object.BusUndervoltageFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[31],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusUndervoltageFLFault		]]>
+</Line>
+<Line Number="207">
+<![CDATA[		elsif  	Axis_Object.BusUndervoltageULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[32],S_CIPAxisFault,temp_num,S_CIPAxisFault); //  	Axis_Object.BusUndervoltageULFault]]>
+</Line>
+<Line Number="208">
+<![CDATA[		elsif  	Axis_Object.BusOvervoltageFLFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[33],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusOvervoltageFLFault]]>
+</Line>
+<Line Number="209">
+<![CDATA[		elsif  	Axis_Object.BusOvervoltageULFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[34],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusOvervoltageULFault]]>
+</Line>
+<Line Number="210">
+<![CDATA[		elsif  	Axis_Object.BusPowerLossFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[35],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerLossFault]]>
+</Line>
+<Line Number="211">
+<![CDATA[		elsif  	Axis_Object.BusPowerBlownFuseFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[36],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerBlownFuseFault]]>
+</Line>
+<Line Number="212">
+<![CDATA[		elsif  	Axis_Object.BusPowerLeakageFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[37],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerLeakageFault]]>
+</Line>
+<Line Number="213">
+<![CDATA[		elsif  	Axis_Object.BusPowerSharingFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[38],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BusPowerSharingFault]]>
+</Line>
+<Line Number="214">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalNoiseFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[39],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalNoiseFLFault]]>
+</Line>
+<Line Number="215">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalNoiseULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[40],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalNoiseULFault]]>
+</Line>
+<Line Number="216">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalLossFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[41],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalLossFLFault]]>
+</Line>
+<Line Number="217">
+<![CDATA[		elsif  	Axis_Object.FeedbackSignalLossULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[42],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackSignalLossULFault]]>
+</Line>
+<Line Number="218">
+<![CDATA[		elsif  	Axis_Object.FeedbackDataLossFLFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[43],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackDataLossFLFault]]>
+</Line>
+<Line Number="219">
+<![CDATA[		elsif  	Axis_Object.FeedbackDataLossULFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[44],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.FeedbackDataLossULFault]]>
+</Line>
+<Line Number="220">
+<![CDATA[		elsif  	Axis_Object.FeedbackDeviceFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[45],S_CIPAxisFault,temp_num,S_CIPAxisFault); //  	Axis_Object.FeedbackDeviceFault	]]>
+</Line>
+<Line Number="221">
+<![CDATA[		elsif  	Axis_Object.SensorFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[46],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.SensorFault]]>
+</Line>
+<Line Number="222">
+<![CDATA[		elsif  	Axis_Object.BrakeSlipFault 						then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[47],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.BrakeSlipFault]]>
+</Line>
+<Line Number="223">
+<![CDATA[		elsif  	Axis_Object.HardwareOvertravelPositiveFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[48],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.HardwareOvertravelPositiveFault]]>
+</Line>
+<Line Number="224">
+<![CDATA[		elsif   Axis_Object.HardwareOvertravelNegativeFault 	then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[49],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.HardwareOvertravelNegativeFault]]>
+</Line>
+<Line Number="225">
+<![CDATA[		elsif  	Axis_Object.ExcessivePositionErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[50],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessivePositionErrorFault]]>
+</Line>
+<Line Number="226">
+<![CDATA[		elsif  	Axis_Object.ExcessiveVelocityErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[51],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessiveVelocityErrorFault]]>
+</Line>
+<Line Number="227">
+<![CDATA[		elsif  	Axis_Object.OvertorqueLimitFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[52],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.OvertorqueLimitFault]]>
+</Line>
+<Line Number="228">
+<![CDATA[		elsif  	Axis_Object.UndertorqueLimitFault 				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[53],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.UndertorqueLimitFault]]>
+</Line>
+<Line Number="229">
+<![CDATA[		elsif  	Axis_Object.ExcessiveBusVoltageErrorFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[54],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExcessiveBusVoltageErrorFault]]>
+</Line>
+<Line Number="230">
+<![CDATA[		elsif  	Axis_Object.AmbientTemperatureRiseFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[55],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.AmbientTemperatureRiseFault]]>
+</Line>
+<Line Number="231">
+<![CDATA[		elsif  	Axis_Object.IllegalControlModeFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[56],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.IllegalControlModeFault]]>
+</Line>
+<Line Number="232">
+<![CDATA[		elsif  	Axis_Object.EnableInputDeactivatedFault 		then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[57],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.EnableInputDeactivatedFault]]>
+</Line>
+<Line Number="233">
+<![CDATA[		elsif  	Axis_Object.ControllerInitiatedFault 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[58],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ControllerInitiatedFault]]>
+</Line>
+<Line Number="234">
+<![CDATA[		elsif  	Axis_Object.ExternalInputFault 					then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[59],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis_Object.ExternalInputFault]]>
+</Line>
+<Line Number="235">
+<![CDATA[		elsif  	(Wrk_AxisState = 0 AND Sts_Faulted) 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[60],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
+</Line>
+<Line Number="236">
+<![CDATA[		elsif  	(Wrk_AxisState = 5 AND Sts_Faulted) 			then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[61],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
+</Line>
+<Line Number="237">
+<![CDATA[		elsif  	(Wrk_AxisState = 8 AND Sts_Faulted)				then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[62],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	Axis was not active while some fault occoured, therfor no error bits are set. why? only kinetix can explain..]]>
+</Line>
+<Line Number="238">
+<![CDATA[		elsif  	Wrk_CIPAxisFault.63 							then temp_num:=S_CIPAxisFault.LEN+1; INSERT(Alarm_Texts[63],S_CIPAxisFault,temp_num,S_CIPAxisFault); // 	spare			]]>
+</Line>
+<Line Number="239">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="240">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="241">
+<![CDATA[	/* Build begin of string */]]>
+</Line>
+<Line Number="242">
+<![CDATA[	temp_num:=Wrk_FaultMessage.LEN+1;]]>
+</Line>
+<Line Number="243">
+<![CDATA[	INSERT(S_FaultCode_Base,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="244">
+<![CDATA[	temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="245">
 <![CDATA[]]>
+</Line>
+<Line Number="246">
+<![CDATA[	/* S_ModuleFaultCode Contains data */]]>
+</Line>
+<Line Number="247">
+<![CDATA[	if S_ModuleFaultCode.LEN > 0 then ]]>
+</Line>
+<Line Number="248">
+<![CDATA[		temp_num:=Wrk_FaultMessage.LEN+1;]]>
+</Line>
+<Line Number="249">
+<![CDATA[		INSERT(S_ModuleFaultCode,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="250">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="251">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="252">
+<![CDATA[	/* S_AxisFaultBits Contains data */]]>
+</Line>
+<Line Number="253">
+<![CDATA[	if S_AxisFaultBits.LEN > 0 then ]]>
+</Line>
+<Line Number="254">
+<![CDATA[		temp_num:=S_AxisFaultBits.LEN+1;]]>
+</Line>
+<Line Number="255">
+<![CDATA[		INSERT(S_AxisFaultBits,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="256">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="257">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="258">
+<![CDATA[	/* S_MotionFaultBits Contains data */]]>
+</Line>
+<Line Number="259">
+<![CDATA[	if S_MotionFaultBits.LEN > 0 then ]]>
+</Line>
+<Line Number="260">
+<![CDATA[		temp_num:=S_MotionFaultBits.LEN+1;]]>
+</Line>
+<Line Number="261">
+<![CDATA[		INSERT(S_MotionFaultBits,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="262">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="263">
+<![CDATA[	end_if;	]]>
+</Line>
+<Line Number="264">
+<![CDATA[	/* S_CIPAxisFault Contains data */]]>
+</Line>
+<Line Number="265">
+<![CDATA[	if S_CIPAxisFault.LEN > 0 then ]]>
+</Line>
+<Line Number="266">
+<![CDATA[		temp_num:=S_CIPAxisFault.LEN+1;]]>
+</Line>
+<Line Number="267">
+<![CDATA[		INSERT(S_CIPAxisFault,Wrk_FaultMessage,temp_num,Wrk_FaultMessage);]]>
+</Line>
+<Line Number="268">
+<![CDATA[		temp_num:=0;// set temp_num back to 0, since we dont need to keep track of this value.]]>
+</Line>
+<Line Number="269">
+<![CDATA[	end_if;	]]>
+</Line>
+<Line Number="270">
+<![CDATA[	]]>
+</Line>
+<Line Number="271">
+<![CDATA[	if Wrk_FaultMessage <> Sts_FaultMessage then COP(Wrk_FaultMessage,Sts_FaultMessage,1); end_if;]]>
+</Line>
+<Line Number="272">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="273">
+<![CDATA[#region Controlled stop]]>
+</Line>
+<Line Number="274">
+<![CDATA[	if Inp_Stop AND SEQ_Stopping=0 then SEQ_Stopping:=10; end_if;]]>
+</Line>
+<Line Number="275">
+<![CDATA[	case SEQ_Stopping of]]>
+</Line>
+<Line Number="276">
+<![CDATA[		0: /* Waiting for command */]]>
+</Line>
+<Line Number="277">
+<![CDATA[			Sts_StandStill:=Axis_Object.VelocityStandstillStatus;]]>
+</Line>
+<Line Number="278">
+<![CDATA[		10: /* Check if axis is moving */]]>
+</Line>
+<Line Number="279">
+<![CDATA[			if 		Axis_Object.VelocityStandstillStatus then SEQ_Stopping:=0; end_if;// no motion, so therfor no stopping.]]>
+</Line>
+<Line Number="280">
+<![CDATA[			if NOT 	Axis_Object.VelocityStandstillStatus then SEQ_Stopping:=20; end_if;// Axis is moving]]>
+</Line>
+<Line Number="281">
+<![CDATA[		20: /* Save current position and Stop drive */]]>
+</Line>
+<Line Number="282">
+<![CDATA[			wrk_CurrentPosition:=0;																// clear previous stopping position.]]>
+</Line>
+<Line Number="283">
+<![CDATA[			wrk_CurrentPosition:=Axis_Object.ActualPosition;									// Save stopping position.]]>
+</Line>
+<Line Number="284">
+<![CDATA[			GSV(Axis,Axis_Object,MaximumDeceleration,wrk_Max_DecelRate);						// get max decel velocity²]]>
+</Line>
+<Line Number="285">
+<![CDATA[			if Cnf_DecelRate > wrk_Max_DecelRate then Cnf_DecelRate:=wrk_Max_DecelRate; end_if;	// if decel rate set by user is not within limits set highest limit.]]>
+</Line>
+<Line Number="286">
+<![CDATA[			if Cnf_DecelRate=0.0 then Cnf_DecelRate:=wrk_Max_DecelRate*0.01; end_if;				// if user forgot to set decel rate, set 1% of max decelrate.]]>
+</Line>
+<Line Number="287">
+<![CDATA[			if Cnf_DecelJerk=0.0 then Cnf_DecelJerk:=10; end_if;									// if user forgot to set Cnf_DecelJerk, set 10% of time.]]>
+</Line>
+<Line Number="288">
+<![CDATA[			MAS(]]>
+</Line>
+<Line Number="289">
+<![CDATA[				Axis_Object,]]>
+</Line>
+<Line Number="290">
+<![CDATA[				MAS_Axis,]]>
+</Line>
+<Line Number="291">
+<![CDATA[				All,]]>
+</Line>
+<Line Number="292">
+<![CDATA[				Yes,]]>
+</Line>
+<Line Number="293">
+<![CDATA[				Cnf_DecelRate,]]>
+</Line>
+<Line Number="294">
+<![CDATA[				Unitspersec2,]]>
+</Line>
+<Line Number="295">
+<![CDATA[				Yes,]]>
+</Line>
+<Line Number="296">
+<![CDATA[				Cnf_DecelJerk,]]>
+</Line>
+<Line Number="297">
+<![CDATA[				%ofTime]]>
+</Line>
+<Line Number="298">
+<![CDATA[			);]]>
+</Line>
+<Line Number="299">
+<![CDATA[			SEQ_Stopping:=25;]]>
+</Line>
+<Line Number="300">
+<![CDATA[		25: /* wait for feedback from MAS */]]>
+</Line>
+<Line Number="301">
+<![CDATA[			if MAS_Axis.EN AND MAS_Axis.PC then SEQ_Stopping:=30; end_if;]]>
+</Line>
+<Line Number="302">
+<![CDATA[			if MAS_Axis.EN AND MAS_Axis.ER then SEQ_Stopping:=999; end_if;]]>
+</Line>
+<Line Number="303">
+<![CDATA[		30: /* check if Cnf_RetrieveStoppingPositions is set */]]>
+</Line>
+<Line Number="304">
+<![CDATA[			Inp_Stop:=FALSE;		// feedback to user, execution was done.]]>
+</Line>
+<Line Number="305">
+<![CDATA[			if Cnf_RetrieveStoppingPositions then SEQ_Stopping:=40; else SEQ_Stopping:=0; end_if;]]>
+</Line>
+<Line Number="306">
+<![CDATA[		40: /* Move back to stoppping position */]]>
+</Line>
+<Line Number="307">
+<![CDATA[			GSV(Axis,Axis_Object,MaximumSpeed,wrk_MaximumSpeed);								// get max velocity]]>
+</Line>
+<Line Number="308">
+<![CDATA[			if Cnf_Retrieve_Speed=0 then Cnf_Retrieve_Speed:=wrk_MaximumSpeed*0.001; end_if;	// if user forgot to set speed, set 0.1% of max speed.]]>
+</Line>
+<Line Number="309">
+<![CDATA[			if Cnf_Retrieve_Accel=0 then Cnf_Retrieve_Accel:=wrk_Max_DecelRate*0.01; end_if;	// if user forgot to set accel rate, set 1% of max decelrate.]]>
+</Line>
+<Line Number="310">
+<![CDATA[			MAM(]]>
+</Line>
+<Line Number="311">
+<![CDATA[				Axis_Object,]]>
+</Line>
+<Line Number="312">
+<![CDATA[				MAM_Axis,]]>
+</Line>
+<Line Number="313">
+<![CDATA[				0/*absolute position*/,]]>
+</Line>
+<Line Number="314">
+<![CDATA[				wrk_CurrentPosition,]]>
+</Line>
+<Line Number="315">
+<![CDATA[				Cnf_Retrieve_Speed,]]>
+</Line>
+<Line Number="316">
+<![CDATA[				Unitspersec,]]>
+</Line>
+<Line Number="317">
+<![CDATA[				Cnf_Retrieve_Accel,]]>
+</Line>
+<Line Number="318">
+<![CDATA[				Unitspersec2,]]>
+</Line>
+<Line Number="319">
+<![CDATA[				Cnf_Retrieve_Accel,]]>
+</Line>
+<Line Number="320">
+<![CDATA[				Unitspersec2,]]>
+</Line>
+<Line Number="321">
+<![CDATA[				SCurve,]]>
+</Line>
+<Line Number="322">
+<![CDATA[				10,]]>
+</Line>
+<Line Number="323">
+<![CDATA[				10,]]>
+</Line>
+<Line Number="324">
+<![CDATA[				%ofTime,]]>
+</Line>
+<Line Number="325">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="326">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="327">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="328">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="329">
+<![CDATA[				0,]]>
+</Line>
+<Line Number="330">
+<![CDATA[				0]]>
+</Line>
+<Line Number="331">
+<![CDATA[			);]]>
+</Line>
+<Line Number="332">
+<![CDATA[			SEQ_Stopping:=45;]]>
+</Line>
+<Line Number="333">
+<![CDATA[		45: /* wait for feedback from MAM */]]>
+</Line>
+<Line Number="334">
+<![CDATA[			if MAM_Axis.EN AND MAM_Axis.PC then SEQ_Stopping:=0; end_if;]]>
+</Line>
+<Line Number="335">
+<![CDATA[			if MAM_Axis.EN AND MAM_Axis.ER then SEQ_Stopping:=999; end_if;]]>
+</Line>
+<Line Number="336">
+<![CDATA[		999: /* Error state */]]>
+</Line>
+<Line Number="337">
+<![CDATA[			Inp_Stop:=FALSE;		// feedback to user, execution was done.]]>
 </Line>
 <Line Number="338">
-<![CDATA[]]>
+<![CDATA[			if reset_ons.OutputBit then SEQ_Stopping:=0; end_if; // on reset set state back to 0. ]]>
 </Line>
 <Line Number="339">
-<![CDATA[]]>
+<![CDATA[		else]]>
 </Line>
 <Line Number="340">
+<![CDATA[	end_case;]]>
+</Line>
+<Line Number="341">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="342">
+<![CDATA[]]>
+</Line>
+<Line Number="343">
+<![CDATA[]]>
+</Line>
+<Line Number="344">
+<![CDATA[]]>
+</Line>
+<Line Number="345">
 <![CDATA[]]>
 </Line>
 </STContent>
