@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-05-23T07:30:44.882Z" ContainsContext="true" ExportDate="Tue May 31 11:00:01 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-05-23T07:30:44.882Z" ContainsContext="true" ExportDate="Wed Jul 27 08:30:17 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML" Family="NoFamily" Class="User">
@@ -2899,5 +2899,24 @@ only used for calculations as step inbetween because studio 5000 is idiot softwa
 </Dependencies>
 </AddOnInstructionDefinition>
 </AddOnInstructionDefinitions>
+<AlarmDefinitions Use="Context">
+<DatatypeAlarmDefinition Name="Servo_Object">
+<MemberAlarmDefinition Name="Enable_Error" Input=".SEQ_Enable" ConditionType="HI" Limit="999.0" Severity="500" OnDelay="0" OffDelay="0" ShelveDuration="0" MaxShelveDuration="0" Deadband="0.0" Required="false"
+ AlarmSetOperIncluded="true" AlarmSetRollupIncluded="true" AckRequired="true" Latched="false" EvaluationPeriod="500 millisecond" Expression="=">
+<AlarmConfig>
+<Messages>
+<Message Type="ADM">
+<Text Lang="en-US">
+<![CDATA[MSO command could not succeed]]>
+</Text>
+</Message>
+</Messages>
+<AlarmClass>
+<![CDATA[DEBUG]]>
+</AlarmClass>
+</AlarmConfig>
+</MemberAlarmDefinition>
+</DatatypeAlarmDefinition>
+</AlarmDefinitions>
 </Controller>
 </RSLogix5000Content>
