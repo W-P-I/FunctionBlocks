@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="WPI_RecipeManager" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-07-27T09:04:16.012Z" ContainsContext="true" ExportDate="Wed Jul 27 11:05:02 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-<Controller Use="Context" Name="Depositor_PackML">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="WPI_RecipeManager" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.1 " TargetLastEdited="2022-07-28T06:11:49.710Z" ContainsContext="true" ExportDate="Thu Jul 28 08:11:55 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Snake">
 <DataTypes Use="Context">
 <DataType Name="Recipe" Family="NoFamily" Class="User">
 <Description>
@@ -50,8 +50,11 @@
 </DataType>
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="WPI_RecipeManager" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-09-07T09:30:50.515Z" CreatedBy="WPI\engineer" EditedDate="2022-07-27T09:04:16.012Z"
+<AddOnInstructionDefinition Use="Target" Name="WPI_RecipeManager" Class="Standard" Revision="1.1" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-09-07T09:30:50.515Z" CreatedBy="WPI\engineer" EditedDate="2022-07-28T06:11:49.710Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
+<RevisionNote>
+<![CDATA[Upload bug fixed]]>
+</RevisionNote>
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
 <Description>
