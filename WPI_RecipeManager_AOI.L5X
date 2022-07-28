@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="WPI_RecipeManager" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.1 " TargetLastEdited="2022-07-28T06:11:49.710Z" ContainsContext="true" ExportDate="Thu Jul 28 08:11:55 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="WPI_RecipeManager" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.1 " TargetLastEdited="2022-07-28T07:47:07.993Z" ContainsContext="true" ExportDate="Thu Jul 28 12:16:32 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Snake">
 <DataTypes Use="Context">
 <DataType Name="Recipe" Family="NoFamily" Class="User">
@@ -50,7 +50,7 @@
 </DataType>
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="WPI_RecipeManager" Class="Standard" Revision="1.1" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-09-07T09:30:50.515Z" CreatedBy="WPI\engineer" EditedDate="2022-07-28T06:11:49.710Z"
+<AddOnInstructionDefinition Use="Target" Name="WPI_RecipeManager" Class="Standard" Revision="1.1" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-09-07T09:30:50.515Z" CreatedBy="WPI\engineer" EditedDate="2022-07-28T07:47:07.993Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <RevisionNote>
 <![CDATA[Upload bug fixed]]>
@@ -74,6 +74,17 @@
 <Parameter Name="HMI_Save_Recipe" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
 <Description>
 <![CDATA[Save Recipe to memory]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_SaveToCurrent_Recipe" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[The same as an upload but saves to current selected recipe.]]>
 </Description>
 <DefaultData Format="L5K">
 <![CDATA[0]]>
@@ -1736,6 +1747,14 @@
 </Array>
 </DefaultData>
 </LocalTag>
+<LocalTag Name="wrk_HMI_SaveToCurrent_Icon" DataType="BOOL" Radix="Decimal" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
 </LocalTags>
 <Routines>
 <Routine Name="Logic" Type="ST">
@@ -2365,246 +2384,381 @@
 <![CDATA[	#endregion]]>
 </Line>
 <Line Number="208">
-<![CDATA[]]>
+<![CDATA[	]]>
 </Line>
 <Line Number="209">
-<![CDATA[#region Update recipe HMI]]>
+<![CDATA[	#region Save/update to current recipe]]>
 </Line>
 <Line Number="210">
-<![CDATA[	if (Recipe_Select <> wrk_Prev_Recipe_Select) OR wrk_update_HMI then				]]>
+<![CDATA[	if HMI_SaveToCurrent_Recipe then]]>
 </Line>
 <Line Number="211">
-<![CDATA[		case wrk_indexNum[1] of]]>
+<![CDATA[	case wrk_indexNum[0] of]]>
 </Line>
 <Line Number="212">
-<![CDATA[			0:	/* scan recipe names and count them */]]>
+<![CDATA[		0: /* give call to outside the AOI */]]>
 </Line>
 <Line Number="213">
-<![CDATA[				HMI_Recipe_Name:=Recipe.Recipe_Memory[Recipe_Select].Recipe_Name;]]>
+<![CDATA[			#region JSR function ]]>
 </Line>
 <Line Number="214">
-<![CDATA[				#region Check TotalRecipeSaved]]>
+<![CDATA[			/* ]]>
 </Line>
 <Line Number="215">
-<![CDATA[					for i := 0 to 20 do]]>
+<![CDATA[				call to outside of the AOI for a download / upload from program,]]>
 </Line>
 <Line Number="216">
-<![CDATA[						Wrk_Recipe_list[i]	:=	Recipe.Recipe_Memory[i].Recipe_Name;]]>
+<![CDATA[				once this is done set signal outside of the AOI low ]]>
 </Line>
 <Line Number="217">
-<![CDATA[					end_for;]]>
+<![CDATA[			*/]]>
 </Line>
 <Line Number="218">
-<![CDATA[					i:=0;]]>
+<![CDATA[			CallRecipeList			:=	1; 	// set signal for outside AOI]]>
 </Line>
 <Line Number="219">
-<![CDATA[					TotalRecipeSaved:=	0;	// prepare for scan, by clearing TotalReicpeSaved	]]>
+<![CDATA[			#endregion	]]>
 </Line>
 <Line Number="220">
-<![CDATA[					for i := 0 to 20 do]]>
+<![CDATA[			wrk_indexNum[0]			:=	1;	// move to next state ]]>
 </Line>
 <Line Number="221">
-<![CDATA[						if Wrk_Recipe_list[i] <> '' then]]>
+<![CDATA[		1: /* Wait for feedback from outside AOI*/]]>
 </Line>
 <Line Number="222">
-<![CDATA[							TotalRecipeSaved:=TotalRecipeSaved+1;]]>
+<![CDATA[			if NOT CallRecipeList then ]]>
 </Line>
 <Line Number="223">
-<![CDATA[						end_if;]]>
+<![CDATA[				wrk_indexNum[0]:=2; 		// move to next state]]>
 </Line>
 <Line Number="224">
-<![CDATA[					end_for;]]>
+<![CDATA[			end_if;	]]>
 </Line>
 <Line Number="225">
-<![CDATA[				#endregion]]>
+<![CDATA[		2:	/* assign recipe memory*/	]]>
 </Line>
 <Line Number="226">
-<![CDATA[				i						:=	0;	// set index back to 0]]>
+<![CDATA[			for i := 0 to 99 do]]>
 </Line>
 <Line Number="227">
-<![CDATA[				wrk_indexNum[1]			:=	1;	// move to next state	]]>
+<![CDATA[				Recipe.Recipe_Memory[Recipe_Select].Setpoints[i]		:=	Recipe.Recipe_Current.Setpoints[i];					// move memory Setpoints 		to next recipe]]>
 </Line>
 <Line Number="228">
-<![CDATA[			1:	/* copy data to local memory */]]>
+<![CDATA[				Recipe.Recipe_Memory[Recipe_Select].Parameters_Real[i]	:=	Recipe.Recipe_Current.Parameters_Real[i];			// move memory Parameters_Real	to next recipe		]]>
 </Line>
 <Line Number="229">
-<![CDATA[				COP(]]>
+<![CDATA[				Recipe.Recipe_Memory[Recipe_Select].Parameters_Dint[i]	:=	Recipe.Recipe_Current.Parameters_Dint[i];			// move memory Parameters_Dint 	to next recipe		]]>
 </Line>
 <Line Number="230">
-<![CDATA[					Recipe.Recipe_Memory[Recipe_Select],		// source]]>
+<![CDATA[				Recipe.Recipe_Memory[Recipe_Select].Parameters_Bool[i]	:=	Recipe.Recipe_Current.Parameters_Bool[i];			// move memory Parameters_Bool 	to next recipe					]]>
 </Line>
 <Line Number="231">
-<![CDATA[					wrk_Recipe,									// target]]>
+<![CDATA[			end_for;]]>
 </Line>
 <Line Number="232">
-<![CDATA[					1											// length]]>
+<![CDATA[			Recipe.Recipe_Memory[Recipe_Select].TimeSaved:=wrk_Time;				]]>
 </Line>
 <Line Number="233">
-<![CDATA[				);]]>
+<![CDATA[			wrk_TimeUpload:=wrk_Time;]]>
 </Line>
 <Line Number="234">
-<![CDATA[				wrk_Prev_Recipe_Select	:=	Recipe_Select;]]>
+<![CDATA[			i								:=	0;	// set index back to 0]]>
 </Line>
 <Line Number="235">
-<![CDATA[				for i := 0 to 20 do]]>
+<![CDATA[			wrk_indexNum[0]					:=	0;	// move to next state ]]>
 </Line>
 <Line Number="236">
-<![CDATA[					Wrk_Recipe_list[i]	:=	Recipe.Recipe_Memory[i].Recipe_Name;]]>
+<![CDATA[			wrk_update_HMI					:=	1;	// set signal			]]>
 </Line>
 <Line Number="237">
-<![CDATA[				end_for;]]>
+<![CDATA[			HMI_SaveToCurrent_Recipe		:=	0;	// unlatch signal]]>
 </Line>
 <Line Number="238">
-<![CDATA[				i						:=	0;	// set index back to 0]]>
-</Line>
-<Line Number="239">
-<![CDATA[				for i := 0 to 99 do]]>
-</Line>
-<Line Number="240">
-<![CDATA[					Recipe.Recipe_New.Setpoints[i]			:=	Recipe.Recipe_Memory[Recipe_Select].Setpoints[i];					// move memory Setpoints 		to next recipe]]>
-</Line>
-<Line Number="241">
-<![CDATA[					Recipe.Recipe_New.Parameters_Real[i]	:=	Recipe.Recipe_Memory[Recipe_Select].Parameters_Real[i];			// move memory Parameters_Real	to next recipe		]]>
-</Line>
-<Line Number="242">
-<![CDATA[					Recipe.Recipe_New.Parameters_Dint[i]	:=	Recipe.Recipe_Memory[Recipe_Select].Parameters_Dint[i];			// move memory Parameters_Dint 	to next recipe		]]>
-</Line>
-<Line Number="243">
-<![CDATA[					Recipe.Recipe_New.Parameters_Bool[i]	:=	Recipe.Recipe_Memory[Recipe_Select].Parameters_Bool[i];			// move memory Parameters_Bool 	to next recipe					]]>
-</Line>
-<Line Number="244">
-<![CDATA[				end_for;]]>
-</Line>
-<Line Number="245">
-<![CDATA[				i						:=	0;	// set index back to 0]]>
-</Line>
-<Line Number="246">
-<![CDATA[				wrk_indexNum[1]			:=	0; 	// move to next state]]>
-</Line>
-<Line Number="247">
-<![CDATA[				wrk_update_HMI			:=	0;	// unlatch signal]]>
-</Line>
-<Line Number="248">
 <![CDATA[		end_case;]]>
 </Line>
+<Line Number="239">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="240">
+<![CDATA[	#endregion]]>
+</Line>
+<Line Number="241">
+<![CDATA[]]>
+</Line>
+<Line Number="242">
+<![CDATA[#region Update recipe HMI]]>
+</Line>
+<Line Number="243">
+<![CDATA[	if (Recipe_Select <> wrk_Prev_Recipe_Select) OR wrk_update_HMI then				]]>
+</Line>
+<Line Number="244">
+<![CDATA[		case wrk_indexNum[1] of]]>
+</Line>
+<Line Number="245">
+<![CDATA[			0:	/* scan recipe names and count them */]]>
+</Line>
+<Line Number="246">
+<![CDATA[				HMI_Recipe_Name:=Recipe.Recipe_Memory[Recipe_Select].Recipe_Name;]]>
+</Line>
+<Line Number="247">
+<![CDATA[				#region Check TotalRecipeSaved]]>
+</Line>
+<Line Number="248">
+<![CDATA[					for i := 0 to 20 do]]>
+</Line>
 <Line Number="249">
-<![CDATA[		for i := 0 to 99 do]]>
+<![CDATA[						Wrk_Recipe_list[i]	:=	Recipe.Recipe_Memory[i].Recipe_Name;]]>
 </Line>
 <Line Number="250">
-<![CDATA[			wrk_Setpoints_Names[i]:=Setpoints_Names[i];		// move names to local var that HMI can acces.	]]>
+<![CDATA[					end_for;]]>
 </Line>
 <Line Number="251">
-<![CDATA[		end_for;]]>
+<![CDATA[					i:=0;]]>
 </Line>
 <Line Number="252">
-<![CDATA[		i:=0;// set index back to 0]]>
+<![CDATA[					TotalRecipeSaved:=	0;	// prepare for scan, by clearing TotalReicpeSaved	]]>
 </Line>
 <Line Number="253">
-<![CDATA[	end_if;]]>
+<![CDATA[					for i := 0 to 20 do]]>
 </Line>
 <Line Number="254">
-<![CDATA[#endregion]]>
+<![CDATA[						if Wrk_Recipe_list[i] <> '' then]]>
 </Line>
 <Line Number="255">
-<![CDATA[]]>
+<![CDATA[							TotalRecipeSaved:=TotalRecipeSaved+1;]]>
 </Line>
 <Line Number="256">
-<![CDATA[#region Rename recipe]]>
+<![CDATA[						end_if;]]>
 </Line>
 <Line Number="257">
-<![CDATA[	if HMI_Rename_Recipe then]]>
+<![CDATA[					end_for;]]>
 </Line>
 <Line Number="258">
-<![CDATA[		Recipe.Recipe_Memory[Recipe_Select].Recipe_Name:=HMI_Recipe_Name;]]>
+<![CDATA[				#endregion]]>
 </Line>
 <Line Number="259">
-<![CDATA[		wrk_update_HMI:=1;]]>
+<![CDATA[				i						:=	0;	// set index back to 0]]>
 </Line>
 <Line Number="260">
-<![CDATA[		HMI_Rename_Recipe:=0;		// iets]]>
+<![CDATA[				wrk_indexNum[1]			:=	1;	// move to next state	]]>
 </Line>
 <Line Number="261">
-<![CDATA[	end_if;]]>
+<![CDATA[			1:	/* copy data to local memory */]]>
 </Line>
 <Line Number="262">
-<![CDATA[#endregion]]>
+<![CDATA[				COP(]]>
 </Line>
 <Line Number="263">
-<![CDATA[]]>
+<![CDATA[					Recipe.Recipe_Memory[Recipe_Select],		// source]]>
 </Line>
 <Line Number="264">
-<![CDATA[	if 		wrk_HMI_Download_Icon then ]]>
+<![CDATA[					wrk_Recipe,									// target]]>
 </Line>
 <Line Number="265">
-<![CDATA[				//wrk_HMI_Download_Icon	:=	1;]]>
+<![CDATA[					1											// length]]>
 </Line>
 <Line Number="266">
-<![CDATA[				wrk_HMI_NewFile_Icon	:=	0;]]>
+<![CDATA[				);]]>
 </Line>
 <Line Number="267">
-<![CDATA[				wrk_HMI_OpenFile_Icon	:=	0;]]>
+<![CDATA[				wrk_Prev_Recipe_Select	:=	Recipe_Select;]]>
 </Line>
 <Line Number="268">
-<![CDATA[				wrk_HMI_Upload_Icon		:=	0;]]>
+<![CDATA[				for i := 0 to 20 do]]>
 </Line>
 <Line Number="269">
-<![CDATA[				]]>
+<![CDATA[					Wrk_Recipe_list[i]	:=	Recipe.Recipe_Memory[i].Recipe_Name;]]>
 </Line>
 <Line Number="270">
-<![CDATA[	elsif 	wrk_HMI_NewFile_Icon then]]>
+<![CDATA[				end_for;]]>
 </Line>
 <Line Number="271">
-<![CDATA[				wrk_HMI_Download_Icon	:=	0;]]>
+<![CDATA[				i						:=	0;	// set index back to 0]]>
 </Line>
 <Line Number="272">
-<![CDATA[				//wrk_HMI_NewFile_Icon	:=	1;]]>
+<![CDATA[				for i := 0 to 99 do]]>
 </Line>
 <Line Number="273">
-<![CDATA[				wrk_HMI_OpenFile_Icon	:=	0;]]>
+<![CDATA[					Recipe.Recipe_New.Setpoints[i]			:=	Recipe.Recipe_Memory[Recipe_Select].Setpoints[i];					// move memory Setpoints 		to next recipe]]>
 </Line>
 <Line Number="274">
-<![CDATA[				wrk_HMI_Upload_Icon		:=	0;]]>
+<![CDATA[					Recipe.Recipe_New.Parameters_Real[i]	:=	Recipe.Recipe_Memory[Recipe_Select].Parameters_Real[i];			// move memory Parameters_Real	to next recipe		]]>
 </Line>
 <Line Number="275">
-<![CDATA[				]]>
+<![CDATA[					Recipe.Recipe_New.Parameters_Dint[i]	:=	Recipe.Recipe_Memory[Recipe_Select].Parameters_Dint[i];			// move memory Parameters_Dint 	to next recipe		]]>
 </Line>
 <Line Number="276">
-<![CDATA[	elsif 	wrk_HMI_OpenFile_Icon then]]>
+<![CDATA[					Recipe.Recipe_New.Parameters_Bool[i]	:=	Recipe.Recipe_Memory[Recipe_Select].Parameters_Bool[i];			// move memory Parameters_Bool 	to next recipe					]]>
 </Line>
 <Line Number="277">
-<![CDATA[				wrk_HMI_Download_Icon	:=	0;]]>
+<![CDATA[				end_for;]]>
 </Line>
 <Line Number="278">
-<![CDATA[				wrk_HMI_NewFile_Icon	:=	0;]]>
+<![CDATA[				i						:=	0;	// set index back to 0]]>
 </Line>
 <Line Number="279">
-<![CDATA[				//wrk_HMI_OpenFile_Icon	:=	1;]]>
+<![CDATA[				wrk_indexNum[1]			:=	0; 	// move to next state]]>
 </Line>
 <Line Number="280">
-<![CDATA[				wrk_HMI_Upload_Icon		:=	0;]]>
+<![CDATA[				wrk_update_HMI			:=	0;	// unlatch signal]]>
 </Line>
 <Line Number="281">
-<![CDATA[				]]>
+<![CDATA[		end_case;]]>
 </Line>
 <Line Number="282">
-<![CDATA[	elsif 	wrk_HMI_Upload_Icon then]]>
+<![CDATA[		for i := 0 to 99 do]]>
 </Line>
 <Line Number="283">
-<![CDATA[				wrk_HMI_Download_Icon	:=	0;]]>
+<![CDATA[			wrk_Setpoints_Names[i]:=Setpoints_Names[i];		// move names to local var that HMI can acces.	]]>
 </Line>
 <Line Number="284">
-<![CDATA[				wrk_HMI_NewFile_Icon	:=	0;]]>
+<![CDATA[		end_for;]]>
 </Line>
 <Line Number="285">
-<![CDATA[				wrk_HMI_OpenFile_Icon	:=	0;]]>
+<![CDATA[		i:=0;// set index back to 0]]>
 </Line>
 <Line Number="286">
-<![CDATA[				//wrk_HMI_Upload_Icon	:=	1;]]>
+<![CDATA[	end_if;]]>
 </Line>
 <Line Number="287">
-<![CDATA[end_if;]]>
+<![CDATA[#endregion]]>
 </Line>
 <Line Number="288">
+<![CDATA[]]>
+</Line>
+<Line Number="289">
+<![CDATA[#region Rename recipe]]>
+</Line>
+<Line Number="290">
+<![CDATA[	if HMI_Rename_Recipe then]]>
+</Line>
+<Line Number="291">
+<![CDATA[		Recipe.Recipe_Memory[Recipe_Select].Recipe_Name:=HMI_Recipe_Name;]]>
+</Line>
+<Line Number="292">
+<![CDATA[		wrk_update_HMI:=1;]]>
+</Line>
+<Line Number="293">
+<![CDATA[		HMI_Rename_Recipe:=0;		// iets]]>
+</Line>
+<Line Number="294">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="295">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="296">
+<![CDATA[]]>
+</Line>
+<Line Number="297">
+<![CDATA[	if 		wrk_HMI_Download_Icon then ]]>
+</Line>
+<Line Number="298">
+<![CDATA[				//wrk_HMI_Download_Icon		:=	1;]]>
+</Line>
+<Line Number="299">
+<![CDATA[				wrk_HMI_NewFile_Icon		:=	0;]]>
+</Line>
+<Line Number="300">
+<![CDATA[				wrk_HMI_OpenFile_Icon		:=	0;]]>
+</Line>
+<Line Number="301">
+<![CDATA[				wrk_HMI_Upload_Icon			:=	0;]]>
+</Line>
+<Line Number="302">
+<![CDATA[				wrk_HMI_SaveToCurrent_Icon	:=	0;]]>
+</Line>
+<Line Number="303">
+<![CDATA[				]]>
+</Line>
+<Line Number="304">
+<![CDATA[	elsif 	wrk_HMI_NewFile_Icon then]]>
+</Line>
+<Line Number="305">
+<![CDATA[				wrk_HMI_Download_Icon		:=	0;]]>
+</Line>
+<Line Number="306">
+<![CDATA[				//wrk_HMI_NewFile_Icon		:=	1;]]>
+</Line>
+<Line Number="307">
+<![CDATA[				wrk_HMI_OpenFile_Icon		:=	0;]]>
+</Line>
+<Line Number="308">
+<![CDATA[				wrk_HMI_Upload_Icon			:=	0;]]>
+</Line>
+<Line Number="309">
+<![CDATA[				wrk_HMI_SaveToCurrent_Icon	:=	0;]]>
+</Line>
+<Line Number="310">
+<![CDATA[				]]>
+</Line>
+<Line Number="311">
+<![CDATA[	elsif 	wrk_HMI_OpenFile_Icon then]]>
+</Line>
+<Line Number="312">
+<![CDATA[				wrk_HMI_Download_Icon		:=	0;]]>
+</Line>
+<Line Number="313">
+<![CDATA[				wrk_HMI_NewFile_Icon		:=	0;]]>
+</Line>
+<Line Number="314">
+<![CDATA[				//wrk_HMI_OpenFile_Icon		:=	1;]]>
+</Line>
+<Line Number="315">
+<![CDATA[				wrk_HMI_Upload_Icon			:=	0;]]>
+</Line>
+<Line Number="316">
+<![CDATA[				wrk_HMI_SaveToCurrent_Icon	:=	0;]]>
+</Line>
+<Line Number="317">
+<![CDATA[				]]>
+</Line>
+<Line Number="318">
+<![CDATA[	elsif 	wrk_HMI_Upload_Icon then]]>
+</Line>
+<Line Number="319">
+<![CDATA[				wrk_HMI_Download_Icon		:=	0;]]>
+</Line>
+<Line Number="320">
+<![CDATA[				wrk_HMI_NewFile_Icon		:=	0;]]>
+</Line>
+<Line Number="321">
+<![CDATA[				wrk_HMI_OpenFile_Icon		:=	0;]]>
+</Line>
+<Line Number="322">
+<![CDATA[				//wrk_HMI_Upload_Icon		:=	1;]]>
+</Line>
+<Line Number="323">
+<![CDATA[				wrk_HMI_SaveToCurrent_Icon	:=	0;]]>
+</Line>
+<Line Number="324">
+<![CDATA[				]]>
+</Line>
+<Line Number="325">
+<![CDATA[	elsif 	wrk_HMI_SaveToCurrent_Icon then]]>
+</Line>
+<Line Number="326">
+<![CDATA[				wrk_HMI_Download_Icon		:=	0;]]>
+</Line>
+<Line Number="327">
+<![CDATA[				wrk_HMI_NewFile_Icon		:=	0;]]>
+</Line>
+<Line Number="328">
+<![CDATA[				wrk_HMI_OpenFile_Icon		:=	0;]]>
+</Line>
+<Line Number="329">
+<![CDATA[				wrk_HMI_Upload_Icon			:=	0;]]>
+</Line>
+<Line Number="330">
+<![CDATA[				//wrk_HMI_SaveToCurrent_Icon:=	1;]]>
+</Line>
+<Line Number="331">
+<![CDATA[							]]>
+</Line>
+<Line Number="332">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="333">
 <![CDATA[	]]>
 </Line>
 </STContent>
