@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-05-31T10:29:31.788Z" ContainsContext="true" ExportDate="Tue May 31 12:29:51 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="HMI_IA_Sensor" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-06-01T13:21:21.694Z" ContainsContext="true" ExportDate="Tue Aug 23 16:04:30 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 </DataTypes>
@@ -228,7 +228,7 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </Routine>
 </Routines>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-05-31T10:29:31.788Z"
+<AddOnInstructionDefinition Use="Target" Name="HMI_IA_Sensor" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-10T06:38:30.588Z" CreatedBy="WPI\engineer" EditedDate="2022-06-01T13:21:21.694Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
@@ -1010,6 +1010,9 @@ SIMULATIE_ENABLE, if this is set to (TRUE/1) the scaling will be ignored and the
 </Line>
 <Line Number="100">
 <![CDATA[#endregion]]>
+</Line>
+<Line Number="101">
+<![CDATA[]]>
 </Line>
 </STContent>
 </Routine>
