@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--Control a PF527 based on max speed input-->
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="PF527_V4" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-06-28T07:33:57.165Z" ContainsContext="true" ExportDate="Mon Jul 04 09:07:20 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="PF527_V4" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-07-14T06:56:59.980Z" ContainsContext="true" ExportDate="Fri Aug 26 10:42:55 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Orkla_5445_ISA_S88">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
@@ -1499,7 +1499,7 @@ Output from state model to wrk bits
 <Dependency Type="DataType" Name="ISA88_States_txt"/>
 </Dependencies>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="PF527_V4" Class="Standard" Revision="1.0" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-03-04T09:57:46.538Z" CreatedBy="WPI\tom.reit" EditedDate="2022-06-28T07:33:57.165Z" EditedBy="WPI\tom.reit"
+<AddOnInstructionDefinition Use="Target" Name="PF527_V4" Class="Standard" Revision="1.0" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-03-04T09:57:46.538Z" CreatedBy="WPI\tom.reit" EditedDate="2022-07-14T06:56:59.980Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
 <Description>
 <![CDATA[Control a PF527 based on max speed input]]>
@@ -2116,540 +2116,543 @@ scaling to % is done outside of the AOI.]]>
 <![CDATA[		/* Calc max freq based on config. */]]>
 </Line>
 <Line Number="42">
-<![CDATA[		temp_real:=cnf_MotorFreq; // just a local copy, nothing to calc]]>
+<![CDATA[		temp_real:=cnf_MotorFreq; 	// just a local copy, nothing to calc]]>
 </Line>
 <Line Number="43">
-<![CDATA[		SSV(Axis,Axis,MaximumFrequency,temp_real);]]>
+<![CDATA[		temp_real:=temp_real+30;	// add 30 hz for the drive to be overclocked. which will be above 100%]]>
 </Line>
 <Line Number="44">
-<![CDATA[]]>
+<![CDATA[		SSV(Axis,Axis,MaximumFrequency,temp_real);]]>
 </Line>
 <Line Number="45">
-<![CDATA[		/* Calc max accel & decel based on config. */]]>
+<![CDATA[]]>
 </Line>
 <Line Number="46">
-<![CDATA[		if cnf_Gearbox_type = 2 	then temp_real:=(cnf_Gearbox_output / cnf_Gearbox_input)*((cnf_MotorSpeed/60) / cnf_Accel_Time); end_if; 	// convert max motor speed to rounds per sec and divide by time to accel / decel.   a = (Ve-Vb) / t ]]>
+<![CDATA[		/* Calc max accel & decel based on config. */]]>
 </Line>
 <Line Number="47">
-<![CDATA[		if cnf_Gearbox_type <> 2 	then temp_real:=(1 / 1)*((cnf_MotorSpeed/60) / cnf_Accel_Time); end_if; 									// convert max motor speed to rounds per sec and divide by time to accel / decel.   a = (Ve-Vb) / t 		]]>
+<![CDATA[		if cnf_Gearbox_type = 2 	then temp_real:=(cnf_Gearbox_output / cnf_Gearbox_input)*((cnf_MotorSpeed/60) / cnf_Accel_Time); end_if; 	// convert max motor speed to rounds per sec and divide by time to accel / decel.   a = (Ve-Vb) / t ]]>
 </Line>
 <Line Number="48">
-<![CDATA[		SSV(Axis,Axis,MaximumAcceleration,temp_real);]]>
+<![CDATA[		if cnf_Gearbox_type <> 2 	then temp_real:=(1 / 1)*((cnf_MotorSpeed/60) / cnf_Accel_Time); end_if; 									// convert max motor speed to rounds per sec and divide by time to accel / decel.   a = (Ve-Vb) / t 		]]>
 </Line>
 <Line Number="49">
-<![CDATA[		SSV(Axis,Axis,MaximumDeceleration,temp_real);]]>
+<![CDATA[		SSV(Axis,Axis,MaximumAcceleration,temp_real);]]>
 </Line>
 <Line Number="50">
-<![CDATA[		]]>
+<![CDATA[		SSV(Axis,Axis,MaximumDeceleration,temp_real);]]>
 </Line>
 <Line Number="51">
-<![CDATA[		/* Calc max accel jerk & decel jerk based on config. */		]]>
+<![CDATA[		]]>
 </Line>
 <Line Number="52">
-<![CDATA[		if cnf_Gearbox_type = 2 	then temp_real:=(cnf_Gearbox_output / cnf_Gearbox_input)*((cnf_MotorSpeed/60) / cnf_Accel_Time) / 2.5; end_if; // for some reason setting Jerk limit to 100% of accel results in dividing max acel by 2,5 lol.]]>
+<![CDATA[		/* Calc max accel jerk & decel jerk based on config. */		]]>
 </Line>
 <Line Number="53">
-<![CDATA[		if cnf_Gearbox_type <> 2 	then temp_real:=(1 / 1)*((cnf_MotorSpeed/60) / cnf_Accel_Time) / 2.5; end_if; // for some reason setting Jerk limit to 100% of accel results in dividing max acel by 2,5 lol.]]>
+<![CDATA[		if cnf_Gearbox_type = 2 	then temp_real:=(cnf_Gearbox_output / cnf_Gearbox_input)*((cnf_MotorSpeed/60) / cnf_Accel_Time) / 2.5; end_if; // for some reason setting Jerk limit to 100% of accel results in dividing max acel by 2,5 lol.]]>
 </Line>
 <Line Number="54">
-<![CDATA[		SSV(Axis,Axis,MaximumAccelerationJerk,temp_real);]]>
+<![CDATA[		if cnf_Gearbox_type <> 2 	then temp_real:=(1 / 1)*((cnf_MotorSpeed/60) / cnf_Accel_Time) / 2.5; end_if; // for some reason setting Jerk limit to 100% of accel results in dividing max acel by 2,5 lol.]]>
 </Line>
 <Line Number="55">
-<![CDATA[		SSV(Axis,Axis,MaximumDecelerationJerk,temp_real);]]>
+<![CDATA[		SSV(Axis,Axis,MaximumAccelerationJerk,temp_real);]]>
 </Line>
 <Line Number="56">
-<![CDATA[		HMI_config_PF:=FALSE;]]>
+<![CDATA[		SSV(Axis,Axis,MaximumDecelerationJerk,temp_real);]]>
 </Line>
 <Line Number="57">
-<![CDATA[	#endregion]]>
+<![CDATA[		HMI_config_PF:=FALSE;]]>
 </Line>
 <Line Number="58">
-<![CDATA[end_if;]]>
+<![CDATA[	#endregion]]>
 </Line>
 <Line Number="59">
-<![CDATA[]]>
+<![CDATA[end_if;]]>
 </Line>
 <Line Number="60">
 <![CDATA[]]>
 </Line>
 <Line Number="61">
-<![CDATA[#region Axis fault & Reset ]]>
-</Line>
-<Line Number="62">
-<![CDATA[	if NOT Reset then SEQ_Reset:=0; end_if;]]>
-</Line>
-<Line Number="63">
-<![CDATA[	case SEQ_Reset of]]>
-</Line>
-<Line Number="64">
-<![CDATA[		0:  // reset begin]]>
-</Line>
-<Line Number="65">
-<![CDATA[			if Reset then Reset_MAFR.FLAGS:=0; SEQ_Reset:=10; end_if;]]>
-</Line>
-<Line Number="66">
-<![CDATA[		10: // reset command]]>
-</Line>
-<Line Number="67">
-<![CDATA[			Motion_instruction_Faulted := FALSE; // set motion faulted to false. ]]>
-</Line>
-<Line Number="68">
-<![CDATA[			if Enable_MSO.ER 	then Enable_MSO.FLAGS	:=0; end_if;]]>
-</Line>
-<Line Number="69">
-<![CDATA[			if Disable_MSF.ER 	then Disable_MSF.FLAGS	:=0; end_if;]]>
-</Line>
-<Line Number="70">
-<![CDATA[			if MAS_Drive.ER 	then MAS_Drive.FLAGS	:=0; end_if;]]>
-</Line>
-<Line Number="71">
-<![CDATA[			if MAJ_Drive.ER 	then MAJ_Drive.FLAGS	:=0; end_if;]]>
-</Line>
-<Line Number="72">
-<![CDATA[			if Reset_MAFR.ER	then Reset_MAFR.FLAGS	:=0; end_if;]]>
-</Line>
-<Line Number="73">
-<![CDATA[			MAFR(Axis,Reset_MAFR);]]>
-</Line>
-<Line Number="74">
-<![CDATA[			]]>
-</Line>
-<Line Number="75">
-<![CDATA[			SEQ_Disable_Drive	:=0;	// reset sequence]]>
-</Line>
-<Line Number="76">
-<![CDATA[			SEQ_Enable_Drive	:=0;	// reset sequence]]>
-</Line>
-<Line Number="77">
-<![CDATA[			SEQ_Start_Drive		:=0;	// reset sequence]]>
-</Line>
-<Line Number="78">
-<![CDATA[			SEQ_Stop_Drive		:=0;	// reset sequence]]>
-</Line>
-<Line Number="79">
-<![CDATA[			]]>
-</Line>
-<Line Number="80">
-<![CDATA[			if Reset_MAFR.EN then SEQ_Reset:=20; end_if;]]>
-</Line>
-<Line Number="81">
-<![CDATA[		20: // check feedback]]>
-</Line>
-<Line Number="82">
-<![CDATA[			if Reset_MAFR.DN then ]]>
-</Line>
-<Line Number="83">
-<![CDATA[				Axis_Faulted:=FALSE; 	]]>
-</Line>
-<Line Number="84">
-<![CDATA[				Reset_Faulted:=FALSE;]]>
-</Line>
-<Line Number="85">
-<![CDATA[			end_if;]]>
-</Line>
-<Line Number="86">
-<![CDATA[			if Reset_MAFR.ER then ]]>
-</Line>
-<Line Number="87">
-<![CDATA[				Axis_Faulted:=TRUE; ]]>
-</Line>
-<Line Number="88">
-<![CDATA[				Reset_Faulted:=TRUE;]]>
-</Line>
-<Line Number="89">
-<![CDATA[			end_if;]]>
-</Line>
-<Line Number="90">
-<![CDATA[		else]]>
-</Line>
-<Line Number="91">
-<![CDATA[			// niks?]]>
-</Line>
-<Line Number="92">
-<![CDATA[	end_case;]]>
-</Line>
-<Line Number="93">
-<![CDATA[	if Axis.AxisFault <> 0 	then Axis_Faulted	:=TRUE; else Axis_Faulted	:= FALSE; end_if;  ]]>
-</Line>
-<Line Number="94">
-<![CDATA[	if Axis.SafetyFault 	then SafetyFault	:=TRUE; else SafetyFault	:= FALSE; end_if;]]>
-</Line>
-<Line Number="95">
-<![CDATA[#endregion]]>
-</Line>
-<Line Number="96">
 <![CDATA[]]>
 </Line>
+<Line Number="62">
+<![CDATA[#region Axis fault & Reset ]]>
+</Line>
+<Line Number="63">
+<![CDATA[	if NOT Reset then SEQ_Reset:=0; end_if;]]>
+</Line>
+<Line Number="64">
+<![CDATA[	case SEQ_Reset of]]>
+</Line>
+<Line Number="65">
+<![CDATA[		0:  // reset begin]]>
+</Line>
+<Line Number="66">
+<![CDATA[			if Reset then Reset_MAFR.FLAGS:=0; SEQ_Reset:=10; end_if;]]>
+</Line>
+<Line Number="67">
+<![CDATA[		10: // reset command]]>
+</Line>
+<Line Number="68">
+<![CDATA[			Motion_instruction_Faulted := FALSE; // set motion faulted to false. ]]>
+</Line>
+<Line Number="69">
+<![CDATA[			if Enable_MSO.ER 	then Enable_MSO.FLAGS	:=0; end_if;]]>
+</Line>
+<Line Number="70">
+<![CDATA[			if Disable_MSF.ER 	then Disable_MSF.FLAGS	:=0; end_if;]]>
+</Line>
+<Line Number="71">
+<![CDATA[			if MAS_Drive.ER 	then MAS_Drive.FLAGS	:=0; end_if;]]>
+</Line>
+<Line Number="72">
+<![CDATA[			if MAJ_Drive.ER 	then MAJ_Drive.FLAGS	:=0; end_if;]]>
+</Line>
+<Line Number="73">
+<![CDATA[			if Reset_MAFR.ER	then Reset_MAFR.FLAGS	:=0; end_if;]]>
+</Line>
+<Line Number="74">
+<![CDATA[			MAFR(Axis,Reset_MAFR);]]>
+</Line>
+<Line Number="75">
+<![CDATA[			]]>
+</Line>
+<Line Number="76">
+<![CDATA[			SEQ_Disable_Drive	:=0;	// reset sequence]]>
+</Line>
+<Line Number="77">
+<![CDATA[			SEQ_Enable_Drive	:=0;	// reset sequence]]>
+</Line>
+<Line Number="78">
+<![CDATA[			SEQ_Start_Drive		:=0;	// reset sequence]]>
+</Line>
+<Line Number="79">
+<![CDATA[			SEQ_Stop_Drive		:=0;	// reset sequence]]>
+</Line>
+<Line Number="80">
+<![CDATA[			]]>
+</Line>
+<Line Number="81">
+<![CDATA[			if Reset_MAFR.EN then SEQ_Reset:=20; end_if;]]>
+</Line>
+<Line Number="82">
+<![CDATA[		20: // check feedback]]>
+</Line>
+<Line Number="83">
+<![CDATA[			if Reset_MAFR.DN then ]]>
+</Line>
+<Line Number="84">
+<![CDATA[				Axis_Faulted:=FALSE; 	]]>
+</Line>
+<Line Number="85">
+<![CDATA[				Reset_Faulted:=FALSE;]]>
+</Line>
+<Line Number="86">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="87">
+<![CDATA[			if Reset_MAFR.ER then ]]>
+</Line>
+<Line Number="88">
+<![CDATA[				Axis_Faulted:=TRUE; ]]>
+</Line>
+<Line Number="89">
+<![CDATA[				Reset_Faulted:=TRUE;]]>
+</Line>
+<Line Number="90">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="91">
+<![CDATA[		else]]>
+</Line>
+<Line Number="92">
+<![CDATA[			// niks?]]>
+</Line>
+<Line Number="93">
+<![CDATA[	end_case;]]>
+</Line>
+<Line Number="94">
+<![CDATA[	if Axis.AxisFault <> 0 	then Axis_Faulted	:=TRUE; else Axis_Faulted	:= FALSE; end_if;  ]]>
+</Line>
+<Line Number="95">
+<![CDATA[	if Axis.SafetyFault 	then SafetyFault	:=TRUE; else SafetyFault	:= FALSE; end_if;]]>
+</Line>
+<Line Number="96">
+<![CDATA[#endregion]]>
+</Line>
 <Line Number="97">
-<![CDATA[#region Motion commands]]>
+<![CDATA[]]>
 </Line>
 <Line Number="98">
-<![CDATA[	if NOT Axis_Faulted AND NOT Motion_instruction_Faulted then 		// check if axis and any motion instruction is not faulted			]]>
+<![CDATA[#region Motion commands]]>
 </Line>
 <Line Number="99">
-<![CDATA[		#region Enable servo]]>
+<![CDATA[	if NOT Axis_Faulted AND NOT Motion_instruction_Faulted then 		// check if axis and any motion instruction is not faulted			]]>
 </Line>
 <Line Number="100">
-<![CDATA[			if (NOT Enable) AND (NOT Start_Drive) then SEQ_Enable_Drive:=0; end_if;]]>
+<![CDATA[		#region Enable servo]]>
 </Line>
 <Line Number="101">
-<![CDATA[			case SEQ_Enable_Drive of]]>
+<![CDATA[			if (NOT Enable) AND (NOT Start_Drive) then SEQ_Enable_Drive:=0; end_if;]]>
 </Line>
 <Line Number="102">
-<![CDATA[				0:/* enable request */]]>
+<![CDATA[			case SEQ_Enable_Drive of]]>
 </Line>
 <Line Number="103">
-<![CDATA[					if Enable OR Start_Drive then ]]>
+<![CDATA[				0:/* enable request */]]>
 </Line>
 <Line Number="104">
-<![CDATA[						Enable_MSO.FLAGS:=0; 						// Clear previous MSO.]]>
+<![CDATA[					if Enable OR Start_Drive then ]]>
 </Line>
 <Line Number="105">
-<![CDATA[						SEQ_Enable_Drive:=10; 						// Set to next state]]>
+<![CDATA[						Enable_MSO.FLAGS:=0; 						// Clear previous MSO.]]>
 </Line>
 <Line Number="106">
-<![CDATA[					end_if;]]>
+<![CDATA[						SEQ_Enable_Drive:=10; 						// Set to next state]]>
 </Line>
 <Line Number="107">
-<![CDATA[					]]>
+<![CDATA[					end_if;]]>
 </Line>
 <Line Number="108">
 <![CDATA[					]]>
 </Line>
 <Line Number="109">
-<![CDATA[				10:/* MSO */]]>
+<![CDATA[					]]>
 </Line>
 <Line Number="110">
-<![CDATA[					MSO(Axis,Enable_MSO); 							// call to servo to enable]]>
+<![CDATA[				10:/* MSO */]]>
 </Line>
 <Line Number="111">
-<![CDATA[					SEQ_Enable_Drive:=20;							// set to next state]]>
+<![CDATA[					MSO(Axis,Enable_MSO); 							// call to servo to enable]]>
 </Line>
 <Line Number="112">
-<![CDATA[					]]>
+<![CDATA[					SEQ_Enable_Drive:=20;							// set to next state]]>
 </Line>
 <Line Number="113">
 <![CDATA[					]]>
 </Line>
 <Line Number="114">
-<![CDATA[				20:/* check feedback */]]>
-</Line>
-<Line Number="115">
-<![CDATA[					if Axis.DriveEnableStatus 	then Drive_Enabled				:=TRUE; end_if;]]>
-</Line>
-<Line Number="116">
-<![CDATA[					if Enable_MSO.ER 			then Motion_instruction_Faulted	:=TRUE; end_if;]]>
-</Line>
-<Line Number="117">
-<![CDATA[				else]]>
-</Line>
-<Line Number="118">
-<![CDATA[					SEQ_Enable_Drive:=0;]]>
-</Line>
-<Line Number="119">
-<![CDATA[			end_case;]]>
-</Line>
-<Line Number="120">
-<![CDATA[		#endregion 	]]>
-</Line>
-<Line Number="121">
-<![CDATA[		#region Disable servo]]>
-</Line>
-<Line Number="122">
-<![CDATA[			if Axis.DriveEnableStatus AND Enable then SEQ_Disable_Drive:=0; end_if;]]>
-</Line>
-<Line Number="123">
-<![CDATA[				#region MSF command	]]>
-</Line>
-<Line Number="124">
-<![CDATA[				case SEQ_Disable_Drive of]]>
-</Line>
-<Line Number="125">
-<![CDATA[					0: /* Disable request */]]>
-</Line>
-<Line Number="126">
-<![CDATA[						if (NOT Enable AND Axis.VelocityStandstillStatus) AND NOT Start_Drive then]]>
-</Line>
-<Line Number="127">
-<![CDATA[							Disable_MSF.FLAGS:=0;			// clear previous state]]>
-</Line>
-<Line Number="128">
-<![CDATA[							SEQ_Disable_Drive:=10;			// go to next state]]>
-</Line>
-<Line Number="129">
-<![CDATA[						end_if;]]>
-</Line>
-<Line Number="130">
-<![CDATA[						]]>
-</Line>
-<Line Number="131">
-<![CDATA[					10:/* MSF */]]>
-</Line>
-<Line Number="132">
-<![CDATA[						MSF(Axis,Disable_MSF);]]>
-</Line>
-<Line Number="133">
-<![CDATA[						SEQ_Disable_Drive:=20;				// go to next state]]>
-</Line>
-<Line Number="134">
-<![CDATA[						]]>
-</Line>
-<Line Number="135">
-<![CDATA[					20: /* check feedback */]]>
-</Line>
-<Line Number="136">
-<![CDATA[						if NOT Axis.DriveEnableStatus 	then Drive_Enabled				:=FALSE; end_if; ]]>
-</Line>
-<Line Number="137">
-<![CDATA[						if Disable_MSF.ER				then Motion_instruction_Faulted	:=TRUE;  end_if;	]]>
-</Line>
-<Line Number="138">
-<![CDATA[					else]]>
-</Line>
-<Line Number="139">
-<![CDATA[				end_case;]]>
-</Line>
-<Line Number="140">
-<![CDATA[			#endregion]]>
-</Line>
-<Line Number="141">
-<![CDATA[		#endregion]]>
-</Line>
-<Line Number="142">
-<![CDATA[		#region Move servo]]>
-</Line>
-<Line Number="143">
-<![CDATA[			if Axis.VelocityStandstillStatus AND (NOT Start_Drive) then SEQ_Start_Drive:=0; end_if;]]>
-</Line>
-<Line Number="144">
-<![CDATA[			case SEQ_Start_Drive of]]>
-</Line>
-<Line Number="145">
-<![CDATA[				0: ]]>
-</Line>
-<Line Number="146">
-<![CDATA[					if Drive_Enabled AND Start_Drive then 					]]>
-</Line>
-<Line Number="147">
-<![CDATA[						MAJ_Drive.FLAGS:=0;	]]>
-</Line>
-<Line Number="148">
-<![CDATA[						SEQ_Start_Drive:=10;]]>
-</Line>
-<Line Number="149">
-<![CDATA[					end_if;]]>
-</Line>
-<Line Number="150">
-<![CDATA[]]>
-</Line>
-<Line Number="151">
-<![CDATA[				10: ]]>
-</Line>
-<Line Number="152">
-<![CDATA[					MAJ(]]>
-</Line>
-<Line Number="153">
-<![CDATA[						Axis,		// axis]]>
-</Line>
-<Line Number="154">
-<![CDATA[						MAJ_Drive,	// Motion control]]>
-</Line>
-<Line Number="155">
-<![CDATA[						Direction,	// Direction MAJ instruction]]>
-</Line>
-<Line Number="156">
-<![CDATA[						Speed,		// Speed MAJ instruction]]>
-</Line>
-<Line Number="157">
-<![CDATA[						%ofMaximum,	// Speed units, keep in mind accel & decel is calculated based on timeinput. so 100% is the time given.]]>
-</Line>
-<Line Number="158">
-<![CDATA[						100,		// Accel rate]]>
-</Line>
-<Line Number="159">
-<![CDATA[						%ofMaximum,	// Accel Units, keep in mind accel & decel is calculated based on timeinput. so 100% is the time given.]]>
-</Line>
-<Line Number="160">
-<![CDATA[						100,		// Decel rate]]>
-</Line>
-<Line Number="161">
-<![CDATA[						%ofMaximum,	// Decel units]]>
-</Line>
-<Line Number="162">
-<![CDATA[						SCurve,		// Motion type (Trapaziod vs S-curve)]]>
-</Line>
-<Line Number="163">
-<![CDATA[						10,			// Jerk accel rate]]>
-</Line>
-<Line Number="164">
-<![CDATA[						10,			// Jerk Decel rate]]>
-</Line>
-<Line Number="165">
-<![CDATA[						%ofTime,	// Jerk units]]>
-</Line>
-<Line Number="166">
-<![CDATA[						0,			// Merge]]>
-</Line>
-<Line Number="167">
-<![CDATA[						0,			// Merge speed]]>
-</Line>
-<Line Number="168">
-<![CDATA[						0,			// Lock Position]]>
-</Line>
-<Line Number="169">
-<![CDATA[						0			// Lock Direction]]>
-</Line>
-<Line Number="170">
-<![CDATA[						);]]>
-</Line>
-<Line Number="171">
-<![CDATA[					wrk_speed:=Speed;]]>
-</Line>
-<Line Number="172">
-<![CDATA[					SEQ_Start_Drive:=20;]]>
-</Line>
-<Line Number="173">
-<![CDATA[				20:]]>
-</Line>
-<Line Number="174">
-<![CDATA[					if MAJ_Drive.IP then Drive_Running				:=TRUE; end_if;]]>
-</Line>
-<Line Number="175">
-<![CDATA[					if MAJ_Drive.ER	then Motion_instruction_Faulted	:=TRUE; end_if;	]]>
-</Line>
-<Line Number="176">
-<![CDATA[					if Speed<>wrk_speed then SEQ_Start_Drive		:=0;	end_if;]]>
-</Line>
-<Line Number="177">
-<![CDATA[				else]]>
-</Line>
-<Line Number="178">
-<![CDATA[			end_case;	]]>
-</Line>
-<Line Number="179">
-<![CDATA[		#endregion]]>
-</Line>
-<Line Number="180">
-<![CDATA[		#region Stop servo]]>
-</Line>
-<Line Number="181">
-<![CDATA[			if NOT Axis.VelocityStandstillStatus AND Start_Drive then SEQ_Stop_Drive:=0; end_if;]]>
-</Line>
-<Line Number="182">
-<![CDATA[			case SEQ_Stop_Drive of]]>
-</Line>
-<Line Number="183">
-<![CDATA[				0: ]]>
-</Line>
-<Line Number="184">
-<![CDATA[					if NOT Start_Drive AND NOT Axis.VelocityStandstillStatus then]]>
-</Line>
-<Line Number="185">
-<![CDATA[						MAS_Drive.FLAGS:=0;]]>
-</Line>
-<Line Number="186">
-<![CDATA[						SEQ_Stop_Drive:=10;]]>
-</Line>
-<Line Number="187">
-<![CDATA[					end_if;]]>
-</Line>
-<Line Number="188">
-<![CDATA[				10:]]>
-</Line>
-<Line Number="189">
-<![CDATA[					MAS(]]>
-</Line>
-<Line Number="190">
-<![CDATA[					Axis, 		// Axis]]>
-</Line>
-<Line Number="191">
-<![CDATA[					MAS_Drive, 	// Motion control]]>
-</Line>
-<Line Number="192">
-<![CDATA[					All,		// Stop type (all means any move type, so all of them)]]>
-</Line>
-<Line Number="193">
-<![CDATA[					Yes,		// Change decel rate]]>
-</Line>
-<Line Number="194">
-<![CDATA[					100,		// Decel rate]]>
-</Line>
-<Line Number="195">
-<![CDATA[					%ofMaximum,	// Decel units]]>
-</Line>
-<Line Number="196">
-<![CDATA[					Yes,		// Change Decel Jerk]]>
-</Line>
-<Line Number="197">
-<![CDATA[					10,			// Decel Jerk rate]]>
-</Line>
-<Line Number="198">
-<![CDATA[					%ofTime		// Decel Jerk units]]>
-</Line>
-<Line Number="199">
-<![CDATA[					);	]]>
-</Line>
-<Line Number="200">
-<![CDATA[					SEQ_Stop_Drive:=20;	]]>
-</Line>
-<Line Number="201">
-<![CDATA[				20:]]>
-</Line>
-<Line Number="202">
-<![CDATA[					if MAS_Drive.PC then Drive_Running				:=FALSE; end_if;]]>
-</Line>
-<Line Number="203">
-<![CDATA[					if MAS_Drive.ER then Motion_instruction_Faulted	:=TRUE;	 end_if;]]>
-</Line>
-<Line Number="204">
 <![CDATA[					]]>
 </Line>
-<Line Number="205">
+<Line Number="115">
+<![CDATA[				20:/* check feedback */]]>
+</Line>
+<Line Number="116">
+<![CDATA[					if Axis.DriveEnableStatus 	then Drive_Enabled				:=TRUE; end_if;]]>
+</Line>
+<Line Number="117">
+<![CDATA[					if Enable_MSO.ER 			then Motion_instruction_Faulted	:=TRUE; end_if;]]>
+</Line>
+<Line Number="118">
 <![CDATA[				else]]>
 </Line>
-<Line Number="206">
-<![CDATA[					SEQ_Stop_Drive:=0;]]>
+<Line Number="119">
+<![CDATA[					SEQ_Enable_Drive:=0;]]>
 </Line>
-<Line Number="207">
+<Line Number="120">
 <![CDATA[			end_case;]]>
 </Line>
+<Line Number="121">
+<![CDATA[		#endregion 	]]>
+</Line>
+<Line Number="122">
+<![CDATA[		#region Disable servo]]>
+</Line>
+<Line Number="123">
+<![CDATA[			if Axis.DriveEnableStatus AND Enable then SEQ_Disable_Drive:=0; end_if;]]>
+</Line>
+<Line Number="124">
+<![CDATA[				#region MSF command	]]>
+</Line>
+<Line Number="125">
+<![CDATA[				case SEQ_Disable_Drive of]]>
+</Line>
+<Line Number="126">
+<![CDATA[					0: /* Disable request */]]>
+</Line>
+<Line Number="127">
+<![CDATA[						if (NOT Enable AND Axis.VelocityStandstillStatus) AND NOT Start_Drive then]]>
+</Line>
+<Line Number="128">
+<![CDATA[							Disable_MSF.FLAGS:=0;			// clear previous state]]>
+</Line>
+<Line Number="129">
+<![CDATA[							SEQ_Disable_Drive:=10;			// go to next state]]>
+</Line>
+<Line Number="130">
+<![CDATA[						end_if;]]>
+</Line>
+<Line Number="131">
+<![CDATA[						]]>
+</Line>
+<Line Number="132">
+<![CDATA[					10:/* MSF */]]>
+</Line>
+<Line Number="133">
+<![CDATA[						MSF(Axis,Disable_MSF);]]>
+</Line>
+<Line Number="134">
+<![CDATA[						SEQ_Disable_Drive:=20;				// go to next state]]>
+</Line>
+<Line Number="135">
+<![CDATA[						]]>
+</Line>
+<Line Number="136">
+<![CDATA[					20: /* check feedback */]]>
+</Line>
+<Line Number="137">
+<![CDATA[						if NOT Axis.DriveEnableStatus 	then Drive_Enabled				:=FALSE; end_if; ]]>
+</Line>
+<Line Number="138">
+<![CDATA[						if Disable_MSF.ER				then Motion_instruction_Faulted	:=TRUE;  end_if;	]]>
+</Line>
+<Line Number="139">
+<![CDATA[					else]]>
+</Line>
+<Line Number="140">
+<![CDATA[				end_case;]]>
+</Line>
+<Line Number="141">
+<![CDATA[			#endregion]]>
+</Line>
+<Line Number="142">
+<![CDATA[		#endregion]]>
+</Line>
+<Line Number="143">
+<![CDATA[		#region Move servo]]>
+</Line>
+<Line Number="144">
+<![CDATA[			if Axis.VelocityStandstillStatus AND (NOT Start_Drive) then SEQ_Start_Drive:=0; end_if;]]>
+</Line>
+<Line Number="145">
+<![CDATA[			case SEQ_Start_Drive of]]>
+</Line>
+<Line Number="146">
+<![CDATA[				0: ]]>
+</Line>
+<Line Number="147">
+<![CDATA[					if Drive_Enabled AND Start_Drive then 					]]>
+</Line>
+<Line Number="148">
+<![CDATA[						MAJ_Drive.FLAGS:=0;	]]>
+</Line>
+<Line Number="149">
+<![CDATA[						SEQ_Start_Drive:=10;]]>
+</Line>
+<Line Number="150">
+<![CDATA[					end_if;]]>
+</Line>
+<Line Number="151">
+<![CDATA[]]>
+</Line>
+<Line Number="152">
+<![CDATA[				10: ]]>
+</Line>
+<Line Number="153">
+<![CDATA[					MAJ(]]>
+</Line>
+<Line Number="154">
+<![CDATA[						Axis,		// axis]]>
+</Line>
+<Line Number="155">
+<![CDATA[						MAJ_Drive,	// Motion control]]>
+</Line>
+<Line Number="156">
+<![CDATA[						Direction,	// Direction MAJ instruction]]>
+</Line>
+<Line Number="157">
+<![CDATA[						Speed,		// Speed MAJ instruction]]>
+</Line>
+<Line Number="158">
+<![CDATA[						%ofMaximum,	// Speed units, keep in mind accel & decel is calculated based on timeinput. so 100% is the time given.]]>
+</Line>
+<Line Number="159">
+<![CDATA[						100,		// Accel rate]]>
+</Line>
+<Line Number="160">
+<![CDATA[						%ofMaximum,	// Accel Units, keep in mind accel & decel is calculated based on timeinput. so 100% is the time given.]]>
+</Line>
+<Line Number="161">
+<![CDATA[						100,		// Decel rate]]>
+</Line>
+<Line Number="162">
+<![CDATA[						%ofMaximum,	// Decel units]]>
+</Line>
+<Line Number="163">
+<![CDATA[						SCurve,		// Motion type (Trapaziod vs S-curve)]]>
+</Line>
+<Line Number="164">
+<![CDATA[						10,			// Jerk accel rate]]>
+</Line>
+<Line Number="165">
+<![CDATA[						10,			// Jerk Decel rate]]>
+</Line>
+<Line Number="166">
+<![CDATA[						%ofTime,	// Jerk units]]>
+</Line>
+<Line Number="167">
+<![CDATA[						0,			// Merge]]>
+</Line>
+<Line Number="168">
+<![CDATA[						0,			// Merge speed]]>
+</Line>
+<Line Number="169">
+<![CDATA[						0,			// Lock Position]]>
+</Line>
+<Line Number="170">
+<![CDATA[						0			// Lock Direction]]>
+</Line>
+<Line Number="171">
+<![CDATA[						);]]>
+</Line>
+<Line Number="172">
+<![CDATA[					wrk_speed:=Speed;]]>
+</Line>
+<Line Number="173">
+<![CDATA[					SEQ_Start_Drive:=20;]]>
+</Line>
+<Line Number="174">
+<![CDATA[				20:]]>
+</Line>
+<Line Number="175">
+<![CDATA[					if MAJ_Drive.IP then Drive_Running				:=TRUE; end_if;]]>
+</Line>
+<Line Number="176">
+<![CDATA[					if MAJ_Drive.ER	then Motion_instruction_Faulted	:=TRUE; end_if;	]]>
+</Line>
+<Line Number="177">
+<![CDATA[					if Speed<>wrk_speed then SEQ_Start_Drive		:=0;	end_if;]]>
+</Line>
+<Line Number="178">
+<![CDATA[				else]]>
+</Line>
+<Line Number="179">
+<![CDATA[			end_case;	]]>
+</Line>
+<Line Number="180">
+<![CDATA[		#endregion]]>
+</Line>
+<Line Number="181">
+<![CDATA[		#region Stop servo]]>
+</Line>
+<Line Number="182">
+<![CDATA[			if NOT Axis.VelocityStandstillStatus AND Start_Drive then SEQ_Stop_Drive:=0; end_if;]]>
+</Line>
+<Line Number="183">
+<![CDATA[			case SEQ_Stop_Drive of]]>
+</Line>
+<Line Number="184">
+<![CDATA[				0: ]]>
+</Line>
+<Line Number="185">
+<![CDATA[					if NOT Start_Drive AND NOT Axis.VelocityStandstillStatus then]]>
+</Line>
+<Line Number="186">
+<![CDATA[						MAS_Drive.FLAGS:=0;]]>
+</Line>
+<Line Number="187">
+<![CDATA[						SEQ_Stop_Drive:=10;]]>
+</Line>
+<Line Number="188">
+<![CDATA[					end_if;]]>
+</Line>
+<Line Number="189">
+<![CDATA[				10:]]>
+</Line>
+<Line Number="190">
+<![CDATA[					MAS(]]>
+</Line>
+<Line Number="191">
+<![CDATA[					Axis, 		// Axis]]>
+</Line>
+<Line Number="192">
+<![CDATA[					MAS_Drive, 	// Motion control]]>
+</Line>
+<Line Number="193">
+<![CDATA[					All,		// Stop type (all means any move type, so all of them)]]>
+</Line>
+<Line Number="194">
+<![CDATA[					Yes,		// Change decel rate]]>
+</Line>
+<Line Number="195">
+<![CDATA[					100,		// Decel rate]]>
+</Line>
+<Line Number="196">
+<![CDATA[					%ofMaximum,	// Decel units]]>
+</Line>
+<Line Number="197">
+<![CDATA[					Yes,		// Change Decel Jerk]]>
+</Line>
+<Line Number="198">
+<![CDATA[					10,			// Decel Jerk rate]]>
+</Line>
+<Line Number="199">
+<![CDATA[					%ofTime		// Decel Jerk units]]>
+</Line>
+<Line Number="200">
+<![CDATA[					);	]]>
+</Line>
+<Line Number="201">
+<![CDATA[					SEQ_Stop_Drive:=20;	]]>
+</Line>
+<Line Number="202">
+<![CDATA[				20:]]>
+</Line>
+<Line Number="203">
+<![CDATA[					if MAS_Drive.PC then Drive_Running				:=FALSE; end_if;]]>
+</Line>
+<Line Number="204">
+<![CDATA[					if MAS_Drive.ER then Motion_instruction_Faulted	:=TRUE;	 end_if;]]>
+</Line>
+<Line Number="205">
+<![CDATA[					]]>
+</Line>
+<Line Number="206">
+<![CDATA[				else]]>
+</Line>
+<Line Number="207">
+<![CDATA[					SEQ_Stop_Drive:=0;]]>
+</Line>
 <Line Number="208">
-<![CDATA[			if NOT Start_Drive AND Axis.VelocityStandstillStatus then  ]]>
+<![CDATA[			end_case;]]>
 </Line>
 <Line Number="209">
-<![CDATA[				Drive_Running				:=FALSE; ]]>
+<![CDATA[			if NOT Start_Drive AND Axis.VelocityStandstillStatus then  ]]>
 </Line>
 <Line Number="210">
-<![CDATA[			end_if;]]>
+<![CDATA[				Drive_Running				:=FALSE; ]]>
 </Line>
 <Line Number="211">
-<![CDATA[		end_if;]]>
+<![CDATA[			end_if;]]>
 </Line>
 <Line Number="212">
-<![CDATA[	#endregion]]>
+<![CDATA[		end_if;]]>
 </Line>
 <Line Number="213">
-<![CDATA[#endregion]]>
+<![CDATA[	#endregion]]>
 </Line>
 <Line Number="214">
-<![CDATA[#region HMI State color]]>
+<![CDATA[#endregion]]>
 </Line>
 <Line Number="215">
-<![CDATA[	if NOT Axis_Faulted AND NOT Start_Drive AND NOT Axis_Faulted OR Motion_instruction_Faulted 	then HMI_Color:=0; end_if;	// 0, Grey, not running.]]>
+<![CDATA[#region HMI State color]]>
 </Line>
 <Line Number="216">
-<![CDATA[	if NOT Axis_Faulted AND Start_Drive AND packml.Sts_Production OR packml.Sts_Maintenance		then HMI_Color:=1; end_if;	// 1, Green, running.]]>
+<![CDATA[	if NOT Axis_Faulted AND NOT Start_Drive AND NOT Axis_Faulted OR Motion_instruction_Faulted 	then HMI_Color:=0; end_if;	// 0, Grey, not running.]]>
 </Line>
 <Line Number="217">
-<![CDATA[	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 2, Spare, no color assigned.]]>
+<![CDATA[	if NOT Axis_Faulted AND Start_Drive AND packml.Sts_Production OR packml.Sts_Maintenance		then HMI_Color:=1; end_if;	// 1, Green, running.]]>
 </Line>
 <Line Number="218">
-<![CDATA[	if NOT Axis_Faulted AND Start_Drive AND packml.Sts_Manual									then HMI_Color:=3; end_if;	// 3, Blue, Manual mode running.	]]>
+<![CDATA[	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 2, Spare, no color assigned.]]>
 </Line>
 <Line Number="219">
-<![CDATA[	if Axis_Faulted OR Motion_instruction_Faulted 												then HMI_Color:=4; end_if;	// 4, red, Error is active	]]>
+<![CDATA[	if NOT Axis_Faulted AND Start_Drive AND packml.Sts_Manual									then HMI_Color:=3; end_if;	// 3, Blue, Manual mode running.	]]>
 </Line>
 <Line Number="220">
+<![CDATA[	if Axis_Faulted OR Motion_instruction_Faulted 												then HMI_Color:=4; end_if;	// 4, red, Error is active	]]>
+</Line>
+<Line Number="221">
 <![CDATA[#endregion]]>
 </Line>
 </STContent>

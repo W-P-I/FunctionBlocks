@@ -1,0 +1,1043 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Pigging_AOI" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-08-25T14:17:09.251Z" ContainsContext="true" ExportDate="Thu Aug 25 16:17:34 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Pigging">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="Pigging_AOI" Class="Standard" Revision="1.0" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-08-24T06:11:32.089Z" CreatedBy="WPI\tom.reit" EditedDate="2022-08-25T14:17:09.251Z" EditedBy="WPI\tom.reit"
+ SoftwareRevision="v33.00">
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Inp_Arm_Retracted" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[sensor detect arm is retracted]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Arm_Out" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[sensor detect arm is out]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Ball_Retracted" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[sensor detect ball is retracted]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Ball_Out" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[sensor detect ball is Out]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_LockpinA_Out" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Lockpin is locking ball]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_LockpinB_Out" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Lockpin is locking ball]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Catcher_DetectPiggingBall" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[pigging ball is detected at catcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pitcher_Pigball_RestPos" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging ball is in rest position. ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pitcher_Pigball_ShootPos" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging ball is in shoot position. ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pitcher_Lockpins_Locked" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[both pins are locking the pig ball in place]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pitcher_Lockpins_Unlocked" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[both pins are unlocking]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pitcher_Ball_NotAtStation" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging ball is not at pitcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Catcher_Ball_AtStation" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging ball is at catcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_catcher_Ball_NotAtStation" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging ball is NOT at catcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_LostBall_ToCatcher" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pig ball was not recieved by catcher!]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_LostBall_ToPitcher" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pig ball was not recieved by pitcher!]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="ERR_Pigging_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[something went wrong with pigging]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Err_Pitcher_Lockpins_faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[tried to unlock pins but ball was not in rest position]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Err_Pitcher_BallShoot_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[tried to shoot ball, but the ball did not leave the pitcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Err_LostBall" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[the pigball was lost somewhere]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Err_Catcher_BallShoot_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[tried to shoot ball, but the ball did not leave the catcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Outp_Pitcher_Request_Arm_Out" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging system requests to send arm to out position]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Outp_Pitcher_Request_Unlock" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Pigging system requests to unlock pins]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Outp_Pitcher_Request_Propellant" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Request to shoot pigball]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Outp_Catcher_Request_Propellant" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Request to shoot pigball]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pigging_TravelTime" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[indicator how long the pigging took place, in sec.]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Pigging_TravelBackTime" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[indicator how long the pigging took place, in sec.]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Reset" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Reset pigging seq]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Start" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[request to start pigging]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Start_Shoot" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Start shoot]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Stop_Shoot" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Stop shoot, set piging system back to rest state]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="SEQ_Statemodel" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Statemodel]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[999]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="999"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Force_Start" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Ignore starting conditions and just force the pigging to start]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Force_Shoot_To_Pitcher" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[if the ball is lost, force to shoot ball]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Force_Shoot_To_Catcher" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[if the ball is lost, force to shoot ball]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="UnlockTimer" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[extra delay for unlocking state]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="UnlockFaulted_Timer" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,2500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="2500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Propellant_Valve_Timer" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Sts_Pitcher_Ball_AtStation" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[Pigging ball is at pitcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_PiggingTraveling" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[if timer reaches dn state end pigging, ball is conciderd LOST]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[536870912,120000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="120000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="1"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="WaitTime_shootback" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,2000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="2000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Propellant_Valve_Timer2" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_Catcher_DetectPiggingBall" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,250,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="250"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_PiggingTraveling2" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[if timer reaches dn state end pigging, ball is conciderd LOST]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,120000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="120000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_SEQ_Statemodel_mem" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[statemodel memory]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[60]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="60"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Sts_CurrentStatus" DataType="STRING" ExternalAccess="None">
+<Description>
+<![CDATA[text display only for HMI]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00']]]>
+</DefaultData>
+<DefaultData Format="String" Length="0">
+<![CDATA['']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_retryArming" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="UnlockFaulted_Timer2" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,2500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="2500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="UnlockTimer2" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_ShootingDelay" DataType="TIMER" Dimensions="2" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[[0,1000,0],[0,1000,0]]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="TIMER" Dimensions="2">
+<Element Index="[0]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+<Element Index="[1]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+</Array>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="T_armBackUp_Delay" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_HoldStep" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[only for programmer, to hold steps while debugging]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_HoldStep_ons" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[GEA pigging system shooting and recieving at both pitcher and catcher
+ 
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[XIC(s:fs)OTU(wrk_HoldStep);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Text>
+<![CDATA[XIC(Outp_Pitcher_Request_Propellant)TON(T_PiggingTraveling,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Text>
+<![CDATA[XIC(Outp_Catcher_Request_Propellant)TON(T_PiggingTraveling2,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Sensor logic]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Text>
+<![CDATA[XIC(Inp_Arm_Retracted)XIC(Inp_Ball_Retracted)OTE(Sts_Pitcher_Pigball_RestPos);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Text>
+<![CDATA[XIC(Inp_Arm_Out)XIC(Inp_Ball_Out)OTE(Sts_Pitcher_Pigball_ShootPos);]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Text>
+<![CDATA[XIC(Inp_LockpinA_Out)XIC(Inp_LockpinB_Out)OTE(Sts_Pitcher_Lockpins_Locked);]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Text>
+<![CDATA[XIO(Inp_LockpinA_Out)XIO(Inp_LockpinB_Out)OTE(Sts_Pitcher_Lockpins_Unlocked);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Text>
+<![CDATA[XIO(Inp_Ball_Out)XIO(Inp_Ball_Retracted)OTE(Sts_Pitcher_Ball_NotAtStation);]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Text>
+<![CDATA[[XIC(Inp_Ball_Retracted) ,XIC(Inp_Ball_Out) ]OTE(Sts_Pitcher_Ball_AtStation);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Text>
+<![CDATA[XIC(Inp_Catcher_DetectPiggingBall)TON(T_Catcher_DetectPiggingBall,?,?)XIC(T_Catcher_DetectPiggingBall.DN)OTE(Sts_Catcher_Ball_AtStation);]]>
+</Text>
+</Rung>
+<Rung Number="12" Type="N">
+<Text>
+<![CDATA[XIO(Inp_Catcher_DetectPiggingBall)OTE(Sts_catcher_Ball_NotAtStation);]]>
+</Text>
+</Rung>
+<Rung Number="13" Type="N">
+<Comment>
+<![CDATA[State 0 
+
+Start pigging]]>
+</Comment>
+<Text>
+<![CDATA[EQU(0,SEQ_Statemodel)XIC(Start)MOV(1,SEQ_Statemodel);]]>
+</Text>
+</Rung>
+<Rung Number="14" Type="N">
+<Comment>
+<![CDATA[State 1 
+
+Check if pigging is in rest status and may be started]]>
+</Comment>
+<Text>
+<![CDATA[EQU(1,SEQ_Statemodel)[XIO(Force_Start) XIC(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(10,SEQ_Statemodel) ,XIO(Force_Start) XIO(Sts_Pitcher_Pigball_RestPos) OTU(Start) XIO(wrk_HoldStep) MOV(0,SEQ_Statemodel) ,XIC(Force_Start) XIO(wrk_HoldStep) MOV(10,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="15" Type="N">
+<Comment>
+<![CDATA[State 10 
+
+Unlocking lock pins
+
+if lock pins do not open within fault time, end pig seq]]>
+</Comment>
+<Text>
+<![CDATA[EQU(10,SEQ_Statemodel)[OTL(Outp_Pitcher_Request_Unlock) ,XIC(Sts_Pitcher_Lockpins_Unlocked) TON(UnlockTimer,?,?) XIC(UnlockTimer.DN) XIO(wrk_HoldStep) MOV(20,SEQ_Statemodel) ,XIO(Sts_Pitcher_Lockpins_Unlocked) TON(UnlockFaulted_Timer,?,?) XIC(UnlockFaulted_Timer.DN) OTU(Outp_Pitcher_Request_Unlock) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="16" Type="N">
+<Comment>
+<![CDATA[State 20 
+
+Arming pigging, prepare for shoot
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(20,SEQ_Statemodel)[OTL(Outp_Pitcher_Request_Arm_Out) ,XIC(Inp_Arm_Out) XIO(wrk_HoldStep) MOV(25,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="17" Type="N">
+<Comment>
+<![CDATA[State 25
+
+ready for shoot, wait for Confirm]]>
+</Comment>
+<Text>
+<![CDATA[EQU(25,SEQ_Statemodel)[XIC(Start_Shoot) OTU(Start_Shoot) XIO(wrk_HoldStep) MOV(30,SEQ_Statemodel) ,XIC(Stop_Shoot) OTU(Stop_Shoot) XIO(wrk_HoldStep) MOV(65,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="18" Type="N">
+<Comment>
+<![CDATA[State 30
+
+Shoot pig ball]]>
+</Comment>
+<Text>
+<![CDATA[EQU(30,SEQ_Statemodel)OTL(Outp_Pitcher_Request_Propellant)TON(Propellant_Valve_Timer,?,?)XIC(Propellant_Valve_Timer.DN)XIO(wrk_HoldStep)MOV(35,SEQ_Statemodel);]]>
+</Text>
+</Rung>
+<Rung Number="19" Type="N">
+<Comment>
+<![CDATA[State 35
+
+check if Pigging is traveling]]>
+</Comment>
+<Text>
+<![CDATA[EQU(35,SEQ_Statemodel)[XIC(Sts_Pitcher_Ball_NotAtStation) MOV(0.0,Sts_Pigging_TravelTime) XIO(wrk_HoldStep) MOV(40,SEQ_Statemodel) ,XIC(Sts_Pitcher_Ball_AtStation) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="20" Type="N">
+<Comment>
+<![CDATA[State 40
+
+Shoot pigging ball
+ 
+if timer reached DN state. pigball is lost somewhere?]]>
+</Comment>
+<Text>
+<![CDATA[EQU(40,SEQ_Statemodel)[CPT(Sts_Pigging_TravelTime,T_PiggingTraveling.ACC / 1000) ,XIC(Sts_Catcher_Ball_AtStation) TON(T_ShootingDelay[0],?,?) XIC(T_ShootingDelay[0].DN) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(45,SEQ_Statemodel) ,XIO(Inp_Catcher_DetectPiggingBall) XIC(T_PiggingTraveling.DN) OTL(Sts_LostBall_ToCatcher) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="21" Type="N">
+<Comment>
+<![CDATA[State 45
+
+Wait before shooting back]]>
+</Comment>
+<Text>
+<![CDATA[EQU(45,SEQ_Statemodel)TON(WaitTime_shootback,?,?)XIC(WaitTime_shootback.DN)XIO(wrk_HoldStep)MOV(50,SEQ_Statemodel);]]>
+</Text>
+</Rung>
+<Rung Number="22" Type="N">
+<Comment>
+<![CDATA[State 50
+
+Shoot pigball back]]>
+</Comment>
+<Text>
+<![CDATA[EQU(50,SEQ_Statemodel)OTL(Outp_Catcher_Request_Propellant)TON(Propellant_Valve_Timer2,?,?)XIC(Propellant_Valve_Timer2.DN)XIO(wrk_HoldStep)MOV(55,SEQ_Statemodel);]]>
+</Text>
+</Rung>
+<Rung Number="23" Type="N">
+<Comment>
+<![CDATA[State 55
+
+check if Pigging is traveling]]>
+</Comment>
+<Text>
+<![CDATA[EQU(55,SEQ_Statemodel)[XIC(Sts_catcher_Ball_NotAtStation) MOV(0.0,Sts_Pigging_TravelBackTime) XIO(wrk_HoldStep) MOV(60,SEQ_Statemodel) ,XIC(Sts_Catcher_Ball_AtStation) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="24" Type="N">
+<Comment>
+<![CDATA[State 60
+
+Shoot pigging ball
+ 
+if timer reached DN state. pigball is lost somewhere?]]>
+</Comment>
+<Text>
+<![CDATA[EQU(60,SEQ_Statemodel)[CPT(Sts_Pigging_TravelBackTime,T_PiggingTraveling2.ACC / 1000) ,XIC(Sts_Pitcher_Ball_AtStation) TON(T_ShootingDelay[1],?,?) XIC(T_ShootingDelay[1].DN) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(65,SEQ_Statemodel) ,XIO(Sts_Pitcher_Ball_AtStation) XIC(T_PiggingTraveling.DN) OTL(Sts_LostBall_ToPitcher) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="25" Type="N">
+<Comment>
+<![CDATA[State 65 
+
+dearming pigging, retracting
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(65,SEQ_Statemodel)[OTU(Outp_Pitcher_Request_Arm_Out) ,XIC(Inp_Arm_Retracted) XIO(wrk_HoldStep) MOV(70,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="26" Type="N">
+<Comment>
+<![CDATA[State 70
+
+Check if pigging is back in rest position
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(70,SEQ_Statemodel)[XIC(Sts_Pitcher_Pigball_RestPos) TON(T_armBackUp_Delay,?,?) XIC(T_armBackUp_Delay.DN) XIO(wrk_HoldStep) MOV(75,SEQ_Statemodel) ,XIO(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="27" Type="N">
+<Comment>
+<![CDATA[State 75
+
+locking lock pins
+
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(75,SEQ_Statemodel)[OTU(Outp_Pitcher_Request_Unlock) ,XIC(Sts_Pitcher_Lockpins_Locked) TON(UnlockTimer2,?,?) XIC(UnlockTimer2.DN) XIO(wrk_HoldStep) MOV(0,SEQ_Statemodel) ,XIO(Sts_Pitcher_Lockpins_Locked) TON(UnlockFaulted_Timer2,?,?) XIC(UnlockFaulted_Timer2.DN) OTL(Outp_Pitcher_Request_Unlock) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+</Text>
+</Rung>
+<Rung Number="28" Type="N">
+<Comment>
+<![CDATA[
+End of statemodel
+ 
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="29" Type="N">
+<Comment>
+<![CDATA[Statemodel memory]]>
+</Comment>
+<Text>
+<![CDATA[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem)NEQ(SEQ_Statemodel,999)MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem);]]>
+</Text>
+</Rung>
+<Rung Number="30" Type="N">
+<Comment>
+<![CDATA[Errors
+indicators]]>
+</Comment>
+<Text>
+<![CDATA[EQU(999,SEQ_Statemodel)[OTE(ERR_Pigging_Faulted) ,[EQU(wrk_SEQ_Statemodel_mem,10) ,EQU(wrk_SEQ_Statemodel_mem,75) ] XIO(Sts_Pitcher_Pigball_RestPos) OTE(Err_Pitcher_Lockpins_faulted) ,EQU(wrk_SEQ_Statemodel_mem,35) OTE(Err_Pitcher_BallShoot_Faulted) ,EQU(wrk_SEQ_Statemodel_mem,55) OTE(Err_Catcher_BallShoot_Faulted) ,[EQU(wrk_SEQ_Statemodel_mem,40) XIC(Sts_LostBall_ToCatcher) ,EQU(wrk_SEQ_Statemodel_mem,60) XIC(Sts_LostBall_ToPitcher) ] OTE(Err_LostBall) ];]]>
+</Text>
+</Rung>
+<Rung Number="31" Type="N">
+<Comment>
+<![CDATA[Reset sequences]]>
+</Comment>
+<Text>
+<![CDATA[EQU(999,SEQ_Statemodel)XIC(Reset)[EQU(wrk_SEQ_Statemodel_mem,10) XIC(Sts_Pitcher_Pigball_RestPos) MOV(1,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,35) MOV(30,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,40) MOV(30,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,55) MOV(50,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,60) MOV(50,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,70) OTL(Outp_Pitcher_Request_Arm_Out) TON(T_retryArming,?,?) XIC(T_retryArming.DN) MOV(65,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,75) XIC(Sts_Pitcher_Pigball_RestPos) MOV(75,SEQ_Statemodel) ,OTU(Sts_LostBall_ToPitcher) OTU(Sts_LostBall_ToCatcher) ];]]>
+</Text>
+</Rung>
+<Rung Number="32" Type="N">
+<Comment>
+<![CDATA[Force the pig ball somewhere, disregarding all conditions.
+
+just go]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="33" Type="N">
+<Text>
+<![CDATA[XIC(Force_Shoot_To_Pitcher)OTL(Outp_Catcher_Request_Propellant)RES(T_PiggingTraveling)RES(T_PiggingTraveling2)MOV(60,SEQ_Statemodel)OTU(Force_Shoot_To_Pitcher);]]>
+</Text>
+</Rung>
+<Rung Number="34" Type="N">
+<Text>
+<![CDATA[XIC(Force_Shoot_To_Catcher)OTL(Outp_Pitcher_Request_Propellant)RES(T_PiggingTraveling)RES(T_PiggingTraveling2)MOV(40,SEQ_Statemodel)OTU(Force_Shoot_To_Catcher);]]>
+</Text>
+</Rung>
+<Rung Number="35" Type="N">
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="36" Type="N">
+<Comment>
+<![CDATA[State to text for HMI]]>
+</Comment>
+<Text>
+<![CDATA[[EQU(0,SEQ_Statemodel) MOV('Waiting for start command.',Sts_CurrentStatus) ,EQU(1,SEQ_Statemodel) MOV('Check Pigball position.',Sts_CurrentStatus) ,EQU(10,SEQ_Statemodel) MOV('Unlocking pins.',Sts_CurrentStatus) ,EQU(20,SEQ_Statemodel) MOV('Preparing arm.',Sts_CurrentStatus) ,EQU(25,SEQ_Statemodel) MOV('Pigging ready to be shot, require confirm.',Sts_CurrentStatus) ,EQU(30,SEQ_Statemodel) MOV('Shooting pig ball.',Sts_CurrentStatus) ,EQU(35,SEQ_Statemodel) MOV('Check if pig ball is traveling.',Sts_CurrentStatus) ,EQU(40,SEQ_Statemodel) MOV('pigball is traveling, waiting for catcher to receive ball.',Sts_CurrentStatus) ,EQU(45,SEQ_Statemodel) MOV('pigball received at catcher, preparing to shoot back. ',Sts_CurrentStatus) ,EQU(50,SEQ_Statemodel) MOV('shooting pig ball.',Sts_CurrentStatus) ,EQU(55,SEQ_Statemodel) MOV('check if pig ball is traveling.',Sts_CurrentStatus) ,EQU(60,SEQ_Statemodel) MOV('pigball is traveling, waiting for pitcher to receive ball.',Sts_CurrentStatus) ,EQU(65,SEQ_Statemodel) MOV('retracking arm.',Sts_CurrentStatus) ,EQU(70,SEQ_Statemodel) MOV('check if pig ball is in rest position.',Sts_CurrentStatus) ,EQU(75,SEQ_Statemodel) MOV('locking lockpins.',Sts_CurrentStatus) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="Prescan" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  ]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: Prescan]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\tom.reit]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 25-8-2022]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//           ]]>
+</Line>
+<Line Number="9">
+<![CDATA[//]]>
+</Line>
+<Line Number="10">
+<![CDATA[//   History:]]>
+</Line>
+<Line Number="11">
+<![CDATA[//]]>
+</Line>
+<Line Number="12">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="13">
+<![CDATA[SEQ_Statemodel:=0;]]>
+</Line>
+<Line Number="14">
+<![CDATA[wrk_SEQ_Statemodel_mem:=0;]]>
+</Line>
+<Line Number="15">
+<![CDATA[]]>
+</Line>
+<Line Number="16">
+<![CDATA[Err_LostBall:=0;]]>
+</Line>
+<Line Number="17">
+<![CDATA[Err_Catcher_BallShoot_Faulted:=0;]]>
+</Line>
+<Line Number="18">
+<![CDATA[Err_Pitcher_BallShoot_Faulted:=0;]]>
+</Line>
+<Line Number="19">
+<![CDATA[Err_Pitcher_Lockpins_faulted:=0;]]>
+</Line>
+<Line Number="20">
+<![CDATA[]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>
