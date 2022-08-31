@@ -1,0 +1,1670 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="ClosedWaterCircuit_New" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.1 " TargetLastEdited="2022-08-31T10:18:30.081Z" ContainsContext="true" ExportDate="Wed Aug 31 13:18:41 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Orkla_Line1">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="PID_V2" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-08-24T13:12:09.202Z" CreatedBy="WPI\engineer" EditedDate="2021-08-30T07:04:29.152Z" EditedBy="WPI\engineer"
+ SoftwareRevision="v33.00">
+<Description>
+<![CDATA[with HMI trend integrated]]>
+</Description>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Input" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[PID input]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="CV" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Control Value]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_Enable_PID" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[0 = PID off
+1 = PID on]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Output" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[output of PIDcontroller]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Kp" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Proportioneel]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Ki" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Integrerend]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Kd" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Differentiërend]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Setpoint" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Value the input parameter should be controlled to]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_UpdateTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[in sec]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_cnf_PID" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Starts to capture To]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Kp" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[calculated Kp]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Ki" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[calculated Ki]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="wrk_Kd" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[calculated Kd]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="SampleTime" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[in sec]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_MaxValue" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag for trend on HMI]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_MinValue" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag for trend on HMI]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="PID" DataType="PID" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,1.00000000e-001,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,[0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="PID">
+<DataValueMember Name="CTL" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PVT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DOE" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SWM" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CA" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MO" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PE" DataType="BOOL" Value="0"/>
+<DataValueMember Name="NDF" DataType="BOOL" Value="0"/>
+<DataValueMember Name="NOBC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="NOZC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="INI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SPOR" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OLL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OLH" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EWD" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DVNA" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DVPA" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PVLA" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PVHA" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SP" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="KP" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="KI" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="KD" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="BIAS" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MAXS" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MINS" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="DB" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="SO" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MAXO" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MINO" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="UPD" DataType="REAL" Radix="Float" Value="0.1"/>
+<DataValueMember Name="PV" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="ERR" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="OUT" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="PVH" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="PVL" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="DVP" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="DVN" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="PVDB" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="DVDB" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MAXI" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MINI" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="TIE" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MAXCV" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MINCV" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MINTIE" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MAXTIE" DataType="REAL" Radix="Float" Value="0.0"/>
+<ArrayMember Name="DATA" DataType="REAL" Dimensions="17" Radix="Float">
+<Element Index="[0]" Value="0.0"/>
+<Element Index="[1]" Value="0.0"/>
+<Element Index="[2]" Value="0.0"/>
+<Element Index="[3]" Value="0.0"/>
+<Element Index="[4]" Value="0.0"/>
+<Element Index="[5]" Value="0.0"/>
+<Element Index="[6]" Value="0.0"/>
+<Element Index="[7]" Value="0.0"/>
+<Element Index="[8]" Value="0.0"/>
+<Element Index="[9]" Value="0.0"/>
+<Element Index="[10]" Value="0.0"/>
+<Element Index="[11]" Value="0.0"/>
+<Element Index="[12]" Value="0.0"/>
+<Element Index="[13]" Value="0.0"/>
+<Element Index="[14]" Value="0.0"/>
+<Element Index="[15]" Value="0.0"/>
+<Element Index="[16]" Value="0.0"/>
+</ArrayMember>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="UpdTimer" DataType="FBD_TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0,0,0,0,0,0,0,0,4,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_TIMER">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TimerEnable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Reset" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PresetInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="To_timer" DataType="FBD_TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0,0,0,0,0,0,0,0,4,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_TIMER">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TimerEnable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Reset" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PresetInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_osci_ons" DataType="FBD_ONESHOT" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0,5.60519386e-045]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="FBD_ONESHOT">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="InputBit" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OutputBit" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_cnf_PID" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[Start monitor oscilation]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_osci_State" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_Ku" DataType="REAL" Radix="Float" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="stop_Micros" DataType="LINT" Radix="Decimal" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="start_Micros" DataType="LINT" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Current_micros" DataType="LINT" Radix="Decimal" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_sampleTime" DataType="DINT" Radix="Decimal" ExternalAccess="Read Only">
+<Description>
+<![CDATA[in micros]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="HMI_TimeSpan" DataType="DINT" Radix="Decimal" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag for trend on HMI]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="ST">
+<Description>
+<![CDATA[with HMI trend integrated]]>
+</Description>
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  WPI]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: PID_V2 - Logic]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\engineer]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 24-8-2021]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//           with HMI trend integrated]]>
+</Line>
+<Line Number="9">
+<![CDATA[//           ]]>
+</Line>
+<Line Number="10">
+<![CDATA[//]]>
+</Line>
+<Line Number="11">
+<![CDATA[//   History:]]>
+</Line>
+<Line Number="12">
+<![CDATA[//]]>
+</Line>
+<Line Number="13">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="14">
+<![CDATA[TONR(UpdTimer);]]>
+</Line>
+<Line Number="15">
+<![CDATA[OSRI(wrk_osci_ons);]]>
+</Line>
+<Line Number="16">
+<![CDATA[GSV(WallClockTime,,CurrentValue,Current_micros);]]>
+</Line>
+<Line Number="17">
+<![CDATA[if HMI_Enable_PID then]]>
+</Line>
+<Line Number="18">
+<![CDATA[	/* Enable Timer */]]>
+</Line>
+<Line Number="19">
+<![CDATA[	UpdTimer.EN				:=		1;]]>
+</Line>
+<Line Number="20">
+<![CDATA[	UpdTimer.TimerEnable	:=		1;]]>
+</Line>
+<Line Number="21">
+<![CDATA[	UpdTimer.PRE			:=		HMI_UpdateTime*1000;//convert to milisec]]>
+</Line>
+<Line Number="22">
+<![CDATA[else]]>
+</Line>
+<Line Number="23">
+<![CDATA[	/* Disable Timer */]]>
+</Line>
+<Line Number="24">
+<![CDATA[	UpdTimer.EN				:=		0;]]>
+</Line>
+<Line Number="25">
+<![CDATA[	UpdTimer.TimerEnable	:=		0;]]>
+</Line>
+<Line Number="26">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="27">
+<![CDATA[#region PID_Controller]]>
+</Line>
+<Line Number="28">
+<![CDATA[	if UpdTimer.DN then]]>
+</Line>
+<Line Number="29">
+<![CDATA[		/* Copy Kp,Ki & Kd to PID controller */]]>
+</Line>
+<Line Number="30">
+<![CDATA[			PID.UPD					:= 		HMI_UpdateTime;	// (sec)]]>
+</Line>
+<Line Number="31">
+<![CDATA[			PID.KP					:=		Kp;				// (kr)]]>
+</Line>
+<Line Number="32">
+<![CDATA[			PID.KI					:=		Ki;				// (1/sec)]]>
+</Line>
+<Line Number="33">
+<![CDATA[			PID.KD					:=		Kd;				// (sec)]]>
+</Line>
+<Line Number="34">
+<![CDATA[			PID.SP					:=		Setpoint;		// (units)]]>
+</Line>
+<Line Number="35">
+<![CDATA[			Output					:=		PID.OUT;		// (%)]]>
+</Line>
+<Line Number="36">
+<![CDATA[		PID(]]>
+</Line>
+<Line Number="37">
+<![CDATA[			PID,	/* object name */]]>
+</Line>
+<Line Number="38">
+<![CDATA[			Input,	/* PID input */]]>
+</Line>
+<Line Number="39">
+<![CDATA[			0,		/* Tieback */]]>
+</Line>
+<Line Number="40">
+<![CDATA[			CV,		/* Control value */]]>
+</Line>
+<Line Number="41">
+<![CDATA[			0,		/* PID master loop */]]>
+</Line>
+<Line Number="42">
+<![CDATA[			0,		/* Holding bit */]]>
+</Line>
+<Line Number="43">
+<![CDATA[			0		/* Holding value */]]>
+</Line>
+<Line Number="44">
+<![CDATA[			);			]]>
+</Line>
+<Line Number="45">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="46">
+<![CDATA[		/* reset timer each time dn is true */]]>
+</Line>
+<Line Number="47">
+<![CDATA[	if UpdTimer.DN then UpdTimer.Reset:=1; else UpdTimer.Reset:=0; end_if;]]>
+</Line>
+<Line Number="48">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="49">
+<![CDATA[	/* ]]>
+</Line>
+<Line Number="50">
+<![CDATA[		Bij de regels met gesloten kring blijft de regelaar, maar worden zijn D- en I-functies uitgeschakeld: Ti = ∞, Td = 0. ]]>
+</Line>
+<Line Number="51">
+<![CDATA[		Nu wordt de versterking Kr opgeschroefd tot de waarde Ku waarbij de proceswaarde oscilleert met periode To. ]]>
+</Line>
+<Line Number="52">
+<![CDATA[		Voor een PID-regelaar:]]>
+</Line>
+<Line Number="53">
+<![CDATA[		Kr = 0,6 Ku]]>
+</Line>
+<Line Number="54">
+<![CDATA[		Ti = 0,5 To]]>
+</Line>
+<Line Number="55">
+<![CDATA[		Td = 0,125 To]]>
+</Line>
+<Line Number="56">
+<![CDATA[	*/]]>
+</Line>
+<Line Number="57">
+<![CDATA[#region"Calculate PID values"]]>
+</Line>
+<Line Number="58">
+<![CDATA[if HMI_cnf_PID then]]>
+</Line>
+<Line Number="59">
+<![CDATA[	]]>
+</Line>
+<Line Number="60">
+<![CDATA[	case wrk_osci_State of]]>
+</Line>
+<Line Number="61">
+<![CDATA[		0:/* begin */]]>
+</Line>
+<Line Number="62">
+<![CDATA[			if (Setpoint>Input) then]]>
+</Line>
+<Line Number="63">
+<![CDATA[				wrk_cnf_PID				:=	1;									// start monitor oscilation]]>
+</Line>
+<Line Number="64">
+<![CDATA[				wrk_osci_State			:=	1;									// move to next state]]>
+</Line>
+<Line Number="65">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="66">
+<![CDATA[		1:/* check if osci has started */]]>
+</Line>
+<Line Number="67">
+<![CDATA[			if (Input>Setpoint) then]]>
+</Line>
+<Line Number="68">
+<![CDATA[				start_Micros			:=Current_micros;						// save current micros as begin time]]>
+</Line>
+<Line Number="69">
+<![CDATA[				wrk_osci_State			:=2;									// move to next state]]>
+</Line>
+<Line Number="70">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="71">
+<![CDATA[			]]>
+</Line>
+<Line Number="72">
+<![CDATA[		2:/* check if osci is in negative spectrum */]]>
+</Line>
+<Line Number="73">
+<![CDATA[			if (Setpoint>Input) then]]>
+</Line>
+<Line Number="74">
+<![CDATA[				wrk_osci_State			:=3;									// move to next state]]>
+</Line>
+<Line Number="75">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="76">
+<![CDATA[		3:/* check if osci is back in positive spectrum */]]>
+</Line>
+<Line Number="77">
+<![CDATA[			if (Input>Setpoint) then]]>
+</Line>
+<Line Number="78">
+<![CDATA[				stop_Micros				:=Current_micros;]]>
+</Line>
+<Line Number="79">
+<![CDATA[				wrk_osci_State			:=0;									// move to next state]]>
+</Line>
+<Line Number="80">
+<![CDATA[				HMI_cnf_PID				:=0;									// give feedback back to user, time sample has been captured.]]>
+</Line>
+<Line Number="81">
+<![CDATA[				wrk_sampleTime			:=(stop_Micros-start_Micros);			// calc time difference]]>
+</Line>
+<Line Number="82">
+<![CDATA[				SampleTime				:=wrk_sampleTime/1000000;				// convert to sec]]>
+</Line>
+<Line Number="83">
+<![CDATA[				/*calc PID values based on ziegler & nichols*/]]>
+</Line>
+<Line Number="84">
+<![CDATA[				wrk_Ku	:=	Kp;]]>
+</Line>
+<Line Number="85">
+<![CDATA[				wrk_Kp	:=	0.6*wrk_Ku;]]>
+</Line>
+<Line Number="86">
+<![CDATA[				wrk_Ki	:=	0.5*SampleTime;]]>
+</Line>
+<Line Number="87">
+<![CDATA[				wrk_Kd	:=	0.125*SampleTime;]]>
+</Line>
+<Line Number="88">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="89">
+<![CDATA[	end_case;]]>
+</Line>
+<Line Number="90">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="91">
+<![CDATA[#endregion]]>
+</Line>
+</STContent>
+</Routine>
+<Routine Name="Prescan" Type="ST">
+<Description>
+<![CDATA[Setting default parameters]]>
+</Description>
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  WPI]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: Prescan]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\engineer]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 24-8-2021]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//           Setting default parameters]]>
+</Line>
+<Line Number="9">
+<![CDATA[//           ]]>
+</Line>
+<Line Number="10">
+<![CDATA[//]]>
+</Line>
+<Line Number="11">
+<![CDATA[//   ]]>
+</Line>
+<Line Number="12">
+<![CDATA[//]]>
+</Line>
+<Line Number="13">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="14">
+<![CDATA[/* Set PV UnscaleMax/UnscaleMin */]]>
+</Line>
+<Line Number="15">
+<![CDATA[PID.MAXI			:=		1000;	]]>
+</Line>
+<Line Number="16">
+<![CDATA[PID.MINI			:=		0;	]]>
+</Line>
+<Line Number="17">
+<![CDATA[	/* Set PV EngMax/EngMin */]]>
+</Line>
+<Line Number="18">
+<![CDATA[PID.MAXS			:=		1000;	]]>
+</Line>
+<Line Number="19">
+<![CDATA[PID.MINS			:=		0;	]]>
+</Line>
+<Line Number="20">
+<![CDATA[	/* Set CV Max/Min */]]>
+</Line>
+<Line Number="21">
+<![CDATA[PID.MAXCV			:=		100;]]>
+</Line>
+<Line Number="22">
+<![CDATA[PID.MINCV			:=		0;]]>
+</Line>
+<Line Number="23">
+<![CDATA[	/* Set CVlimit Max/Min */]]>
+</Line>
+<Line Number="24">
+<![CDATA[PID.MAXO			:=		100;]]>
+</Line>
+<Line Number="25">
+<![CDATA[PID.MINO			:=		0;]]>
+</Line>
+<Line Number="26">
+<![CDATA[	/* Set Tieback Max/Min */]]>
+</Line>
+<Line Number="27">
+<![CDATA[PID.MAXTIE			:=		100;]]>
+</Line>
+<Line Number="28">
+<![CDATA[PID.MINTIE			:=		0;]]>
+</Line>
+<Line Number="29">
+<![CDATA[	/* enable PID controller */]]>
+</Line>
+<Line Number="30">
+<![CDATA[HMI_Enable_PID		:=		1;]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+<AddOnInstructionDefinition Name="SSR_PWM" Class="Standard" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-01-20T12:26:41.291Z" CreatedBy="WPI\engineer" EditedDate="2021-06-08T13:32:08.249Z" EditedBy="WPI\valentino.violante" SoftwareRevision="v33.00"
+>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="ENABLE" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PWM_OUTPUT_Heater" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="INPUT" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="CycleTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PWM_OUTPUT_Cooler" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MaxHeatTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[In seconds]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MinHeatTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MaxCoolTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="MinCoolTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="TurningPoint" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[5.00000000e+001]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="50.0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="SRTP_05" DataType="SPLIT_RANGE" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[[0,0.00000000e+000,1.00000000e+000,1.00000000e+002,0.00000000e+000,0.00000000e+000,0.00000000e+000,1.50000000e+001,1.00000000e-001,0.00000000e+000,0.00000000e+000,0,0.00000000e+000,0.00000000e+000,132,2.80259693e-045,8.84992361e-001,1.40129846e-045,1.75298332e-038,7.89211295e-042,1.00000000e-003,1.00000000e+002,9.99999978e-003,0.00000000e+000,1.00000000e+000,1.00000000e+002,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SPLIT_RANGE">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="0"/>
+<DataValueMember Name="In" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CycleTime" DataType="REAL" Radix="Float" Value="1.0"/>
+<DataValueMember Name="MaxHeatIn" DataType="REAL" Radix="Float" Value="100.0"/>
+<DataValueMember Name="MinHeatIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxCoolIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxHeatTime" DataType="REAL" Radix="Float" Value="15.0"/>
+<DataValueMember Name="MinHeatTime" DataType="REAL" Radix="Float" Value="0.1"/>
+<DataValueMember Name="MaxCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CoolTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0084"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CycleTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxHeatTimeInv" DataType="BOOL" Value="1"/>
+<DataValueMember Name="MinHeatTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatSpanInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolSpanInv" DataType="BOOL" Value="1"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="SRTP_06" DataType="SPLIT_RANGE" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[[0,1.00000000e+002,1.00000000e+000,1.00000000e+002,0.00000000e+000,0.00000000e+000,0.00000000e+000,1.50000000e+001,1.00000000e-001,0.00000000e+000,0.00000000e+000,2,1.00000000e+002,0.00000000e+000,133,2.80259693e-045,8.84992361e-001,1.40129846e-045,1.75298332e-038,7.89211295e-042,1.00000000e-003,1.00000000e+002,9.99999978e-003,0.00000000e+000,1.00000000e+000,1.00000000e+002,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SPLIT_RANGE">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="0"/>
+<DataValueMember Name="In" DataType="REAL" Radix="Float" Value="100.0"/>
+<DataValueMember Name="CycleTime" DataType="REAL" Radix="Float" Value="1.0"/>
+<DataValueMember Name="MaxHeatIn" DataType="REAL" Radix="Float" Value="100.0"/>
+<DataValueMember Name="MinHeatIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxCoolIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxHeatTime" DataType="REAL" Radix="Float" Value="15.0"/>
+<DataValueMember Name="MinHeatTime" DataType="REAL" Radix="Float" Value="0.1"/>
+<DataValueMember Name="MaxCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="CoolOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatTimePercent" DataType="REAL" Radix="Float" Value="100.0"/>
+<DataValueMember Name="CoolTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0085"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="1"/>
+<DataValueMember Name="CycleTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxHeatTimeInv" DataType="BOOL" Value="1"/>
+<DataValueMember Name="MinHeatTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatSpanInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolSpanInv" DataType="BOOL" Value="1"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="SRTP_TEST1" DataType="SPLIT_RANGE" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0.00000000e+000,1.00000000e-001,1.00000000e+002,0.00000000e+000,0.00000000e+000,5.00000000e+001,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,1,0.00000000e+000,0.00000000e+000,0,5.60519386e-045,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SPLIT_RANGE">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="In" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CycleTime" DataType="REAL" Radix="Float" Value="0.1"/>
+<DataValueMember Name="MaxHeatIn" DataType="REAL" Radix="Float" Value="100.0"/>
+<DataValueMember Name="MinHeatIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxCoolIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolIn" DataType="REAL" Radix="Float" Value="50.0"/>
+<DataValueMember Name="MaxHeatTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinHeatTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="HeatOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CoolTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CycleTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxHeatTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinHeatTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatSpanInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolSpanInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="SRTP_01" DataType="SPLIT_RANGE" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[1,0.00000000e+000,0.00000000e+000,1.00000000e+002,5.00000000e+001,0.00000000e+000,5.00000000e+001,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0,0.00000000e+000,0.00000000e+000,0,5.60519386e-045,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SPLIT_RANGE">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="In" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CycleTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxHeatIn" DataType="REAL" Radix="Float" Value="100.0"/>
+<DataValueMember Name="MinHeatIn" DataType="REAL" Radix="Float" Value="50.0"/>
+<DataValueMember Name="MaxCoolIn" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolIn" DataType="REAL" Radix="Float" Value="50.0"/>
+<DataValueMember Name="MaxHeatTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinHeatTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CoolTimePercent" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Status" DataType="DINT" Radix="Hex" Value="16#0000_0000"/>
+<DataValueMember Name="InstructFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CycleTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxHeatTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinHeatTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MinCoolTimeInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HeatSpanInv" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CoolSpanInv" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="FBD">
+<FBDContent SheetSize="Letter - 8.5 x 11 in" SheetOrientation="Landscape">
+<Sheet Number="1">
+<IRef ID="0" X="660" Y="280" Operand="0" HideDesc="false"/>
+<IRef ID="1" X="660" Y="240" Operand="100" HideDesc="false"/>
+<IRef ID="2" X="660" Y="220" Operand="CycleTime" HideDesc="false"/>
+<IRef ID="3" X="660" Y="180" Operand="ENABLE" HideDesc="false"/>
+<IRef ID="4" X="660" Y="200" Operand="INPUT" HideDesc="false"/>
+<IRef ID="5" X="660" Y="360" Operand="MaxCoolTime" HideDesc="false"/>
+<IRef ID="6" X="660" Y="320" Operand="MaxHeatTime" HideDesc="false"/>
+<IRef ID="7" X="660" Y="380" Operand="MinCoolTime" HideDesc="false"/>
+<IRef ID="8" X="660" Y="340" Operand="MinHeatTime" HideDesc="false"/>
+<IRef ID="9" X="660" Y="260" Operand="TurningPoint" HideDesc="false"/>
+<ORef ID="10" X="990" Y="200" Operand="PWM_OUTPUT_Cooler" HideDesc="false"/>
+<ORef ID="11" X="980" Y="180" Operand="PWM_OUTPUT_Heater" HideDesc="false"/>
+<Block Type="SRTP" ID="12" X="760" Y="120" Operand="SRTP_05" VisiblePins="EnableIn In CycleTime MaxHeatIn MinHeatIn MaxCoolIn MinCoolIn MaxHeatTime MinHeatTime MaxCoolTime MinCoolTime HeatOut CoolOut HeatTimePercent CoolTimePercent" HideDesc="false"/>
+<Wire FromID="0" ToID="12" ToParam="MaxCoolIn"/>
+<Wire FromID="1" ToID="12" ToParam="MaxHeatIn"/>
+<Wire FromID="2" ToID="12" ToParam="CycleTime"/>
+<Wire FromID="3" ToID="12" ToParam="EnableIn"/>
+<Wire FromID="4" ToID="12" ToParam="In"/>
+<Wire FromID="5" ToID="12" ToParam="MaxCoolTime"/>
+<Wire FromID="6" ToID="12" ToParam="MaxHeatTime"/>
+<Wire FromID="7" ToID="12" ToParam="MinCoolTime"/>
+<Wire FromID="8" ToID="12" ToParam="MinHeatTime"/>
+<Wire FromID="9" ToID="12" ToParam="MinCoolIn"/>
+<Wire FromID="9" ToID="12" ToParam="MinHeatIn"/>
+<Wire FromID="12" FromParam="CoolOut" ToID="10"/>
+<Wire FromID="12" FromParam="HeatOut" ToID="11"/>
+</Sheet>
+</FBDContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+<AddOnInstructionDefinition Use="Target" Name="ClosedWaterCircuit_New" Class="Standard" Revision="1.1" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-12-02T08:29:45.900Z" CreatedBy="WPI\engineer" EditedDate="2022-08-31T10:18:30.081Z"
+ EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
+<RevisionNote>
+<![CDATA[added manual control for PID ]]>
+</RevisionNote>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="LastEditDate" TagType="Base" DataType="LINT" Usage="Output" Radix="Date/Time" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="LINT" Radix="Date/Time" Value="DT#1970-01-01-00:00:00.000_000Z"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_Safety_Ok" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Wrk_Alarm" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_Overload_CP" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Overload contact]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_Overload_HE" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Overload contact]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Wrk_Warning" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_PressureSensor" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Pressure contact]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_MaxTemp" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Maximal temperature switch]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_Temperature" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_setpoint" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="O_SSR_Heater" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="O_Valve_Cooling" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_KP" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Kp of PI controller]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_KI" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[KI of PI controller]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_CycleTime" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[in seconds]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="O_FillingValve" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[System heeft dorst and requires vodka]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_reset" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[reset the heater module]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_offset" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[offset on both sides, High and Low]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Wrk_TempOK" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Temperature is Ok for long enough]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_TempOkTime" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_reset_Filling_warning" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[only reset the filling warning so filling can be forced on while the sensor requires water]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Enable_Heater" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Enables heater outputs]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="O_CirculationPump" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="O_Heater_Element" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_CircuitName" TagType="Base" DataType="STRING_16" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Cmd_CircuitDiscription" TagType="Base" DataType="STRING" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Enable_Heater_Manual" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Wrk_TimeRemainer" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[remaining time before Wrk_TempOK is set to high
+
+time in milisec]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_Enable_Heater" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Enables the Heater from the HMI
+]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cmd_KD" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PID" TagType="Base" DataType="PID_V2" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="HMI_Manual_Fill_Circuit" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="PressureCounter" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[checks if the pressure sensor is active for too long]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_UnderPressure" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[Not enough pressure in system]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="PWM" DataType="SSR_PWM" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[5,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,[0,0.00000000e+000,1.00000000e+000,1.00000000e+002,0.00000000e+000,0.00000000e+000,0.00000000e+000,1.50000000e+001,1.00000000e-001,0.00000000e+000,0.00000000e+000,0,0.00000000e+000,0.00000000e+000,132,2.80259693e-045,8.84992361e-001,1.40129846e-045,1.75298332e-038,7.89211295e-042,1.00000000e-003,1.00000000e+002,9.99999978e-003,0.00000000e+000,1.00000000e+000,1.00000000e+002,0.00000000e+000],[0,1.00000000e+002,1.00000000e+000,1.00000000e+002,0.00000000e+000,0.00000000e+000,0.00000000e+000,1.50000000e+001,1.00000000e-001,0.00000000e+000,0.00000000e+000,2,1.00000000e+002,0.00000000e+000,133,2.80259693e-045,8.84992361e-001,1.40129846e-045,1.75298332e-038,7.89211295e-042,1.00000000e-003,1.00000000e+002,9.99999978e-003,0.00000000e+000,1.00000000e+000,1.00000000e+002,0.00000000e+000],[1,0.00000000e+000,1.00000000e-001,1.00000000e+002,0.00000000e+000,0.00000000e+000,5.00000000e+001,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,1,0.00000000e+000,0.00000000e+000,0,5.60519386e-045,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000],[1,0.00000000e+000,0.00000000e+000,1.00000000e+002,5.00000000e+001,0.00000000e+000,5.00000000e+001,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0,0.00000000e+000,0.00000000e+000,0,5.60519386e-045,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="SSR_PWM">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ENABLE" DataType="BOOL" Value="1"/>
+<DataValueMember Name="PWM_OUTPUT_Heater" DataType="BOOL" Value="0"/>
+<DataValueMember Name="INPUT" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="CycleTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="PWM_OUTPUT_Cooler" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MaxHeatTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinHeatTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MaxCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="MinCoolTime" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="TurningPoint" DataType="REAL" Radix="Float" Value="0.0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_HighLimit" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[high limit of temperature OK]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_LowLimit" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[low limit of temperature OK]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="tempOKtimer" DataType="TIMER" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Closed heater circuit for WPI
+
+this AOI includes the useage of a cooling valve, if non is required nothing has to be changed in the AOI or setup. aslong it does not get used outside of the AOI.
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[AOI
+
+LED]]>
+</Comment>
+<Text>
+<![CDATA[GSV(AddOnInstructionDefinition,THIS,LastEditDate,LastEditDate);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[reset faults]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Cmd_reset)[XIC(Wrk_Warning) OTU(Wrk_Warning) ,XIC(Wrk_Alarm) OTU(Wrk_Alarm) ];]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[filling valve reset]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(Cmd_reset) ,XIC(Cmd_reset_Filling_warning) ]OTU(Wrk_UnderPressure);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[alarm triggers]]>
+</Comment>
+<Text>
+<![CDATA[[XIO(I_Safety_Ok) ,XIO(I_Overload_CP) ,XIO(I_Overload_HE) ,XIO(I_MaxTemp) ]OTL(Wrk_Alarm);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[warning trigges]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Wrk_UnderPressure)OTL(Wrk_Warning);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[generate underpressure warning if filling is not done within filling time. 
+
+timer value is set in prescan]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(I_PressureSensor) XIO(Wrk_UnderPressure) TON(PressureCounter,?,?) ,XIC(HMI_Manual_Fill_Circuit) ]OTE(O_FillingValve)XIC(PressureCounter.DN)OTL(Wrk_UnderPressure);]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[PID controller split into PWM signal for SSR]]>
+</Comment>
+<Text>
+<![CDATA[[MOV(Cmd_KP,PID.Kp) MOV(Cmd_KI,PID.Ki) MOV(Cmd_KD,PID.Kd) ,MOV(I_setpoint,PID.Setpoint) ,MOV(Cmd_CycleTime,PID.HMI_UpdateTime) ];]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[PI controller and convert signal to PWM signal]]>
+</Comment>
+<Text>
+<![CDATA[PID_V2(PID,I_Temperature)SSR_PWM(PWM,PID.HMI_Enable_PID,PID.Output,Cmd_CycleTime);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[direct link to IO of AOI]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(HMI_Enable_Heater) XIC(Enable_Heater) ,XIC(Enable_Heater_Manual) XIO(Enable_Heater) ]XIO(Wrk_Alarm)XIO(Wrk_Warning)[XIC(PWM.PWM_OUTPUT_Heater) OTE(O_SSR_Heater) ,OTE(O_CirculationPump) ,OTE(O_Heater_Element) ,XIC(PWM.PWM_OUTPUT_Cooler) OTE(O_Valve_Cooling) ,[XIC(Enable_Heater) ,XIC(Enable_Heater_Manual) XIO(Enable_Heater) ] OTE(PID.HMI_Enable_PID) ,XIC(Wrk_Alarm) OTU(O_Valve_Cooling) OTU(O_SSR_Heater) ,XIC(Wrk_Warning) OTU(O_Valve_Cooling) OTU(O_SSR_Heater) ];]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[calc temperature limits based on Setpoint]]>
+</Comment>
+<Text>
+<![CDATA[SUB(I_setpoint,I_offset,Wrk_LowLimit)ADD(I_setpoint,I_offset,Wrk_HighLimit);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Comment>
+<![CDATA[check if temperature is OK for long enough before setting TempOK]]>
+</Comment>
+<Text>
+<![CDATA[LIM(Wrk_LowLimit,I_Temperature,Wrk_HighLimit)TON(tempOKtimer,?,?)XIC(tempOKtimer.DN)OTE(Wrk_TempOK);]]>
+</Text>
+</Rung>
+<Rung Number="12" Type="N">
+<Comment>
+<![CDATA[Calculate the remainer of time]]>
+</Comment>
+<Text>
+<![CDATA[XIC(tempOKtimer.TT)SUB(tempOKtimer.PRE,tempOKtimer.ACC,Wrk_TimeRemainer);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="Prescan" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[PressureCounter.PRE:= 10000; 		// set the presure sensor counter to 10sec before generating a warning]]>
+</Line>
+<Line Number="1">
+<![CDATA[Wrk_UnderPressure:=0;				// make sure there is no underpressure alarm when starting.]]>
+</Line>
+<Line Number="2">
+<![CDATA[tempOKtimer.PRE:= Cmd_TempOkTime;		// set timer to input value]]>
+</Line>
+<Line Number="3">
+<![CDATA[]]>
+</Line>
+<Line Number="4">
+<![CDATA[]]>
+</Line>
+<Line Number="5">
+<![CDATA[]]>
+</Line>
+<Line Number="6">
+<![CDATA[if Cmd_CycleTime = 0.0  then]]>
+</Line>
+<Line Number="7">
+<![CDATA[	Cmd_CycleTime := 1.0;					//  if cycle time is not set, set it to 1 second by defualt.]]>
+</Line>
+<Line Number="8">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="9">
+<![CDATA[if PWM.TurningPoint = 0 then]]>
+</Line>
+<Line Number="10">
+<![CDATA[	PWM.TurningPoint:=20;				// set turning point to 20 if no value is set.]]>
+</Line>
+<Line Number="11">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="12">
+<![CDATA[if I_offset =0 then]]>
+</Line>
+<Line Number="13">
+<![CDATA[	I_offset:=2;							// makesure there is an offset to the measurement otherwise tempOK will never reach high.]]>
+</Line>
+<Line Number="14">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="15">
+<![CDATA[if tempOKtimer.PRE=0 then]]>
+</Line>
+<Line Number="16">
+<![CDATA[	tempOKtimer.PRE := 30000; 			// set tempOKtimer to 30 sec if no value is entered.]]>
+</Line>
+<Line Number="17">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="18">
+<![CDATA[if PWM.MaxHeatTime=0 then]]>
+</Line>
+<Line Number="19">
+<![CDATA[	PWM.MaxHeatTime := 1; 			// set SRTP times if no value is entered.]]>
+</Line>
+<Line Number="20">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="21">
+<![CDATA[if PWM.MinHeatTime=0 then]]>
+</Line>
+<Line Number="22">
+<![CDATA[	PWM.MinHeatTime := 0; 			// set SRTP times if no value is entered.]]>
+</Line>
+<Line Number="23">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="24">
+<![CDATA[if PWM.MaxCoolTime=0 then]]>
+</Line>
+<Line Number="25">
+<![CDATA[	PWM.MaxCoolTime := 1; 			// set SRTP times if no value is entered.]]>
+</Line>
+<Line Number="26">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="27">
+<![CDATA[if PWM.MinCoolTime=0 then]]>
+</Line>
+<Line Number="28">
+<![CDATA[	PWM.MinCoolTime := 0; 			// set SRTP times if no value is entered.]]>
+</Line>
+<Line Number="29">
+<![CDATA[end_if;]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="AddOnInstructionDefinition" Name="PID_V2"/>
+<Dependency Type="AddOnInstructionDefinition" Name="SSR_PWM"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>
