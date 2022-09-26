@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--Mixer control based on Orklas command string. -->
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Command_String" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-09-29T13:26:44.247Z" ContainsContext="true" ExportDate="Tue May 31 10:59:25 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-<Controller Use="Context" Name="Depositor_PackML">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Command_String" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-09-12T07:15:25.406Z" ContainsContext="true" ExportDate="Mon Sep 26 14:34:58 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Orkla_Line1">
 <DataTypes Use="Context">
 <DataType Name="CommandString" Family="NoFamily" Class="User">
 <Description>
@@ -14,8 +14,8 @@
 </DataType>
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="Command_String" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-09-29T07:55:51.907Z" CreatedBy="WPI\engineer" EditedDate="2021-09-29T13:26:44.247Z"
- EditedBy="WPI\engineer" SoftwareRevision="v33.00">
+<AddOnInstructionDefinition Use="Target" Name="Command_String" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-09-29T07:55:51.907Z" CreatedBy="WPI\engineer" EditedDate="2022-09-12T07:15:25.406Z"
+ EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Description>
 <![CDATA[Mixer control based on Orklas command string. ]]>
 </Description>
@@ -999,90 +999,102 @@ bit 5 = discharge   ]]>
 <![CDATA[						Cmd_Mixer:=2#0000_0000_0010_0000;]]>
 </Line>
 <Line Number="138">
-<![CDATA[					end_if;]]>
+<![CDATA[					elsif	sts_CommandString.Value[i]	= 	20 		then	// Open flap]]>
 </Line>
 <Line Number="139">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MSF' 	then 	// Mixer speed fast]]>
+<![CDATA[						Cmd_Mixer:=2#0000_0000_0100_0000;]]>
 </Line>
 <Line Number="140">
-<![CDATA[							Cmd_Mixer_Speed_Fast:=sts_CommandString.Value[i];		]]>
+<![CDATA[					elsif	sts_CommandString.Value[i]	= 	21 		then	// Close flap]]>
 </Line>
 <Line Number="141">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MSS' 	then 	// Mixer speed slow]]>
+<![CDATA[						Cmd_Mixer:=2#0000_0000_1000_0000;												]]>
 </Line>
 <Line Number="142">
-<![CDATA[							Cmd_Mixer_Speed_Slow:=sts_CommandString.Value[i];			]]>
+<![CDATA[					end_if;]]>
 </Line>
 <Line Number="143">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MTF' 	then 	// Mixing time fast]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MSF' 	then 	// Mixer speed fast]]>
 </Line>
 <Line Number="144">
-<![CDATA[							Cmd_Mixer_Time_Fast:=sts_CommandString.Value[i];				]]>
+<![CDATA[							Cmd_Mixer_Speed_Fast:=sts_CommandString.Value[i];		]]>
 </Line>
 <Line Number="145">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MTS' 	then 	// Mixing time slow]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MSS' 	then 	// Mixer speed slow]]>
 </Line>
 <Line Number="146">
-<![CDATA[							Cmd_Mixer_Time_Slow:=sts_CommandString.Value[i];			]]>
+<![CDATA[							Cmd_Mixer_Speed_Slow:=sts_CommandString.Value[i];			]]>
 </Line>
 <Line Number="147">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MTW' 	then 	// Waiting time]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MTF' 	then 	// Mixing time fast]]>
 </Line>
 <Line Number="148">
-<![CDATA[							Cmd_Mixer_Time_Wait:=sts_CommandString.Value[i];				]]>
+<![CDATA[							Cmd_Mixer_Time_Fast:=sts_CommandString.Value[i];				]]>
 </Line>
 <Line Number="149">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MOT' 	then 	// Optimal mixing temperature]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MTS' 	then 	// Mixing time slow]]>
 </Line>
 <Line Number="150">
-<![CDATA[							Cmd_Mixer_Temperature:=sts_CommandString.Value[i];			]]>
+<![CDATA[							Cmd_Mixer_Time_Slow:=sts_CommandString.Value[i];			]]>
 </Line>
 <Line Number="151">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MIT' 	then 	// Min mixing time ]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MTW' 	then 	// Waiting time]]>
 </Line>
 <Line Number="152">
-<![CDATA[							Cmd_Mixer_Time_Min:=sts_CommandString.Value[i];				]]>
+<![CDATA[							Cmd_Mixer_Time_Wait:=sts_CommandString.Value[i];				]]>
 </Line>
 <Line Number="153">
-<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MAT' 	then 	// Max mixing time]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MOT' 	then 	// Optimal mixing temperature]]>
 </Line>
 <Line Number="154">
-<![CDATA[							Cmd_Mixer_Time_Max:=sts_CommandString.Value[i];			]]>
+<![CDATA[							Cmd_Mixer_Temperature:=sts_CommandString.Value[i];			]]>
 </Line>
 <Line Number="155">
-<![CDATA[				end_if;	]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MIT' 	then 	// Min mixing time ]]>
 </Line>
 <Line Number="156">
-<![CDATA[			end_for;]]>
+<![CDATA[							Cmd_Mixer_Time_Min:=sts_CommandString.Value[i];				]]>
 </Line>
 <Line Number="157">
-<![CDATA[			Sts_SuccesfulRead:=1;]]>
+<![CDATA[				elsif 	sts_CommandString.Cmd[i] 		= 	'MAT' 	then 	// Max mixing time]]>
 </Line>
 <Line Number="158">
-<![CDATA[			gsv(WallClockTime,,CurrentValue,Sts_Time_WriteCommand);]]>
+<![CDATA[							Cmd_Mixer_Time_Max:=sts_CommandString.Value[i];			]]>
 </Line>
 <Line Number="159">
-<![CDATA[		end_if;]]>
+<![CDATA[				end_if;	]]>
 </Line>
 <Line Number="160">
-<![CDATA[	#endregion]]>
+<![CDATA[			end_for;]]>
 </Line>
 <Line Number="161">
-<![CDATA[	i:=0;]]>
+<![CDATA[			Sts_SuccesfulRead:=1;]]>
 </Line>
 <Line Number="162">
-<![CDATA[	readString:=0;]]>
+<![CDATA[			gsv(WallClockTime,,CurrentValue,Sts_Time_WriteCommand);]]>
 </Line>
 <Line Number="163">
-<![CDATA[	wrk_Prev_CommandString:=CommandString;]]>
+<![CDATA[		end_if;]]>
 </Line>
 <Line Number="164">
-<![CDATA[	end_if;]]>
+<![CDATA[	#endregion]]>
 </Line>
 <Line Number="165">
-<![CDATA[#endregion]]>
+<![CDATA[	i:=0;]]>
 </Line>
 <Line Number="166">
+<![CDATA[	readString:=0;]]>
+</Line>
+<Line Number="167">
+<![CDATA[	wrk_Prev_CommandString:=CommandString;]]>
+</Line>
+<Line Number="168">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="169">
+<![CDATA[#endregion]]>
+</Line>
+<Line Number="170">
 <![CDATA[]]>
 </Line>
 </STContent>
