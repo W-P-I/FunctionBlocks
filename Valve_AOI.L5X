@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Valve" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-06-01T12:53:43.203Z" ContainsContext="true" ExportDate="Wed Jun 01 14:54:25 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-<Controller Use="Context" Name="Depositor_PackML">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Valve" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-10-04T12:15:38.189Z" ContainsContext="true" ExportDate="Tue Oct 04 14:15:50 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Orkla_Line1">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
 <Description>
@@ -352,7 +352,7 @@ Aborted]]>
 </DataType>
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Name="ISA88_WiegersProcessInnovation" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-13T12:57:02.407Z" CreatedBy="WPI\engineer" EditedDate="2021-10-06T13:44:33.487Z" EditedBy="WPI\engineer"
+<AddOnInstructionDefinition Name="ISA88_WiegersProcessInnovation" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-13T12:57:02.407Z" CreatedBy="WPI\engineer" EditedDate="2022-06-02T08:49:25.662Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
 <Description>
 <![CDATA[PackML ]]>
@@ -1274,7 +1274,7 @@ from supsending to suspend to unsuspending to execute and will repeat]]>
 <![CDATA[ trigger stop]]>
 </Comment>
 <Text>
-<![CDATA[[[XIC(StopTrigger) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Stop) ,XIC(MNC_I.Stop) ] XIO(AbortingTrigger) NEQ(StateTxt.Aborted,CurrentStatus) ONS(StopTrigger_ons) MOV(StateTxt.Stopping,CurrentStatus) ,EQU(StateTxt.Stopping,CurrentStatus) OTE(PackTag.Status.CurrentState.Stopping) OTE(HMI_O.Stopping) ,EQU(StateTxt.Stopping,CurrentStatus) ONS(ons_time[13]) MOV(Time,Begin_Time) ,EQU(StateTxt.Stopping,CurrentStatus) SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Stopping) ,XIC(SC.Stopping_to_Stopped) MOV(StateTxt.Stopped,CurrentStatus) ];]]>
+<![CDATA[[[XIC(StopTrigger) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Stop) ,XIC(MNC_I.Stop) ,XIC(HMI_I.Stop) ] XIO(AbortingTrigger) NEQ(StateTxt.Aborted,CurrentStatus) ONS(StopTrigger_ons) MOV(StateTxt.Stopping,CurrentStatus) ,EQU(StateTxt.Stopping,CurrentStatus) OTE(PackTag.Status.CurrentState.Stopping) OTE(HMI_O.Stopping) ,EQU(StateTxt.Stopping,CurrentStatus) ONS(ons_time[13]) MOV(Time,Begin_Time) ,EQU(StateTxt.Stopping,CurrentStatus) SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Stopping) ,XIC(SC.Stopping_to_Stopped) MOV(StateTxt.Stopped,CurrentStatus) ];]]>
 </Text>
 </Rung>
 <Rung Number="30" Type="N">
@@ -1498,7 +1498,7 @@ Output from state model to wrk bits
 <Dependency Type="DataType" Name="ISA88_States_txt"/>
 </Dependencies>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="Valve" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-03-27T21:44:40.788Z" CreatedBy="WPI\engineer" EditedDate="2022-06-01T12:53:43.203Z"
+<AddOnInstructionDefinition Use="Target" Name="Valve" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-03-27T21:44:40.788Z" CreatedBy="WPI\engineer" EditedDate="2022-10-04T12:15:38.189Z"
  EditedBy="WPI\tom.reit" SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
@@ -1895,6 +1895,12 @@ normally closed
 </Line>
 <Line Number="66">
 <![CDATA[]]>
+</Line>
+<Line Number="67">
+<![CDATA[]]>
+</Line>
+<Line Number="68">
+<![CDATA[// commetaar]]>
 </Line>
 </STContent>
 </Routine>
