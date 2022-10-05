@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Axis_Jog" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-10-04T13:20:22.161Z" ContainsContext="true" ExportDate="Wed Oct 05 09:07:35 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Depositor_PackML">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="Axis_Jog" Class="Standard" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-10-04T06:01:13.028Z" CreatedBy="WPI\tom.reit" EditedDate="2022-10-04T13:20:22.161Z" EditedBy="WPI\tom.reit"
+ SoftwareRevision="v33.00">
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Axis" TagType="Base" DataType="AXIS_CIP_DRIVE" Usage="InOut" Required="true" Visible="true">
+<Description>
+<![CDATA[Servo drive
+]]>
+</Description>
+</Parameter>
+<Parameter Name="HMI_Jog_Fwd" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[set to true to jog axis in forwards direction]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_Jog_Rev" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[set to true to jog axis in reverse direction]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="cnf_Speed" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[speed to jog at ( always in % of max )]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="cnf_Accel_Decel" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[accel&decel to jog at ( always in % of max )]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="wrk_state" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[local mem for MAJ command]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_JogState" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Direction" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[0 = forwards
+1= reverse]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MAJ_Command" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_MaximumAcceleration" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[local var]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_MaximumDeceleration" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[local var]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="wrk_MaximumSpeed" DataType="REAL" Radix="Float" ExternalAccess="None">
+<Description>
+<![CDATA[local var]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="MAS_Command" DataType="MOTION_INSTRUCTION" ExternalAccess="None">
+<Description>
+<![CDATA[motion instruciton to stop
+]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0,0,0,0,0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="MOTION_INSTRUCTION">
+<DataValueMember Name="FLAGS" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="IP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AC" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ACCEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DECEL" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TrackingMaster" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CalculatedDataAvailable" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ERR" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATUS" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="STATE" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="SEGMENT" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EXERR" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="ST">
+<STContent>
+<Line Number="0">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="1">
+<![CDATA[//   Copyright (c)  ]]>
+</Line>
+<Line Number="2">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="3">
+<![CDATA[//   Routine: Axis_Jog - Logic]]>
+</Line>
+<Line Number="4">
+<![CDATA[//   Author: WPI\tom.reit]]>
+</Line>
+<Line Number="5">
+<![CDATA[//   Created: 4-10-2022]]>
+</Line>
+<Line Number="6">
+<![CDATA[//------------------------------------------------------------]]>
+</Line>
+<Line Number="7">
+<![CDATA[//   Description:]]>
+</Line>
+<Line Number="8">
+<![CDATA[//          jog a servo axis based on 2 inputs, HMI_jog_Fwd and HMI_jog_Rev. ]]>
+</Line>
+<Line Number="9">
+<![CDATA[//			once 1 of the 2 is set to true, the servo will jog in that direciton until the tag is set back low. ]]>
+</Line>
+<Line Number="10">
+<![CDATA[//   History:	]]>
+</Line>
+<Line Number="11">
+<![CDATA[//]]>
+</Line>
+<Line Number="12">
+<![CDATA[////////////////////////////////////////////////////////////]]>
+</Line>
+<Line Number="13">
+<![CDATA[if Axis.DriveEnableStatus then]]>
+</Line>
+<Line Number="14">
+<![CDATA[	if HMI_Jog_Fwd then]]>
+</Line>
+<Line Number="15">
+<![CDATA[		Direction:=0;		// set direction in fwd]]>
+</Line>
+<Line Number="16">
+<![CDATA[		wrk_JogState:=1;	// set signal for case to start jogging]]>
+</Line>
+<Line Number="17">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="18">
+<![CDATA[	if HMI_Jog_Rev then]]>
+</Line>
+<Line Number="19">
+<![CDATA[		Direction:=1;		// set direction in rev]]>
+</Line>
+<Line Number="20">
+<![CDATA[		wrk_JogState:=1;	// set signal for case to start jogging]]>
+</Line>
+<Line Number="21">
+<![CDATA[	end_if;]]>
+</Line>
+<Line Number="22">
+<![CDATA[else // not enabled]]>
+</Line>
+<Line Number="23">
+<![CDATA[	HMI_Jog_Fwd		:=0;	// clear old mem]]>
+</Line>
+<Line Number="24">
+<![CDATA[	HMI_Jog_Rev		:=0;	// clear old mem]]>
+</Line>
+<Line Number="25">
+<![CDATA[	wrk_JogState	:=0;	// clear old mem]]>
+</Line>
+<Line Number="26">
+<![CDATA[end_if;]]>
+</Line>
+<Line Number="27">
+<![CDATA[]]>
+</Line>
+<Line Number="28">
+<![CDATA[]]>
+</Line>
+<Line Number="29">
+<![CDATA[case wrk_state of]]>
+</Line>
+<Line Number="30">
+<![CDATA[	0:]]>
+</Line>
+<Line Number="31">
+<![CDATA[		#region recieve command]]>
+</Line>
+<Line Number="32">
+<![CDATA[		if wrk_JogState then]]>
+</Line>
+<Line Number="33">
+<![CDATA[			#region prevent wrong user inputs]]>
+</Line>
+<Line Number="34">
+<![CDATA[				/* if user didn't set speed, run servo at 1.5% of max speed */]]>
+</Line>
+<Line Number="35">
+<![CDATA[				if cnf_Speed = 0.0 then ]]>
+</Line>
+<Line Number="36">
+<![CDATA[					GSV(Axis,Axis,MaximumSpeed,wrk_MaximumSpeed); ]]>
+</Line>
+<Line Number="37">
+<![CDATA[					cnf_Speed:=(wrk_MaximumSpeed/100)*1.5; ]]>
+</Line>
+<Line Number="38">
+<![CDATA[				end_if;				]]>
+</Line>
+<Line Number="39">
+<![CDATA[				/* if user didn't set accel, run servo at 0.5% of max speed */]]>
+</Line>
+<Line Number="40">
+<![CDATA[				if cnf_Accel_Decel = 0.0 then]]>
+</Line>
+<Line Number="41">
+<![CDATA[					GSV(Axis,Axis,MaximumAcceleration,wrk_MaximumAcceleration);]]>
+</Line>
+<Line Number="42">
+<![CDATA[					cnf_Accel_Decel:=(wrk_MaximumAcceleration/100)*0.5;]]>
+</Line>
+<Line Number="43">
+<![CDATA[				end_if;	]]>
+</Line>
+<Line Number="44">
+<![CDATA[			#endregion]]>
+</Line>
+<Line Number="45">
+<![CDATA[			MAJ_Command.FLAGS	:=0;	// clear old motion insturction flags for new command.]]>
+</Line>
+<Line Number="46">
+<![CDATA[			wrk_state			:=1;	// set statemodel to next step]]>
+</Line>
+<Line Number="47">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="48">
+<![CDATA[	#endregion	]]>
+</Line>
+<Line Number="49">
+<![CDATA[		]]>
+</Line>
+<Line Number="50">
+<![CDATA[	]]>
+</Line>
+<Line Number="51">
+<![CDATA[	1:]]>
+</Line>
+<Line Number="52">
+<![CDATA[		#region	MAJ instruction]]>
+</Line>
+<Line Number="53">
+<![CDATA[		maj(]]>
+</Line>
+<Line Number="54">
+<![CDATA[			Axis,				// axis object]]>
+</Line>
+<Line Number="55">
+<![CDATA[			MAJ_Command,		// motion instuction]]>
+</Line>
+<Line Number="56">
+<![CDATA[			Direction,			// direction]]>
+</Line>
+<Line Number="57">
+<![CDATA[			cnf_Speed,			// speed]]>
+</Line>
+<Line Number="58">
+<![CDATA[			%ofMaximum,			// speed unit]]>
+</Line>
+<Line Number="59">
+<![CDATA[			cnf_Accel_Decel,	// accel]]>
+</Line>
+<Line Number="60">
+<![CDATA[			%ofMaximum,			// accel unit]]>
+</Line>
+<Line Number="61">
+<![CDATA[			cnf_Accel_Decel,	// decel]]>
+</Line>
+<Line Number="62">
+<![CDATA[			%ofMaximum,			// decel unit]]>
+</Line>
+<Line Number="63">
+<![CDATA[			Trapezoidal,		// motion profile]]>
+</Line>
+<Line Number="64">
+<![CDATA[			0,					// jerk]]>
+</Line>
+<Line Number="65">
+<![CDATA[			0,					// jerk]]>
+</Line>
+<Line Number="66">
+<![CDATA[			0,					// jerk units]]>
+</Line>
+<Line Number="67">
+<![CDATA[			0,					// merge]]>
+</Line>
+<Line Number="68">
+<![CDATA[			0,					// merge speed]]>
+</Line>
+<Line Number="69">
+<![CDATA[			0,					// lock position]]>
+</Line>
+<Line Number="70">
+<![CDATA[			0					//lock direction]]>
+</Line>
+<Line Number="71">
+<![CDATA[			);]]>
+</Line>
+<Line Number="72">
+<![CDATA[			/* MAJ is running */]]>
+</Line>
+<Line Number="73">
+<![CDATA[			if MAJ_Command.EN & MAJ_Command.IP then]]>
+</Line>
+<Line Number="74">
+<![CDATA[				wrk_state:=2;			// set statemodel to next step]]>
+</Line>
+<Line Number="75">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="76">
+<![CDATA[		#endregion		]]>
+</Line>
+<Line Number="77">
+<![CDATA[			]]>
+</Line>
+<Line Number="78">
+<![CDATA[		]]>
+</Line>
+<Line Number="79">
+<![CDATA[	2:]]>
+</Line>
+<Line Number="80">
+<![CDATA[		#region	clear old stop command flags, to make sure MAS will always be run succesfully]]>
+</Line>
+<Line Number="81">
+<![CDATA[		MAS_Command.FLAGS	:=0;	// clear stop instuction once signal is set back to low. ]]>
+</Line>
+<Line Number="82">
+<![CDATA[		wrk_state			:=3;	// move to next state]]>
+</Line>
+<Line Number="83">
+<![CDATA[		#endregion	]]>
+</Line>
+<Line Number="84">
+<![CDATA[	]]>
+</Line>
+<Line Number="85">
+<![CDATA[		]]>
+</Line>
+<Line Number="86">
+<![CDATA[	3:]]>
+</Line>
+<Line Number="87">
+<![CDATA[		#region running MAJ command & waiting for signal to fall off and then stop.	]]>
+</Line>
+<Line Number="88">
+<![CDATA[		if ( (NOT HMI_Jog_Rev) & (NOT HMI_Jog_Fwd) ) then]]>
+</Line>
+<Line Number="89">
+<![CDATA[			MAS(Axis,MAS_Command,All,No,cnf_Accel_Decel,%ofMaximum,No,0,0);]]>
+</Line>
+<Line Number="90">
+<![CDATA[			if MAS_Command.PC OR Axis.VelocityStandstillStatus then]]>
+</Line>
+<Line Number="91">
+<![CDATA[				wrk_state		:=0;]]>
+</Line>
+<Line Number="92">
+<![CDATA[				wrk_JogState	:=0;]]>
+</Line>
+<Line Number="93">
+<![CDATA[			end_if;]]>
+</Line>
+<Line Number="94">
+<![CDATA[		end_if;]]>
+</Line>
+<Line Number="95">
+<![CDATA[		#endregion	]]>
+</Line>
+<Line Number="96">
+<![CDATA[		]]>
+</Line>
+<Line Number="97">
+<![CDATA[		]]>
+</Line>
+<Line Number="98">
+<![CDATA[	else // undefined state, set back to 0?]]>
+</Line>
+<Line Number="99">
+<![CDATA[		wrk_state :=0;]]>
+</Line>
+<Line Number="100">
+<![CDATA[end_case;]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>
