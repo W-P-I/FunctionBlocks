@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-10-04T08:35:36.575Z" ContainsContext="true" ExportDate="Wed Oct 05 09:05:56 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Servo_Object" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.2 " TargetLastEdited="2022-10-14T09:58:05.083Z" ContainsContext="true" ExportDate="Fri Oct 14 11:58:20 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Depositor_PackML">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML" Family="NoFamily" Class="User">
@@ -486,7 +486,7 @@ Aborted]]>
 </DataType>
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="Servo_Object" Class="Standard" Revision="1.2" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-05-06T08:56:11.685Z" CreatedBy="WPI\tom.reit" EditedDate="2022-10-04T08:35:36.575Z" EditedBy="WPI\tom.reit"
+<AddOnInstructionDefinition Use="Target" Name="Servo_Object" Class="Standard" Revision="1.2" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-05-06T08:56:11.685Z" CreatedBy="WPI\tom.reit" EditedDate="2022-10-14T09:58:05.083Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
 <RevisionNote>
 <![CDATA[Added motion intrustions reset command, once reset is active set all flags back to 0. so no previous state is in memory. Also unlatch all input signals if they were previous active while error occoured.]]>
@@ -1998,13 +1998,13 @@ only used for calculations as step inbetween because studio 5000 is idiot softwa
 <![CDATA[	]]>
 </Line>
 <Line Number="28">
-<![CDATA[	if Inp_Enable AND reset_ons.OutputBit AND Sts_Faulted 	then Inp_Enable	:=	FALSE; end_if;]]>
+<![CDATA[	if Inp_Enable AND reset_ons.OutputBit  then Inp_Enable	:=	FALSE; end_if;]]>
 </Line>
 <Line Number="29">
-<![CDATA[	if Inp_Disable AND reset_ons.OutputBit AND Sts_Faulted	then Inp_Disable:=	FALSE; end_if;]]>
+<![CDATA[	if Inp_Disable AND reset_ons.OutputBit then Inp_Disable	:=	FALSE; end_if;]]>
 </Line>
 <Line Number="30">
-<![CDATA[	if Inp_Stop AND reset_ons.OutputBit AND Sts_Faulted		then Inp_Stop	:=	FALSE; end_if;]]>
+<![CDATA[	if Inp_Stop AND reset_ons.OutputBit    then Inp_Stop	:=	FALSE; end_if;]]>
 </Line>
 <Line Number="31">
 <![CDATA[	]]>
