@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="OEM_PF525_Parameters" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Sat Oct 29 11:23:40 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="ORKLA_LINE_2">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="Message_GET" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-10-27T06:05:59.782Z" CreatedBy="WPI\engineer" EditedDate="2021-10-27T06:08:58.405Z" EditedBy="WPI\engineer"
+ SoftwareRevision="v33.00">
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="RequestData" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Get_Instance" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="msg" TagType="Base" DataType="MESSAGE" Usage="InOut" Required="true" Visible="true"/>
+<Parameter Name="Result" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="msg_DestinationElement" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[must match Message DestinationElement]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="RecieveData" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Text>
+<![CDATA[[XIC(RequestData) MOV(Get_Instance,msg.Instance) MSG(msg) XIC(msg.EN) XIC(msg.DN) EQU(16#02a0,msg.Flags) OTL(RecieveData) OTU(RequestData) ,XIC(RecieveData) EQU(16#0220,msg.Flags) MOV(msg_DestinationElement,Result) OTU(RecieveData) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+<AddOnInstructionDefinition Name="Message_PUT" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2021-10-27T10:10:33.730Z" CreatedBy="WPI\engineer" EditedDate="2021-10-27T10:15:34.149Z" EditedBy="WPI\engineer"
+ SoftwareRevision="v33.00">
+<Description>
+<![CDATA[Set parameter via message command]]>
+</Description>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="PutData" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="msg" TagType="Base" DataType="MESSAGE" Usage="InOut" Required="true" Visible="true"/>
+<Parameter Name="Put_Instance" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags/>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Text>
+<![CDATA[XIC(PutData)MOV(Put_Instance,msg.Instance)MSG(msg)OTU(PutData);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+<EncodedData EncodedType="AddOnInstructionDefinition" Name="PF525_V2_OEM_Config" Class="Standard" Revision="1.1" Vendor="WPI" SignatureID="92EA1BC3" SignatureTimestamp="2021-10-28T07:54:00.451Z" EditedDate="2021-10-28T07:54:00.451Z" SoftwareRevision="v33.00" EncryptionConfig="9">
+<Description>
+<![CDATA[Read/Write parameters for PF525]]>
+</Description>
+<RevisionNote>
+<![CDATA[First published version.]]>
+</RevisionNote>
+<AdditionalHelpText>
+<![CDATA[ a
+
+ a
+a 
+a 
+a 
+a
+a 
+a 
+a 
+a
+ a
+a 
+a 
+a
+a 
+a 
+aa
+ a
+a 
+a 
+a
+ a
+a
+ 
+a ]]>
+</AdditionalHelpText>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="PutMessage" TagType="Base" DataType="MESSAGE" Usage="InOut" Required="true" Visible="true"/>
+<Parameter Name="GetMessage" TagType="Base" DataType="MESSAGE" Usage="InOut" Required="true" Visible="true"/>
+<Parameter Name="GetMessage_DestinationElement" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[DestinationElement tag has to be mirrored inside AOI. ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PutMessage_DestinationElement" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[DestinationElement tag has to be mirrored inside AOI. ]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="str_IP_adress" TagType="Base" DataType="STRING" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[readable IP adress, set by HMI or programmer
+
+for example"192.168.1.123"]]>
+</Description>
+</Parameter>
+<Parameter Name="HMI_OutputData" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Data recieved]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_GetParameterNum" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[ Parameter number to get from drive parameter list]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_PutParameterValue" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Value to write to specific parameter]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_requestData" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Send a GetMessage command to PF525, tag will be set low once done.]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="HMI_SendData" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Send parameter data to drive]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="GetMessage_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Something went wrong :)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="PutMessage_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Something went wrong:)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<Dependencies>
+<Dependency Type="AddOnInstructionDefinition" Name="Message_GET"/>
+<Dependency Type="AddOnInstructionDefinition" Name="Message_PUT"/>
+</Dependencies>
+AAmdcqVT/lIddHEf0PAbuRIFZ/rTMsq+X7LSH0qxXlgtswt5w8F4rx0XSLGlZRbuL5E9wLnkioiqXItLBK6SaQHlwxZor52tvqRCGJ0j6MDisHPHhnIz3bXP5ADhnTFvzJe62hlY9J+Dylvg2Rc0QQvB/puWVu+jgkFnh/d1Rwg5B+zjtoJHiMxeLow3UGrJcRGlQBwGPQwIFMykpv83CVJKJe4jYCyhjmn1dXuqYfEowi9AvjMmz+u0hl8jhfvkl3VIz4Lzk05CWZZnV2LxOfOvMPRop8rwTagH1SJFuyzNAxsEvnH5UfskroFM66KBaavBipH0qqyybD6qmI4iXcitvl8IDIC8XtHBDab/5QAKVkIaX14wCHwJXQEM/DryS6ajDVaCyYhwyfHXfo2RT0zau6S1GIxA1oVOjWGrmj+dS1HWInXFImngvnxAUP57eW/AN5RvVeztjaU+3EkrPk/Pt8ijEjSrl0O4CgQS6oKGs2ZWX8r/Kn4hxZ7z00Rd7G30uEEhq9V6ik9kr1cxAN7lNJNgCvT5lWrfRz2xkGfsLIddh2fUc1N2oNhbAB+7OA+ylbeLldwHH3/slLlr1sKN3tG90wjty0uJhnTxISFuC9E28Ocjq+/Rn43CsvjQR0LdWgfhcreZbovZXwHZNyS9JIJaLmlFbn92V/nGzsf85BvQnxwfBB89BBnIqcZ5no2hiquB438B7qFviNlo4mQn+nahSwwmWllBZqnantHLMmWz3SMWGKG9aPNwkwpOGFIups1IT2KI8tuYBcuww6qpSNLrgz0i2M/S4ol8+vX0K1puDfpE1tE9pPgZL4DjyLIbkOoPFQ1AjO5G50Ee5pfjYl5cbhdRvJflCUiTB6IeTI/iPpthmV5N6ZIhLr2U0ttP6m7vOK67w7bZHZXzxVTt9U7IyQLtfqxUtSJUl4b0/NTIkNRp/jgEBOTAoEHzS56AolZ3YedMnV523NXOSHcislwCFLHRAX/IQh3zg4/zW+BTfww6qczIrCYui+oe1Z6cq4jNyPt5nPA+3FMlKvtEUWJYGGbXhqmlu3HkW370dyD7xAqsg9Km1Fep+bOkpiAJH+l1EWZ0KgoHL1hdOlur5/hTKt12hBNcWhilwDSqY6gi7YcZC7JF5iyGVij1npX2TE8nQPt4klumsDKuEe5JhIvO4AVbgqLkIC4eoyehlNhDciLpA+tu9P1f1Q06J+RuhR1PndeGiJoMwfRCzD5sxGIcu4RC9yG5KDVY4q+XTa6koX5phQ5guDRLT3vcESzpX6sTKtJi11ftL9YnmqVfkNMl0dbdufgHtwrNEZ7ms1VZ/X5tK2rYPqu2+yqqSHX9+29ews06r1I3es/+Et1XZ0iqSLqV6PX3BRjzaxKD8pta25s0UGCDFrzDMw2Q1xmQKHd8+HZiZ3CVV9Szzdj90E3USfVOmNbqh6CnLdPFc6LNcmpySBCD2eR4SJmtjlNZ8Wt/5828BcbyftNpwKBp5Af46VcSs9aXTJqbY51HgTjUy6/vNHqkeI9YTkobR0t974vz558cKPbSNvK0ZmECRuZZtgjV5XzHjfjV0mzMbF/yntZ+jJ5e9YnKBWzFTsmCyi0zURpvEVWPpC5vfUVJ7vjrwspOxTerx1OX+EnkZB6V4nJeEgLjwwE7JGQGaOkHKQCowPqdk4T2FyeFlqKMQmsEu4XtofDpyXIISN4VDI/GBylup9q+T2mczPNe4XFn0N4u2BcBb1gPkeyr/3+f+nl8Yf5wuHboRUnsfIr1lt9+sGvH2N16GZ4V3MNa7y5MD1BKxHSKyJ38PbbjZZlM0XHLJ7zWeqI0QUTzh9Jw5Q1OTkL+D+pZ00AP/oF2bBbe+d473TnIujEIT4uPHQura20Ua4i7ukB8mkg5gHnCUyHE85S2wETME65IOTJ73r3sHZjjV/88W+NchAG1gQQ20HmhQzgKzbk+UJRVyR/bnH/C2zpyhwniT9jHPO2MCO0h34JgNT+az+DcvKUYlQRhYuiH8MuzRKdRrDlWO/n1aqp1iy9GLOZ7E4C4mQkQFhb0y8GRHSs6rZ6hWKXpO0aSYHdaXqodJES/4+oBM/vChT9VVY2yHBGjvANQuc18IgiKQKz2Q3vDqGBEyNwSfjTNOIzmL2NeoVWLQHNmFO1mr5D35ysmIrsiQcxTDwupuMVQtIu/9GVKEYUPhQMrPTkLl90MxriAFHIeYvP/FOSmPAZzaXU5ZlCErwfgxQHkFMbn90/rSVJaB7E3kduaDuZiPGwZtjaVotWHOV8DFRfcJtOGXLyQq55MUOV+6UYrPLHbHmTJxadou/o+oH8ucm74v3GrhSWPSBcQpbqpV01+Qm/we41BkTS2BhmseabYkhmySwVyYz3BApUBvsQ65SQ7bfbWhGZpdahv8OWRC2zURj0a+6Cx0WT4lDGP/rDpATU3cNHUu0/pQKwLwu9yfxIyngrwL/2VxPb3THkUuDlGwXgidB5igMsHTExrtFaEhDvbIyrj/5FTIaTzklTiwQAwH+dk8W8asibv+mlbcbjaLC71kRckiBtZ4Sg9jePYNMlEDLq1IEIgtBnuxOGOsp3DEWowgZ/v+LwRVDeT1mtrDoy3V4xCm70um6TkOktPhw2TE1IpIrdgtdtqb2AQM7LBeQYJjzhzDxFa5y2AvD2xTqpLCZ60YiUILS6loM2xwotZXDOzq40peWWYJEi6gtFqQAbotU7DUxB9SEf/dOJuiy7GaQiscvIKZ740VZ+6U97iBRPXLK+sNCdyUihvwmIqC+eAG96LCGWYMVYG6LNa2tShPDkF7JYGl4NkgNjwaX6wJBulh1te6UTGJRVJUSIX3vdvgR7pSWYdCvlkNhKqO5BxkJBKGNei6rsIXik0WS1ktHRJ9RsdRwADEPEaJlsFbwPOPURXv1MYsW9fq6gXQ9Mm0Lo3BW04+sIXJXIh8cPnE9VbAOrZ7p3FeaN+aMPdrHQb33jWCCLgbRMqwr/dDpphbmRhoqlcdL3lyR5qVbNH+wiSfUDU+sdvC7KtVW8MQZnjW4GVrLhk6RUCL7kieVBJ/HT96Esd8Hvx4HackHl4QpkXisg9wMn0iPjExc/pE5rY4i6tUYIItyESC34r+sz1i74jNiI3IDiG2PlmWPDkn7efLdgaY+e1how2SMMrwS4oclQKZUGVda/ffsDTiLBPO/veoo+LHmYFVbT2f+dMqFpmc0zNh4QFYSfcqs2i+jYaLrUmz6gyn4FX1MUhFAYoUjZtpRsh/BPekY8i0B0UNAczicaPZi5QfFUHUaQyZ1RVNMhrm18O7HxJ3/pYeBzxpvJyFcJrGIFzBdWYs4sYEI8a7WwZUr9ea1Ngzvtb9aqjPAsgZs2muy/lrbq0ekAYbvSHYouZz7JR4zW9n+Yp1aPaadXcbqrsVK1zNCRkWUR0nNCEz0BtHtiNPoP40uGwaZv9JUfiWuPLFCkBbscbwGMjfAIOiO8jTF37l4kqFwKxnFNh4f1HtmYjwuWn8vN+0N/yyXTNJ1ghECweCLuOm1L/Ui56Vu1ceSbcDxlqNzyCNVlBeeGknT2TDDNlAFmGy0+uXFBfUz/46iQ5573A+5PJGihFGfUQMoFe9oqWKkNjl8e46mhceGF53giN4uzjOWLAS67T3zp9wYbZ7TEeHHsoLvvbv5bQXxg0CaCxieCbmzenroU7+CabFPzUupqmG4uEpTT/esvgigbibNiQRp7Usib7znV9L3oKjax5wBqwWtvWDdqvjncx2+RKnGvyEdKYEFOAxmHV/QJVRBBHXn/0IsEU1tX+vexf+QOMHaaAk8VPiQLR9GdC+7taghDnPps5Cu0FO1dWCxrENi7rQS4n6iiYG//KfVwCJvfoR0QqTq0cp/fNit/YrM9nDBqL2tAF0JrgMREzwk3k5JJ33eh39PPrBYJ/82w/Ea5kozm2+xNiTmGng6uM7IxAc+RxaNmJOvvulD/HMtloNzcXaaOvcnccrcnJAKQtr8DG8JvrnpmSm43pfkVxed6YlNavHsM6d4VG2jtytrqU9kfI8mw9FbE5hYZ6yBlf+kyV6RyEn9tGX5qUG8IdST2AhTzzwgXsTIq3NFaKrwhLklpHKJ5JYS0qB3x6PvA+979L9QoTfb8VrYkH8CuuWEKlO54PrabZXAAl4Kpd9ByxHVC/jlArQbvMX/wE2n7LN1a+Ds4o2iU9LgXPpd8GRPcJ8WVFa+JH2jlNDgwDwXVJMqr+n0M3ZwNBv+VZuqj7Aa2wgmfWAvyfuHzOf9iXEDlywvU/KuXzIhPn0xkcoMP/HyU2YoucZAwgs5FEgrlH505iznmOZugoqfP+4V7h401ZoPeaHZUStr1shta1PXuTEhOL6GYpBFEh2NxmD6e8Hrzo8QQ1DiZsqyrHK3BwjSUVFvUw8lUJwf/2Ii6/y0h2l2iwqBc0h9S8O4STZKIUd5vewQri38gueYk9dNBapFdEyBHGsr9HxMF766AssKpv+k19kM9G3ou9fm8U/kyIWaN0O8Fu9u4kiDxbevD2nec0sLvUnZ2wNDuPiHzYPRZzeF6RHwe1ZZq8zWn7bBMuNvIOrT3ynVMUaGdUkbKuEppaR/krOCkcEEm0/yYnsB8jEljZR5/biP7kZIPWRcDmtOTGS1NHuyk/ZXGIvPNqyZR7p1J76NxW8ejmrGTkK4u/1atO783dj7Z2HxBtnyUEWf4VwI5LMBgiJvdcLNsYdSjXCO4PPYoeXKdR+O8ZoAryo7EjEkXjoys4fBDGcGS0KHzVuVb1s5icet3ACo9UwcXK2kVuM7LBsJKph6MNVhPguBzT9n91VNvh+n5MgSUL7lQ7hXQqO7jrDYJWfl4J/IOrnIKIXBmIV0ytrPMgOKS1QC5zwZo1fQ4jhiDuY1d0JzO5Ecfez8xdHH7X9qODEYBTvYIabixabuC7NKD41rB95MOrncHahPn9PV/Yvw69syQ6d4BN1skJyR7sBU6yc4/22kCs+DmPnHTsZWlonuJWisJgHGkyx2P/10fXRnLwor7wK8gLbNoiwA+GC9rRwTbb0z7fRluJckayQppYlXuFhmeSxwjADnrTSclk8wLGc37CfdmN4sk4N9FoqbFa+BIvDuvE/0yWq1QgjZEywQ3H9+r/R++tei11D0qRI83Obsw2E0PRAJRGY8hCKunqka7L7VHRYMk3WuilgqSnsjtGLDjSXxsEMOO+xexVY4d1h8KWyFMP6Tsx9rIJhY/U5WUUCXkrkPLCuMdLv0b2We5Qo0TCphFgV6WOSx9IeygpRp5naev5DNfrAfQqc4o2H7WFZ9v/YowkmAmAVbFBMtG2LEpZ67vllMZvmp9K5igKFRGJkTGE2hqmQkacgerz76l+phgWWuR5vnM/gn7LdM6ABEzlZDHM6VJUNMIX1c87RMxr66hpYSul3JGdgBtE4RCVWccRRBFz4mwrDpylJ9srG7AgYbmI39m4ljnYzxdU2IUpfjOc1By6LaQeHMHW1/DU06G0KA6GjC5fUapBXYbS0hORDpxv5/ISyRn1Vx0t5lLcBADjhpTJt1A4ZZhiCs597yesVO8rSEO/cmFzEXPpWzPDlEZUjZbdbeCfxNv/rD4HiTUk+n2bwrV15wKsZMN81/aC7p4ErmWPmt6T4f9HKSMA3ROLtv1cflndVxJhQqie4sYB11xkA35wJ8MtinGD0gj0VilMhwICooDB5Jn0ykeRRPHwkiTqyTAa8m67T4wM4ZNcnpzyfTwTQhi4Lv1Gn1Gob1aCZ+fm4RSLvV4B+KTnSj/Wg0jbXN6MO5j4OMxFAehowvb9wfNLEEC0T666EFGS+g2cxjnNtwxIsbiG/vNL/G8mB60711jAzt9O0d3VW5fAvOzUkePRKqSuqANIOZSF6rsw4NUKpVPZgEOBo8HKTJwkugYi7EZla7GxiIfnkBw40g22ngsdP4B4UzPFsvjtizsmGEzg4ninBeP1/AnSphLxWbxZpL3LCjK36AfmuihzKU1R2RGIrN2qwdOWU4SAu+O8AeUyyBNTYMoqNnMLDDUt9Tn/YgGnCtPjT5qVtpG0AwwDLABjdI8RI1dmE2hDYHIHX4+9JysOCragq0i2gCHfziIaTKTDvxzcN4X3DiMk/S0kzGFsDGNIEGwBh8BaZjfu+4gv4YimJSuep9IRwQ09RSuRH4xPh62JMGyXkHWKe99HaH52qhQbv7MxcRbw4TxvCZkJ8PlUzwCMWi2BmRsfu5a6swvVN5z6UD3kuYMAo6EXrvZra/LlvEAFU4Sz51eZJuEHZeFhG4qh2yj6erlkqYYtoulew1GLERz/bvXt8ym+hhCCcN2qbk9EJGrflGRRMwJdqG0HkbhxFdTJO3Fa22CVlboFQe6IpNWR3ow8Ylv6N52gQc708uaks85Z6ObokrEDCR84bbm19o8qC1LIFKooZyA0NAf49325YHAKS2cXayZNM2OvWPCukoenS8JQY/9Skru6PO8olPoMB3RcHLVu12pphE2iscUdP2+BEc+E90SPBXZiaQ6gFi11n07A4UIQ2PmLyl9d650F3qBjH2anr57+XHLyJnrORV7vOkSbmbn50x4ggWjqPZss/gH2aWEAR5XO6+aTXHf/0tXcaEsBs4Di04CELg8/UqlTRcrzYwJ1WZGXAzO6W7/LEwVsUdB/SiNR15lJRpf4JnKPEFU4qrY620yjvRSyMINTj2LHENPVRM++m/mDKVxWkBMeEKHYsyBm5fqEaosIwVgaumnZ3GQy+Ehb7uEB3yorUnnZPSZZCVm2fP2GkrWEv5N2fBM8/HHXRVOulSG1EUHm8MyGdE2bwFRJ2dXDRiaE+j7ChjPuakwz9EesXuGXyS+G22aAgzG+yvuFpqFlk8vLVYdPEPoQYv1Ua4b1sUVe1gCxBVrN+SYzIfYg9dp8ibHwBCDg1jwQM1kSfutaAEMB7RzzgDfqox9lNdA3Igi3rWxvJ2zlmgKnCKn04d1A10RB6GGJnrnzvUggIiCgfiMb5SmntEKSkt4OYcRAE2yJEDm9L+AYuolp/ha6h7+cjMMZRCWpS0kYV3kz0A7akZ4MSn+ABrGzmEfj2Iyo6a+TBXVIaxveDCA8LiK9RdtCdA6StAOg7LfztePoh7CVuGi/s5Q8evgxDermpHmJvS+NiSoFX8pv6sV+B4kzSG7o4fUm2RhR+7A55Nwk9/Ot2YTo3uGJma+yv4e8km373I7d/pH7jEKnfmUQaCipFuYZyd1c4n9QAHAsOUOmgRk5jQhd5QfROXCWnZTvqxofCkGEerbyn67PVr+hGfaocH+adqom4voO8QU69QXzr4rs822+ZOGC+7RcqoncOyaSxD+sZLtTz4NCbJY8WEoDr9v7S0XLJ8rn4eQTp0LIx6+7XfVJzz4vPdO6iS+my7Hy2ZmLzHJyShKdKxeWFhRbfLl9pvl5STWBGkwqZPg5fLhk9OaZSM/K5FCuL12I/ZNIVmoK9snF/76TIJ/ggdMUuc8dnW8D05IiP/M0uvFnm9I7bRhtXyO8wNt1kX/gfBaQRxFtkE/brtqZzPTDYMk9xeJiLGDhT/v/IvD/hqF8b+f74EMJEDecDdTR/Kei+MxkI1IjVRxzprevpwxWH0aXZiRct8/0Xkct1QGQjoMXALKyTY21Hxyey6R8zFPB+/UN7j5Z7SAWqbPkH1jhfCC78cDA1kPcP5Hk6MPLqU8EXUwwtaOY6HAfv4qxBoXXAf8LXg44yV4jc6tmo3ntMJ4oTrh4XeZpNNvxlmGOkRH0z4lPWkq+/1DQyxQDc/DC6nT2uPQvV5OlWe+iqoPQ1zB/f3kNUyKAqEN3YPJOEiXDZ3eU7CP7v+73gvsg3/b6knDRM2lwD85r8RSl2MqIhJ9k3V91NcfMPqIVH94NJNsUI5t1+nK6ggbYJH2d9+xQknL87RNEaim4QwFhhG5+qAtdqNbkUVzPwJets6OQyYbTsu1Myu74YTOSJkTGfQolmstfM+r4PJCwOsy9fDGz+JELRxSH2hL0xrKSYD3O6dOUhNMvnhR25Wpb3zY/vAm7dMg1nO6JKBDO60L/6+0pTTpDfErlCavGNjRRBNpu5MZG4hZCJ3cucQFEnbyDQqTTUq/xnZcToJ7o99qrdr409yfXjLC9dZ0sWzYSXd3kouJNzE+b0ItFbwGcZ83kvF1CIWJCQDVJjBt/YY8UIPc9zrVfTnSmMhn008RbRPjRBbrJON2mBsdAu43TS2brgPu5+gd9kEfyxE8EejWq6PZCeZ8tiQ7P5FfSnWAWtuV/Spie5xOXUkccfy00wMgoOx1kQ4mwu9xJ8/5E4OU4vIp1wIhzWEA3pGv0ZgcLvDnmT57IAshj+vdF9Jz/zuk5TgRpE7Apndypb3MLTm2Srff1iBaiip6EEyGZSX19UIxfR5piPcnJvFb0XL0fF1dcPM2Tl2V6/VI5bkX7Flxcos+A7+n9l5dMiCRSgkf5OBpctdrv7xTPzveUR0PTwvQy7vBiqiBRCe8ym3g3SuMBobqVtjEm+05Fg0UGhVSRskApcIAr90opsmhbCxEbbftiFebiKnEiU9HgitmLfJMHAEdUoNFQoEHsxnS4n/L+DoNjSP69y+sQc4YUFJS6bk4Ffld+N9lRLfJIqQUvLt4TACAY4dU1xmA491tY4gVsknfb0QxTnMCMsDb3TVrjhTijdW5V4pSD6A4CRenMabjt5KZ5mkDk4LOF+1ltlre0EixFJhn7RbDiOFq/NHFHpx2XXVohF7zouGc8OnAXNy6cCkgL7dckfFfb2fQdT8DGLl2zx8Gl6Oh/TG0c1TAKcl1IzMNGDiCLsMFeGxzkevdJLWxvIvZe5gfqrfQ+xqkeTnyn8+2hPf949e1q4hhVeKbGW0NmeiO10Wa/tkWoSKvjfMzYf1rJtITn+/Io7A3cXzNSuB/rZ3mJsaBzNh9q8qIjmNUzHZ6h0JUT7bSUWZeqbax/3GtQGxGChWVSZpwvxfzqxeW2tnLBD9YZueAmCSkQXHgINwDqvM5QWyqzvrPfGOwe+NXd1JaMMwpi6V4qEmO8atQnPog0QEllI1Crsz2pnZK5YRfd+0GC+jAuiXzi/JwsWTxkgAKA1xKk7tdWs570u0WdmjMqHRUcP+qgLezMBD+zRVpKdpbWbIhEaC2pivYML00pJ5CWTsobH7+0b7bI4Q9qIPQraTel/5Xhn8nnJHx5edJqRegFmp+xdjTPndxeh7VjIwD+6ZebXxiH8e+EfBX21OXl0LAcfkI6pulANaeD199CnUhme+gW5MSaBPLDJyXGKcbDr0iM7WOVlPD6zk2bjzK7KQpG9hWoj5QWik2PMxmKAhxw7+o3g3uq1+D4bD94i1ZaZr/ol/Ei/P9Fyqm7/cMXMF/xKuKwYF4Vc7qZiqn63+X6A9jWcrmQMV4+g2J/HohAvJOc10pl4PwrKOhhSjOOsIoqP4F/uvKk5970ZetKTrXqukkI/77IcCRgEzkSD6Le4aSvg5fG48pCIxIgaZkXOUcarliZBGRMkindnVAtFjKoC3XYIoULkcoqcbDzeGzbZqXmdZ6LV+kha+fD0JkFWzIzgd5Xuonw6t1qXJVLN2yq8+qFFCSYrPca4P8NmNPiOYcsc/IYnj37CUKtlcy09FSoHb0bvxyGVXfLR9Z3JqLO18fxHnjvJ/L4CyCjRrwsZrE1VB9kvVYEh9q+btXHQXHVEi908YtflgzNzZ2OglrY7sfkw07gcBfDjwu71NcckWpxH3igO1vSJLRkQlYvlq0mWE9NB9JNG6wPvQDvL4uL1OgukFB0gZX7JcSCOI9TK1pUuRYsb7exxhj/T84HrtyD1jmdjkofKVKGn4lXGfGWFvPmYibXuC34eTWvL4ujM3ndBizcxIwbRCCu2aYUPLMPj4voS1pGKlNHdHwlqSSxcNPGhETZzcBbQAafCYBkSFRYBq+scfBY0rCzdZ91Fw0vYDp+eO1QtmgOoLL5PA0Lq5KxJYDjJmKbCYEGd5OTf6DIP4z8e14R3vK5ZGNBVAspd28bPAUz7LVmPLzI8jMkg/HZ9pP/L+izl6jUCThbh2GgS9psfiiig9TEvtHeF97vFoefrYTRBhDL97K1Zh/4v6H27zkPj7QKBIsGXCdPxJm0wm/86cyHZMFj64LMLMMwlIiRPK37YGFMw+DkAA1Z4YnA/sti8CJflKGlXpD/UXTqWBROgXX62JX9AUSEOoVPSByIekPLv8s7zRD0oPuMs1fIDV7EaRe+Ijnf+WqV6zNsVhDIHsh/qWI3fQ+cbuybL1xT3rnPTAmepBxkmlIYt/A+JYAxSXXHbb7YY7KqfeLhDnUyRpDNttIkA5NrDnz11UAmOg32oUkztqfAW45Qfjp2nPXOSx21fG3Ep7CWFf0eb0Mm6/2Km2p2V5wYx71URTn3IRx9TQMMAgqh65++epm2s8vnQwjqmB6kfU/9XVlR8kO+XwlBGmhyIWImgbxRcbwkwfN/6RZfdasL1ajWoXstF854QkEeye017bieot8o5fZtiGn+QvPl3fYGx3whO46Qgu2Gonc8Oas6gUDVC8GD4+HpWHbkZ8uyBFV9CXESXE7luZCw83UdXnL5mWyUdz7oWMWiqj3y9DzR0/FA85oK13sKDMinH+kuTv62tX7VRlrCuVpETdRbnToLBAZffkatqJ308XWFaeAOIQJoIuTxCpDlY/seplD5WCo33Uji1zNEP2NqlCSx+AHhh5Tpzbx2G9Gi/DPQtcc9xS4izZ2rlMjFPnYVsfvGpS4xmYSzQdRh+gaJl1attdSajYwNyP9vcWHd903IKlU5oKI9wMCBPB1g5v7vSNSAIJSPOPCSzpnN5hJ0BvLbbj+EEkE1s6pFmeWuDEnC1AKeIw0pWl7/8SwAZI06MwTlJcQb28kNMSkzHAZWC5bNiH9w4AwY7p0V9BXqNuvThVUBOkhsgdko++E0j4oHDib3BQXz+gRRjUyMWLswDcOofLWPL08L6yZG1u9sNK3hAZdPD1uPw85Lb32gldkyXkn2sh4UGrXkNzGc7/nIDPJxjIWivQPua/ZkIxkA/LfQEVn/xwrqgAQxZ6KMQZyrQ8MpT9wSWiaCenW3MwIn0qiHh9ywA9tAagz67azXhAuZE1et1heU/GmGo48FvFVMB47iEFr6zz+/ngpnjALtsi9pOxkXvX7cNtICP+rqRqrZ844a3pdrx9TOLYi88RSfelTreKBgNGKZ+370yzg23EW6GXqwLjz2f4RGpftOfuEDAhALMw1Q7WYTG1YLQdLfFw8BB00QXxBi8dfg2tGM8nzGjQMyD4F0jiSfIFY/3377/Bbq5sK608KPQYOM/S5rN+UlzCrGpvvQoJx2oEMqC/YmQOXnYsKbQlgriTiZ8n09Vd0VpVGo/x9ySiz4/9l8zSJXZzdxdFtZoYheusdaECj2RyY7kE74QKQSJM8DNEcs5VgsJ8X0JbtkrkbE18yO5LwQhn6psGEJ7alxRmPNF0fwWpiRTE67bnNnn45L0ANxwvRUSCxly8kEvt0j0jhY0Jg0LcYihqSNhEyOQ8GAl+7kVDLKiVmTTl6XS/+Fn6eEs67kCdQbgpeIjZmQZBYcb9dXgJ/p5jD4WlknYRmzcLPDSMv47yHnPqsyHxvNKkhVIyGBnNJWNSnhroAb2spxNw5MxNavY0Gv/eubp80cnlBRUqLHj4fFHvjzOOebvmK1uFMYr9K2ofc+Ol/6+e+44xtSmmUAw7uKR8hzwuamZkuRbSqbzoQB5Gj3Dwa1pw06lhLm/QNYWJjFXveuXKFzduFur5P/8YW9JJo3GGf3nb8/EzQbaHRFB+JWaOIn3EAJgrqRxgim3Na6DeM9PKxZ4UNlm2UrDDzeii+i46WDK83k4/7dAPHSpMgxrssXbpPzi9s51+L/MoIHLbfr29tOq1/O0DLY/zvo5rWMhCFf8rmPMstaAsO+59H7v9seg7FCAYZ2lnOx4XfTESIB5hte/03KxBcgPdI6XyjX7+7PzsFwFDPR0s0/pG1aVpZA2jJ9cEC+yZ2iWa7Ec/+j22DdWyUwx/EQauxcYJvGzZz1nFTOu3QmrSfoZQpmc3PZY+nmC5+HvW+Cy/cRA4rfTQYPOA9XoZpH2zHN6Q/JcTqcOZNsZ2WwXfvRzMzJC4SUk7RG/sqgYfSYlLxLC7jYJMoFVMLSW0zmEAOnLXGRo4quKCrh+AGiIOi5iz8IlGXfWZfioYxAS50bsA517hslJJEeOk5VNkIk97KgHwfjJgRiqkT5dwhyZJ0ue39ufe7qAzrjAaPUdLTkjclheILoegKohcGJd3TTI+nGrF5pRMfDct61thsPshxbtdnzBsJcw3S9EQ3PmHWpFn+bNtuO0vV8XbR7x6/qpbeyS24uWawMGRTvBcw6XDUYtYWVMU+NL7161p3qcvl23WCzAgYJudmBCnFbYKamPzaq2gpq1f7OXIjZ/q+4AnjSf+uXyr/sRnlQhct9R1yF2rNvJqvAu+h1/FiIcf9wvW0jYmINmFbZnmrqtyPVVuuDZpdjZcxa9lpopAFLIq2o7PfmsfyX6rP/c1hVXW7H6YGKHz9jmjVu16TQlq6KMcPlPddZCI8mWky+rlppAsXQ/1qsS7xDC0jEJcApFgE+YZvXdbzJhPlyiuBiQj/kNN3UvwgFTS0u2NaRSDGWskPTfWfGEIv5cg+FS4gI1ZQlXqfgvDYDGBlbSwu7nrofDP9jJsfjX0lpaEXTzIQ91ZKAQs7gpJHbl4me3ZekFWQ36KalC5bRh/xRYW8GwLgNvakPxJ88yLxizx3BBI+JkMUj9gHRvKJcw6n2sm9OaPWx8aRVxem5urVQrAKAxqcHXUyKkyC0iJJaMJw9YWkqP30EWwg2YdVt+PyGlB3fpzIqnq7pli6rBammFzX3hYndnTVwGz03AonNcIyUHOmaoCrkFzJbv24dq79wBHlcAXCluIE4fCXjUS+LKN40JoWRooHHUqtQWi4ibGWn3xDemMDJSKjBy1BDCBW0m7vf8SieJnqEyWgteri/KUvM5svm40T0qlZaOBKgR72ktcqn7mO6kA9Cz3ydF6lmO0gVfdyEu4RIu5vAX1pzBO0qFHHkSDOM+FOC7h3sr3e3AtoL/ruSFoKCfkI8OkecjySeG19k8WIu4h2kUNG5RpCYsfELs8okhOGR8EgZ41ni80RnwDao+qkJIgUKonsS4EGU+1huRDMQevYKADHK/3HQx5Dj6DcENKfdWnD1NqhD4AixqZvflpPYEOWcBKTBlNY2T/OBDoiIsvTG9sfl26Nv5fXkes+lsmRdjPD289v1kEy1HVd0sH1OOEmiXWL+SmDh/xOjrMlmK/I4dhRLaOUZKT126Xju2jwtFZNExxKl6+J9yueg+t9Qt7sqecfo8dRx/PqZTvGn+7T/quFfF6dUsIHauvG5hhsuu4ivueQKPwdzdzO8lxt4kj03ufIICwcoHDPCuoyoPpfcKI57Qrr1XPnEq5MxMstYkiSb5D8v6WzRAZuez4Nsr2FKUXh91I6crJfkcRDlDd5s+osihM9N782G8kf2iCGXxucqXKqqt3o+pw7nacNScvNsNQlzmDnFWMfqOt+mdvyya3lZJOqqE2uTCCj9DwhWIG6qr3jeQ97JP6uaMXf4BSWtKkPWrd9hV9J8ZGGcgkeyCOCWmPmUzkp3RzpQi/4zQ0tHk1QsZEyaD6K16qdL+GJJAAfmBumE58QnG4uoL7wfoVbwDrxaPyBENtpS1H/cIRrMysJScEvTk9adapU+FY5DYS3OIYJAE2XJXx+Rp9zGYZGiP8uBg1d70Qwxxa2EC6RNVmiTfzP36Ih0g8CY56kc8CiNGtgQhlCUUyQvmZXS5iBHEMBpDFuQkUCrb0LVoENYohLfGFbRguCOkhE9ngCQITD8zPDWwdPOwlyVzczC28fPdrcvhUbKsBpYu+lw9wkt0eXEdXe0HOy/1wJ75a5vHhQZfioNS0CWLlxPWfWvyaHDbwnZXcOKJk4N70aI76/fe/qUlGGMx2ZU5b9namEwvIeT/JjPpoWjgdZSpXoziGvGXLwy0iQzaqs5/WDxF643K/JPUMaGwNpsl/rrcZPjAx3xA2m7yzQwFvVa9pVqoIRy6Xber33jdKI92qIjdh0kBmS+kNXX5AsoCWFbZ5BAOsz4GVet+VuuBKJLdWJMmM1igG89bhku1nVG27gcYmuPo2q/Byxw0PGetFGFzBMmU/X11LaHlpL+GU2H/Qf4100ODTCSo1EkjUu3mA8aSBIYfwEwB359/rHFLd2daw5heuRWCmpRGTjqX0xYnDrqNsZoVrpbaXCxIMu1M3FTzTsVWXN9JU5nMGUYw5snAA0co50MYSm71nFzO68015NOZrV/8PyYlbatwbDFttcW5zfkDCppEhvTne6eHTl0HN5CpiYu9SOd8M4+5qRyWOk518jTaODHlF7ksn0tD5xm76LyikcfVQbpOuGdqB0IJya0tZsedd11slKIFepko+0yBTivqjHZAPUKCeIYrGWm7mXHieB8dyg5E0xeZy8C+GPxBYByO/aTW/4SD5BnUWQnu9y7MX4IYqLIZ2/XsQMU1hLyViyTFETBqj7XM0QYD7149c7RSf3qCabD22OVGAgQG8SuNqf+ZzdY+KgqoJzfBz0xG9DmsDBVaGkwDaUiFu1fRT20sR1fwtMh58Sjvazr+frm3fpVjaipnh5Tb4R0oMZJjNN1TUOFMmVfdRsqqiv2q0MZzi3V5QP/PiJn+hEKROAmnOU9Y8ZcGUL86InorPT20Po5JA5G+DWNtc47TDQclLNXAEzFUPJn7ZkUv2HKM1AdqrvqWL/FgsOifuT+7V5VuQnA63BfpkW+ZsxoGRSEMMsljpW9PRwLcxvmtrzEI1tL6cqMe2rq1BXPx46kWTBmLmyF3gUMxs1qqiT2eM0uAJrNTw+lPSrLL8O6ndgEDFmkFVc26LVL045I3WhfUdVWKbm0zVRne95HD8FnXj17Y+X+spOcTOJduOhARoLL/abwnUvUTLd0vgpVq9Eu21Hg1l49g56wkGhajLLYPqZyuAxicL2OThLbQN4bDKo26/BzkXbglJZ6cihefVIMyKHWmsulJcsQ2k3URz8z7L486lU0t2x/cDVGr6YEDysxnAsUUTCwv47RZIJXlOKQy/b57GGvIBbxwcMdQhZipxqnvlHdcpk2p5zREXb+jN1u/n5dD6SzdA1cCmrZwmszDKrzA0O8j2O4Lpx//bzPSe3JwosnrL+jLBDTRVGA8u4WrfK06is1YSrv2xqR2Bg+/ljiVvF15JGJjIecL7HaqzM+5Q0CxuhVJbKT61U0D3n9Ue6jv/rtdWpdO+3y5SJxZ9vjGHAr5eiErmvMXpjg/tV6xLjQBGINThoRPlG5IZrJOio5Agh6RXU9phbu8586gGghdrzGSxLH7o0Nl09Vd3kGHR8tjQgDv1oZ1oymjHEXGK/hgOFqxOmb0LVvxdoJ3nAdItQxXJ1fdYh6N6U+lDhvmXwhHiqXCY9XkqYb0MBY5YyTd1pJtYK3gMYvtRxp6/8mXUUtLketGwkRhq9GlKIAt50Y1JYwkX/mezos+zSSfQA2eo3SdvN3hrGsHNSDmutSLvSqp3mdYsliwXmr8OwsraFSEgqTZZjLReR8dqoBpgrcyxCQ9vAJv5pCv6RxPlOtDrsp2ktuwnbGYQBvtPguwwLmpWbSsSp1LtH3CARPQ386K0NDRHILdZZV/UyyQBMuxt2LEch3A/93XO2yt5Rb7vzyusatG1iUt1n01vtAJQ5Rc4uU17QrKbvlyOXbj6d9eeHtJqH6yH8AgDWmosA74CgPiZvu4oifQgFni97wAx7Rujl0VDNwNYMLDtlYw5YDT0WVl3BwT7d12/Ck7xnaDl2f8tofuh2MFLFN4+ERHwmkNMlW5tN9n49OAwkW9nWZ0i/wvErPdmG02yODntjLx4ziJYIrguJ/ZdUFSemKZYCbSS3rmS0FERjj0o6hPWffbnvqiRNh192GZNVrb3k1uUC1LsYIC/L48aVZYhmUAPC1JdfsR/p1nkS0DGVH1ZsCMfkJIbzev3h3TFYaGEzUV1TFr7ZFQ3ncibTqreEhLmkJj5u4VcnkAcKJ7ZF2MQ7mZVE4uoNO9og8RDNF0ozFqnsgltJDQUrZYrE6qC32Zr2hHka0kY+eHOQv5R02FL1XAhUcVIJkr3QGZDCvC7wBt6rbgtsoS7usBy8tGoQXCKgN8zSm/sY/r6JTCGi5+BAUR5ZsRArqs2bkj5i69eaxhL/L9I2ewjzgFjvy2hbZ8t/PKAzCfn4zvgxBAbreeat1vNOhUsgvYN71FQoewx8caSRoOl3qWPFsPu76qpwC/+NeST7El3ZbMpzGISRCDA+yImaKiwNCv9YYr2XVKO+qBO1+OICtgCkGzrS3YbchI9CbJXPzzc+Op/aSGP7phOEVnqufdJX62T3DgPFQir/02ZuIQNAclaQmIeqf4KyAqFu/v3QUfPpeupl880YlgpYzHRZ/+uvt9QBHqUnSbvOHNrIeOn/DT+FWwhSqQFBplw+ws4oPAXB1P2NJo8MM3N3igpXtn/efrvfqP61iVNGmRASdTxjl28XaXgAXiCkd9ofx3SgGgy7MyLo+Ik3HCOiwuDj5+mVNXxbLmJbpjcC59x6KYBdQZonxSF6sa/XzaZiWdTaDjPVE4/9bWT3Zj3j2H/8bbd8UrALoE9t0D4fIffFVKRKwV//eFlr4PWrvF9H7m9ZAKOyvIzX8NwqqCQnVVk7j4/l643HffS8xluPIdwPLeF++wB1Zv1Awg8gEhCkF22iBEXFtQt04oM4i4Fk30BZMaaUNPXw/qMLZo4+yG2RJQW3JIx1y6KSOlgbnhP9KEFFCu0VNGPhViaFPzya13rDtaA6oyltvruSIwtfWAx7g0/KFqnIFJyyPbRmLA+4/4begT2NMIyhVjF8I/wMejWbI/KLQWPE8J7eTIBo00XgxPbtpTYpdqHVuUAdp5Dv93XC4ViqQFj7r5ObwKLDm2OApfcJ299V4ocqGQkNY/FpBbhEnaTDI06YVMEc63IH7vkDgIB0+mk8WudkMOlpdeCgFRnIl9/8jiw4diD/WXuCeHuO7EgYTFSv5+ihDo0Mw6Tf3B74rtUOGe1XFZJTgHzMKmqFgnErVJUnaES9rRbSMV+C2SE7FrayWx8k9NcRvhxJbFaLxXmz4QB7YBpK5mv0UDObG1WhIn9pwjXjnENXG3Rdhp44PQ9L8ECi2G6IPjYVPnD4DTKw3n4t57/BYBlRiPnYL4yFJHVCRen0kO7snUoejZYRVVhHtPKRAIEbXyr+T52E58JziYrbZqmU17cEMPkjxzEZCi8cVUAJXwCl6x2617l0ZldugNGnhWHkx7GWavYBZy9i0wId0owHd6wJ6RSRI12FOOFmqIGpfGdNM0T9Fg7yOksnVskPcurxhwgpOTovTH0EzQ9lAr9Imd/t7U4nLbH2oLsTgdkj2oEwMzwH7G9hH9vt7vV12QagVFliMKp1yVgRq4b09MmjIE3Z3wfQfxsqc1QvtUPCe2nDdSSj9eaI+sYqoc/WnXwMTVZbsrPVjsI9dpY4QdVPcRoNFfBVpJ3X9Pvt2UuBVrsqRV96RkwgUuSBAkW5tHOJ0CwD6+8Gm1fXvEECj6cfqof3KLJpf20HOi1t15nM6WVWw6jW4vSsrYnefUp0p96XsbMeSmM4XjM/vSI38yNeqvNABU4DYYnKUYvHouM4fMnyk4cbxyfGRrgg7ZlyGa2xEQoHkkDZi4pKGDCReHJFhd2olZKQs1EuNZ7M1wOoA+pP9hTuLEXe6cNkG5Ewl/IYcOiKMV4JJ5vhmA0biYOjUVj+qNRRi2Wh8SD6NBYNe1o/eqp/4dl08j4heVenZmnRr2buyU5sJ9mv1o8SbAY5FFVN6UXy/gTXfauhF1nE4FUEGJTyx/76MnhJWEMjbCFoQDapONEVSjG/ZuF/twA2W3htA7qANKIPzeJdujBG3ShW8YGv9GgpFc3mRbWhZAs4aYrfsl5F2hq3VbPIFs+Z121Zq+d4D9xzLL4s8D6OYTE3jOouIFaYsYtrapc/OEmkkUKySUN/LeBYuTyjqMgvl3aFJwGK3DwZs9LQss4+SA8amy3zSfJJ/p6i8zfSf7gnVkT4LNZ7f4gS15pIdO6KvThSXBSv+Pwl7OpL6vq5H3oXfxA+HjnoSByMH3zHHLt5cBR3WwBUBGJMwE0YqFed8az0O43OePmREJkwV+VYGq7RIbfEvvOSwcGrqfKefMFRxROs6wRXYigZJQxq6ZnvmE36/SSwOI8UWzUyEaGgERlodpR0lUsZiMP70wEQuSDfraZdhem8i37/AmWZWjcxpea9Bi0Alfu8fdUkLiqK1NcXt1VyLpXPGdQOTVbpAR9xmZPPKEtOKpgnAEoATV4HadqWGUjZmgLcAR5CVWN31E64Alh2gojJixXaVitBce4QY9zjoUQ53BJPqyKwE2nH0yU9ir2lzsFLGn/VtOS72Zh1axj34gwPkOc8PwDXxitGDmxBGHd52mKzS5610j0k5Njg48Vamm0s3KvIBxsLqOZfCvlruPUt5oFtu7BmXYnhbLWwkMi2IZwIO+2L9XR9sBFRYBcmbq+oiRMiG0Hw+/4ndq7TP2KjHuRO/NrmapvkrRL9ii/xJprIJ10IVFN+X4Wku2jvMcK/wRkVEBCRMeis7XVLMoUIZYvqXm1U85hzt4+EbnwFK562DnMZqz1bDr34poon8zOP55fUHp5PoqkWD1sJJZv+tDaHLr23IY2uC/FvK23Ow2+16n6I52sr3BmEryCxojtGDd9ehjB89iL+rdrA/6vRXfha74eo0zM992ywRbFMowcw7Ncx9UPaKHrpsUcbbwRb8+4PRW7LhibMFrjhK1xfEtZCPEtMu4qd6qevXGxZeloI/7Vy5AH9B1BN52suHbw8qcaHCTqdykoVS6UsG6GfuskCk3MtAqY+Z7j0JFAbI5OZmz0ipDrZvxch7nAM2kui1abI2Jg/HqhdhHaweGxFAsPGisOECzPqvfHiKrcaHHLVTa5g6YTLEz2OGJL42KaJq4kaTTUx8skMfCQnGA/IeVtINXt7fpVtZG9JiBuPQHcpSN6KlzOvzuPf5yHmllY4H4Uz4NDOpL9AIS1Pxeg2gn8+sSmypifoYGn5/F96WkWFZHgTICLZmEGC8tU2QyyG5/gn9tId9h+askEwrj6mq05+feN2DA6CGTXHH6PsJFGT+KSd3WsQ26LVALxLyGpmEhiKGyaN397Aw8Dfppr/zYzsivtkoIEFqHizOB7HK65g8uMc56dNoh+HcaBpOM0P7U8vF3o5DJ+0Z1sDXLkPEIQlXb6lx/FxpZL42SuJI40PdzYrSuk3JBS8eFJYIS2n1N4qzWl75MKpWlj8oMc1VJAFsHWPl75LfCeVEJyYSZJek7mEofJ0gOHK6c+DIqQWeuqXgSl6cDEUrilKO4cuuMc5Xe5bcDoU/204aBOdhLZErLTnRCmtP/6vD+80xq87HMpIrwIAOmg9pK9Cp5HlLWHre7Ot6FcHpvrWAxdilft0eRe/kokP+gRUL9+fzRNUkhs/fltvkogH6GZqLISsh+bThv+ysIgCJD/QbIh8ysvmC43jxOFLWXLYUdmCi/KmDm4IbeR3vBTnFO6dfgQ8sgImwoy16K3+ArxM4xXV6hHS0YWticlZvz4oLXovBfwvvYUn8gHdPAnRFmVQ4oQCq4oakbB24JGI8BOItPPnmmImmR/dwvdO/A2wr47H1YSfO51t+4Aj6umIizpVGsFhRFJiU9UysHTpkvYRbuoKBs/iVOwkQFGbzuPRapPO2bL0dKxQV5K0THrrojNcWf4E/7n72T7qWIu9z7H1LojY7AazSkClhBbHv4AlELbu8JLRy7LpfFhnm0m3MHsz0JT3e43Ns0UaX8paxYfI6qpYLdnolbKkWplJSwBQCAg6bTT/hRPwe550wOppBtorGlqQcWh15zpETLb/f29t7WnlSdj1Sv9DF5KL0BnEykJIWec32CDHEpbEjN3fYfKSeQF7qkIqdm7S6ywCgclF9ChzxN0jaw3FjZoWr9XZosh3njNf+Hg1wUOsI7NYrRPSJDwNWU0J6r3hqU2bdevs0ZBZFMc+mwy8a2/+xtHCS+LpD9hIu69BvFcjEs/G/Zm8Ur4hGJOnzub6717X6NzWMbQDbvaV2kPPYqoRF/liPzmu54JbSlXplvB3CWGfuEjEXzEsTb+EhWU0dtgN9sKQAx+pm4yx2NfOctQWE21AM8C8knlUg87bc2wiEjKxxB2VIS74RVHM5JdeJMmhcOrxwQNrV0BmNfk8N5+BIpsltz0M4Pu0Z2jH9A2dmWC/avDVLW/+vpoW+e/Hz2TBfvaH+mZQ5FhTOidfKSp43jo9bziRdWa2/3QwkFPNwUrleCyDU7rIF6KXXiDMXMuxKz1K1hCXOgGomNEmPVd8PE0H8LM4ak4p4Sgp+M/C6iUphTCj/OT4XVIr+gsBotTJy262LxISAkSPeMbMo2y9hgGo3PdAPdxEOIZsbY698JbauO6GBlH6lhgD9jlvG78S0TGOhlMp2KoPW3rw1C8Ms3OpecW+4iA2LlJfdvcDnB0WMz8V4H7czzYNW/Pjf8b6VxwBQnLFoUcRBnyBX1HVhHc1XTDj7+7OMXXa+tjhj67/zGJb6VY302L1Vkehot83br2SuHQJ514BAg/jUxCTHQtc7U+lRK6uGnNQ8fvucL/7tq/yPFJqu17xuG8fj0tGJrpe88zep4Dv0Bofv9cOVN6sgWnR83NbyAXClpCq4ykrgxxA50vsi99vUTI1F3cq970+pnr18RLGmIXIWL2+N8XakOcs9cDonAdPAaPVeNBMOU6dXDP7YbQ0zrH6fTxcl19DKAlxzjtm2GHDDpHkUQns5PFh3eLn5xhxixiQ5QV5S7p15Mj4wCDfHh0MKuKs6l8NLe2tRVtn07mh2FQZf2kKK5hUyhwPblZtvzy4xxlQ4Mx4YfQlpczq5AVmERkAc3nuc2iIMv9vlqfrT64X2Mu8uJ+pQxySTC1MYySEXDF7PYvMZi155j3H9Id0i3cR1g//aU8qcEMUuI5bDLvC6ooCdo8RGLiwkbbJDNqAfdDtZNqDzKXKsMH4HftbR8cngwikC3ZsHJJF+RYQaX6ZJSgDdDVJoTgAunVuLseI/mttvMdxjor/Fma1CuZVhMwiFpvhLgDsKqoGYu/is41ij6Q3liq3/Sa1SlA5M68VahIVEC6dKYMuiDEu60ioxKX1AIJ6z7D9rHnYReAcPJ9MMxbr9Vg6irIOUrH1sW+zPgGW9G2TzU1nSWpDGvaRtW6lXKbAwhOrUZ2peC1lLhpwPmqYQCumadg22NS24n9tZ6CtPDiPuArAVg9SwRKIOh2nEk5GWNAWHQ7sfgJvT2jv2zpJGrbvxSLIlA8+hYRhLI7I9l5UHdCVp2tpmOUzb7GbVChgRvpbpHWMGokL7bR73IU5z+VrQsJwk8NVIZlSlVhVPK2qwP19EqQW1ZRjgHw5RTi2UWGs6C0XiIZe4Dx7wCgF04VGb6kQn95O6h28lkqFK4zMT1R/sPkr87wfDfu9rRfxlW6lmmEfHbxVB6/5Fy1UY7QE040BSWp1i07Dlb6meVmPWvEGHAfQbzE/zjRqVXTNuXHOYgXBQ7Ok9x153Ry8ebX9L1DvIY+9spwCcEgpgUNmLV1wNHFMaUYbDO1ANUkPzYcXNRBMNlyjJIHdsHUd+IXFDXuuyGbmfkpJbaUF7t8gXgw8qELA/4xJnk21V5a7bjZGUwRiCXjw8eIyfRthQuYSNe2fX+dPhID98FB2Q5J+ZonDfjJHwjJX1tLXA94PU40BuRubyH2bvDXFH8o/N9LHTgSyV3hHdxHMQGmRiEWpY7SoNwUWyXqevqBtvkoKVZwRiaxPhxVcnfnXN3ixLyUCAf2QWApIJq/g1nWRa5AwgE9lu3Ex903lsUNV4+ULc/ybgj3GNxnwoctuihl7oIg6uVCSkfx7VbWtmFkaeDOf9kJ8SfqeFkPZy56+v99l9xGEhJn9YFJjuWL8r8Hrz93GaQTqTfpYi+jFg3M3HtfeGYtb3r3L4pO7PVDwQIuNoo59wXk6R7Fs6Sy8dbx/4yMi6l3pOtvXbI//UpkDb6QzCEsPwooxvE9CD4OyJZwse7oNyToKxiOVTTFwwVqOcNsj2hxSYYPqweCHqfVUq0+10DR123ZxA08n7mxlGHpgRf34SvVjTqcNV2APHcLMFA0BBUgAJ8IFBglGafgXniXjtfLaLccTss+RNCkt0CjT6olf1Bgv9igPGvqORobD669rZ6Tc7/yZBwkGnXx+Hsw4COP56eMdbN7yHPjwMFe0ZsTQH7QUgzKC1NX/FO4kTPQniMs6GhGwG0hn8jZaBMEeQuf2T+/zNnqdnwWEK8ofmJH2hPmlXDZRSHLMbytBP7fcvh/wmaajiBQ+Z1/E25fcGYbHSVw720m4VYma16U60ZShCEpyPYx5udXwsQsOHBqlXrBRTn9oYL0HZUpBPXk+erO+GQepCniiigNu7lKCiKHCJBskaKN08KUTpFCVug/IU5k4vPIuIwWHqUHuvW02fM0DTLH2wfrB2K3QVuh6YR9tRKXMXLCku2k5f/MoE9g/bivISUma/BMvbdfkg5+6SSH8u6h6KgBF0LJ4Pe/R1SqM5hF3QCYFtPnnw35AaJzD072udIODb5sgpWgZxf4R/H1SnSbPStwvJiCDO7FUT8rr0jsOg/5vQlNJp5gp+VkSBni+/eK8t9g5rQGHumoPjrDqMfA1B/3Ild0i/evctX0cn5eINHLxM0YoGdpPcYjSol+GfCFRIqwyYTRr6ncEWxuYctgmxm+lee3voHCcEm6k9E3Apsz6KizzHXy3jcVXJGSy+ZCEiokpo7Jm92fTnNnurpZ87G7FS1Cm/iaz5l4PPYtHmczSRKeaf8etSu2yVMs7Bdn2Y1KdFG1tXPdZ990sjZ1ULL30CCLK8/rMo7UijmPf1G7xyX0+AV6wvu3B//pyeSoRXs6KGENtP/Q/6D4arTkFe/S1ZvAGLQqE1yEaD6R5IPiiOFyuAuE2QR7DSqSyFky1+OpGYinBZxgwTFX2DraX8jseFddpsWylj0erDb/a1eSSKfZM6XlQAhr7CNt/ruIwW9BD5FWpBrenIqY2qBODG0ReR9d6X97imhM+pt4UeWHRfGKsjEtoqyO2Mw+32OohkUFdaJnS5i8dWte8GRA9lzJ5GV+WrS4wEeMCVAFSh/bij4hpZVFNzaZBhEMOxv1NW6NSwh6U2vkEwNJa7CHopOACdu+112WoIV1Xtx0TE6BIE+1aFNKjXRAqUcRMyMCVYPEsQFDZRD+pTNSQjOaGxQWrGkYM2NaU1P2Ml0WbWtQICOqPqJWHKrW50T3am8dbCzZdiRwe9E5vMIg0cana9OOfo5+5LcEgK/xkMZO00SptOT6cwaGwNUY90Hl6ko9dVvts2mh5ZwTmVb764/PMJF8sphPMw0uHUOcSPszFp7Kd8fJ5PxcSnvuWXdu8pxUIK31Mh5tevzgg+6JtT0SVYDxgDVdlFxpnTUGac2unPnx2ND7wiiOj3bD8NQnedZXDSPiQdqWVEKPRkzHjz4qf1l/ibj2sjyM3A0mt8ANSkMpYWr+YRgiV/ow5CroXduDaWEiTmL/Fg2oP5YG892P7QbaCPr1M66WxbNoZ5bmWfYFI1Shlijze9dBdR0rp4SHuFkDduzuh607jbwpzYFO6ZKj3J0sphoesFxSuhUi+ag3rbiALnRKwpwvosWB8qoRGkpKsvRO2unkAWREYqpU8By0mK2e9SCidWjgeeSDMPJCYQCp1XtwFMD99PLLfycTFhGthuD2DuBdRJvzX/sPFtOUlGPkBwLIoVKs/NabfrY0htWj+dEViW6RTe/VBT2J7oK3L6Oz9S1yu5orOUq3mRu507rybrGPl9F3r7PD3vZnXdwi2Ps8dceRZCpnvM/7EnX4JPOVS1QrVm63HtMGqWnEpf1P20Sqtyv6bJpoxC5yW2SkzgK+zHpKlEKH/kauf3MtK+wi37yxjrokHpK2GgWO/mQeFGcZbSJfb9+aEqB5sKkE7VZveRBzakcWqcQuZl7ivvH4DUfLBMmtWSERLzpLbF5UhxXUimZ7eNHElhEQshs8MSJ6sCUN/1MuyIpFIWEaggRWJPx3EuUm7wzapJerDzEHgjuq2wWGjmZukreLpeZQ3DEbiyJybiKuTN8n9yLg26L07rg356fPfRmglgXBCGiW8Iuv4bv+3Jsmunff8snDmLrmppUf9r9gqEAw4jqFzYzPBk7+pK/mVcgDMD+EGbi0YSvNtUS0TOm3DczzYrZzr8mQR3cpgKJaYWSWBIiNDrkMFH1EdsitGbBQIZOJd37MO0GX4gtdvhB0P0ZrGF5Se/u5I7OwECL16p6xrk9up5Poah6ygo+UplBKc2AlRVjdkFywOTR6L1cnQLuRUNYDepPXMx+MBi9CP7B+xajESuAHalowETDt5NxDSVdJvZKnhc4Mg0WHHF2iyqJfPS4ngBsMHduwH8zjK0F+/ukEC6EN/UouHzphwWQgqX3rj1s1Nzm68cyZjPGRIyVo4Koxfk8W9+QT9Y4G1zjqtgJJp/BygZJLZaD9KFloVPBme2cWRAi46S/zoZTCdEMlfOw8BTACmqk2NI03j4UPoUk7I5mJAU1QvGHl+1KKowGKTtCnYrG8SmogVxqwm3+V+D0GaAmxzuL9t513SqvRAd+evsyAY7dVWhoKJaSFFujl8RkvglULh37IgU+j14GNok31+3W6Jsm41DiDrHdJqYoRqw4ljK2NWPi/KSx6D1ybdTHVeTLC+PasrkHevUEyqilS4Y7B1zaW2UNWlp/PHOHZR7pPJ1lm5qIJCs8LNMV7Tutdyc9GOTvSaAlkUlt3eGl5t821KMl+lk</EncodedData>
+</AddOnInstructionDefinitions>
+<Programs Use="Context">
+<Program Use="Target" Name="OEM_PF525_Parameters" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Standard" UseAsFolder="false">
+<Tags>
+<Tag Name="Get_msg" TagType="Base" DataType="MESSAGE" ExternalAccess="Read/Write">
+<Data Format="Message">
+<MessageParameters MessageType="CIP Generic" RequestedLength="0" ConnectedFlag="1" ConnectionPath="DarkCream_Premixer_TP" CommTypeCode="0" ServiceCode="16#000e" ObjectType="16#0093" TargetObject="41" AttributeNumber="16#0009" LocalIndex="0" DestinationTag="PF525_OEM_Config.GetMessage_DestinationElement"
+ CacheConnections="TRUE" LargePacketUsage="false"/>
+</Data>
+</Tag>
+<Tag Name="HMI_IP_Adress" TagType="Base" DataType="STRING" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[11,'10.40.54.11$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		]]]>
+</Data>
+<Data Format="String" Length="11">
+<![CDATA['10.40.54.11']]>
+</Data>
+</Tag>
+<Tag Name="PF525_OEM_Config" TagType="Base" DataType="PF525_V2_OEM_Config" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[67,0,0,0,0,0,82,[11,'10.40.54.11$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],0,[3,0,0,0],[3,0],0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="PF525_V2_OEM_Config">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="GetMessage_DestinationElement" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="PutMessage_DestinationElement" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="HMI_OutputData" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="HMI_GetParameterNum" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="HMI_PutParameterValue" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="HMI_requestData" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HMI_SendData" DataType="BOOL" Value="0"/>
+<DataValueMember Name="GetMessage_Faulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="PutMessage_Faulted" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Put_msg" TagType="Base" DataType="MESSAGE" ExternalAccess="Read/Write">
+<Data Format="Message">
+<MessageParameters MessageType="CIP Generic" RequestedLength="2" ConnectedFlag="2" ConnectionPath="DarkCream_Premixer_TP" CommTypeCode="0" ServiceCode="16#0010" ObjectType="16#0093" TargetObject="41" AttributeNumber="16#0009" LocalIndex="0" LocalElement="PF525_OEM_Config.PutMessage_DestinationElement"
+ LargePacketUsage="false"/>
+</Data>
+</Tag>
+</Tags>
+<Routines>
+<Routine Name="MainRoutine" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[HMI_IP_Adress: invullen zoals je het zou instellen op de regelaar (bijv: 10.40.54.11) de string zal er dus uitzien als '10.40.54.11'
+
+PF525_OEM_Config.HMI_GetParameterNum: Dit is het nummer dat je wil addreseren in de Powerflex525 ( bijv: parameter 42 is decel speed ) 
+
+PF525_OEM_Config.PutParameterValue: dit is de waarde dat je naar de powerflex525 wil sturen, houd er rekening mee dat voordat je een waarde stuurt HMI_GetParameterNum juist staat.
+
+PF525_OEM_Config.SendData: dit stuurt de nieuwe waarde naar de regelaar. na dit commando word de regelaar automatisch geupdate. ]]>
+</Comment>
+<Text>
+<![CDATA[PF525_V2_OEM_Config(PF525_OEM_Config,Put_msg,Get_msg,PF525_OEM_Config.GetMessage_DestinationElement,PF525_OEM_Config.PutMessage_DestinationElement,HMI_IP_Adress);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>
