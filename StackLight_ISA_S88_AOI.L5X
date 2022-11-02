@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="StackLight_ISA_S88" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2021-11-09T07:33:21.581Z" ContainsContext="true" ExportDate="Tue May 31 11:00:03 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-<Controller Use="Context" Name="Depositor_PackML">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="StackLight_ISA_S88" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-10-25T09:20:40.222Z" ContainsContext="true" ExportDate="Wed Nov 02 12:17:51 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Prebake">
 <DataTypes Use="Context">
 <DataType Name="ISA88_PackML_PackTags" Family="NoFamily" Class="User">
 <Description>
@@ -497,7 +497,7 @@ Aborted]]>
 </Routine>
 </Routines>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Name="ISA88_WiegersProcessInnovation" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-13T12:57:02.407Z" CreatedBy="WPI\engineer" EditedDate="2021-10-06T13:44:33.487Z" EditedBy="WPI\engineer"
+<AddOnInstructionDefinition Name="ISA88_WiegersProcessInnovation" Class="Standard" Revision="1.0" Vendor="WPI" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-11-13T12:57:02.407Z" CreatedBy="WPI\engineer" EditedDate="2022-06-02T08:49:25.662Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
 <Description>
 <![CDATA[PackML ]]>
@@ -1419,7 +1419,7 @@ from supsending to suspend to unsuspending to execute and will repeat]]>
 <![CDATA[ trigger stop]]>
 </Comment>
 <Text>
-<![CDATA[[[XIC(StopTrigger) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Stop) ,XIC(MNC_I.Stop) ] XIO(AbortingTrigger) NEQ(StateTxt.Aborted,CurrentStatus) ONS(StopTrigger_ons) MOV(StateTxt.Stopping,CurrentStatus) ,EQU(StateTxt.Stopping,CurrentStatus) OTE(PackTag.Status.CurrentState.Stopping) OTE(HMI_O.Stopping) ,EQU(StateTxt.Stopping,CurrentStatus) ONS(ons_time[13]) MOV(Time,Begin_Time) ,EQU(StateTxt.Stopping,CurrentStatus) SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Stopping) ,XIC(SC.Stopping_to_Stopped) MOV(StateTxt.Stopped,CurrentStatus) ];]]>
+<![CDATA[[[XIC(StopTrigger) ,XIC(MES_Enabled) XIC(PackTag.Command.StateTransmittion.Stop) ,XIC(MNC_I.Stop) ,XIC(HMI_I.Stop) ] XIO(AbortingTrigger) NEQ(StateTxt.Aborted,CurrentStatus) ONS(StopTrigger_ons) MOV(StateTxt.Stopping,CurrentStatus) ,EQU(StateTxt.Stopping,CurrentStatus) OTE(PackTag.Status.CurrentState.Stopping) OTE(HMI_O.Stopping) ,EQU(StateTxt.Stopping,CurrentStatus) ONS(ons_time[13]) MOV(Time,Begin_Time) ,EQU(StateTxt.Stopping,CurrentStatus) SUB(Time,Begin_Time,PackTag.Status.CurrentState_Time.Stopping) ,XIC(SC.Stopping_to_Stopped) MOV(StateTxt.Stopped,CurrentStatus) ];]]>
 </Text>
 </Rung>
 <Rung Number="30" Type="N">
@@ -1643,7 +1643,7 @@ Output from state model to wrk bits
 <Dependency Type="DataType" Name="ISA88_States_txt"/>
 </Dependencies>
 </AddOnInstructionDefinition>
-<AddOnInstructionDefinition Use="Target" Name="StackLight_ISA_S88" Class="Standard" Revision="1.0" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-03-04T08:39:37.072Z" CreatedBy="WPI\engineer" EditedDate="2021-11-09T07:33:21.581Z" EditedBy="WPI\tom.reit"
+<AddOnInstructionDefinition Use="Target" Name="StackLight_ISA_S88" Class="Standard" Revision="1.0" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2020-03-04T08:39:37.072Z" CreatedBy="WPI\engineer" EditedDate="2022-10-25T09:20:40.222Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
@@ -1750,6 +1750,17 @@ Output from state model to wrk bits
 <Parameter Name="out_White" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read Only">
 <Description>
 <![CDATA[Adress of white light]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="I_Request_Buzzer_ON" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Buzzer request, disregarding any state. for example while a drain step is active start buzzer. if customer want something custom]]>
 </Description>
 <DefaultData Format="L5K">
 <![CDATA[0]]>
@@ -2004,6 +2015,33 @@ Output from state model to wrk bits
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </DefaultData>
 </LocalTag>
+<LocalTag Name="T_Starting" DataType="TIMER" Dimensions="2" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[[0,50,0],[0,3000,0]]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="TIMER" Dimensions="2">
+<Element Index="[0]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="50"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+<Element Index="[1]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="3000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+</Array>
+</DefaultData>
+</LocalTag>
 </LocalTags>
 <Routines>
 <Routine Name="Logic" Type="RLL">
@@ -2075,7 +2113,7 @@ see documentation for further information
 <![CDATA[Buzzer Continuous]]>
 </Comment>
 <Text>
-<![CDATA[[XIC(StateModel.wrk_Aborted) ,XIC(StateModel.wrk_Aborting) ,XIC(StateModel.wrk_Clearing) ,XIC(I_MajorFault) XIC(StateModel.wrk_Stopped) ]OTE(BUZZER.0);]]>
+<![CDATA[[XIC(StateModel.wrk_Aborted) ,XIC(StateModel.wrk_Aborting) ,XIC(StateModel.wrk_Clearing) ,XIC(I_MajorFault) ,XIC(StateModel.MachineFaulted) ]OTE(BUZZER.0);]]>
 </Text>
 </Rung>
 <Rung Number="8" Type="N">
@@ -2083,10 +2121,28 @@ see documentation for further information
 <![CDATA[Buzzer blinking]]>
 </Comment>
 <Text>
-<![CDATA[XIC(I_Warning_active)FLIP_FLOP(FlipFlop[0],1000,1000)XIC(FlipFlop[0].Q)OTE(BUZZER.1);]]>
+<![CDATA[XIC(I_Warning_active)FLIP_FLOP(FlipFlop[0],250,750)XIC(FlipFlop[0].Q)OTE(BUZZER.1);]]>
 </Text>
 </Rung>
 <Rung Number="9" Type="N">
+<Comment>
+<![CDATA[Buzzer blinking
+
+Indicator machine is starting]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(StateModel.wrk_Starting) ,XIC(StateModel.wrk_Unholding) ,XIC(StateModel.wrk_Unsuspending) ][TON(T_Starting[0],?,?) XIC(T_Starting[0].TT) OTE(BUZZER.2) ,XIC(T_Starting[0].DN) TON(T_Starting[1],?,?) XIC(T_Starting[1].DN) RES(T_Starting[0]) ];]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[Customer defined buzzer request]]>
+</Comment>
+<Text>
+<![CDATA[XIC(I_Request_Buzzer_ON)OTE(BUZZER.3);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
 <Comment>
 <![CDATA[Green Continuous]]>
 </Comment>
@@ -2094,7 +2150,7 @@ see documentation for further information
 <![CDATA[XIC(StateModel.wrk_Execute)OTE(GREEN.0);]]>
 </Text>
 </Rung>
-<Rung Number="10" Type="N">
+<Rung Number="12" Type="N">
 <Comment>
 <![CDATA[Green blinking fast]]>
 </Comment>
@@ -2102,31 +2158,31 @@ see documentation for further information
 <![CDATA[AFI()OTE(GREEN.1);]]>
 </Text>
 </Rung>
-<Rung Number="11" Type="N">
+<Rung Number="13" Type="N">
 <Comment>
 <![CDATA[Green blinking slow]]>
 </Comment>
 <Text>
-<![CDATA[[XIC(StateModel.wrk_Idle) ,XIC(StateModel.wrk_Held) ,XIC(StateModel.wrk_Suspended) ]FLIP_FLOP(FlipFlop[1],500,2500)XIC(FlipFlop[1].Q)OTE(GREEN.2);]]>
+<![CDATA[[XIC(StateModel.wrk_Idle) ,XIC(StateModel.wrk_Held) ,XIC(StateModel.wrk_Suspended) ]FLIP_FLOP(FlipFlop[1],150,500)XIC(FlipFlop[1].Q)OTE(GREEN.2);]]>
 </Text>
 </Rung>
-<Rung Number="12" Type="N">
+<Rung Number="14" Type="N">
 <Comment>
 <![CDATA[Red Continuous]]>
 </Comment>
 <Text>
-<![CDATA[[XIC(StateModel.wrk_Aborted) ,XIC(StateModel.wrk_Aborting) ,XIC(I_MajorFault) XIC(StateModel.wrk_Stopped) ]OTE(RED.0);]]>
+<![CDATA[[XIC(StateModel.wrk_Aborted) ,XIC(StateModel.wrk_Aborting) ,XIC(I_MajorFault) ,XIC(StateModel.MachineFaulted) ]OTE(RED.0);]]>
 </Text>
 </Rung>
-<Rung Number="13" Type="N">
+<Rung Number="15" Type="N">
 <Comment>
 <![CDATA[Red blinking]]>
 </Comment>
 <Text>
-<![CDATA[XIC(I_Warning_active)FLIP_FLOP(FlipFlop[2],1000,1000)XIC(FlipFlop[2].Q)OTE(RED.1);]]>
+<![CDATA[XIC(I_Warning_active)FLIP_FLOP(FlipFlop[2],500,500)XIC(FlipFlop[2].Q)OTE(RED.1);]]>
 </Text>
 </Rung>
-<Rung Number="14" Type="N">
+<Rung Number="16" Type="N">
 <Comment>
 <![CDATA[Yellow continuous]]>
 </Comment>
@@ -2134,15 +2190,15 @@ see documentation for further information
 <![CDATA[XIC(I_Machine_OutOfProduct)OTE(YELLOW.0);]]>
 </Text>
 </Rung>
-<Rung Number="15" Type="N">
+<Rung Number="17" Type="N">
 <Comment>
 <![CDATA[Yellow blinking]]>
 </Comment>
 <Text>
-<![CDATA[XIC(StateModel.wrk_Suspended)FLIP_FLOP(FlipFlop[3],750,750)XIC(FlipFlop[3].Q)OTE(YELLOW.1);]]>
+<![CDATA[XIC(StateModel.wrk_Suspended)FLIP_FLOP(FlipFlop[3],50,500)XIC(FlipFlop[3].Q)OTE(YELLOW.1);]]>
 </Text>
 </Rung>
-<Rung Number="16" Type="N">
+<Rung Number="18" Type="N">
 <Comment>
 <![CDATA[Blue continuous]]>
 </Comment>
@@ -2150,7 +2206,7 @@ see documentation for further information
 <![CDATA[AFI()OTE(BLUE.0);]]>
 </Text>
 </Rung>
-<Rung Number="17" Type="N">
+<Rung Number="19" Type="N">
 <Comment>
 <![CDATA[Blue blinking]]>
 </Comment>
