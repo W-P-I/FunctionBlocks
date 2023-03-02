@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Pigging_AOI" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.0 " TargetLastEdited="2022-08-25T14:17:09.251Z" ContainsContext="true" ExportDate="Thu Sep 01 13:49:19 2022" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-<Controller Use="Context" Name="Pigging">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="Pigging_AOI" TargetType="AddOnInstructionDefinition" TargetClass="Standard" TargetRevision="1.1 " TargetLastEdited="2023-03-02T11:56:05.903Z" ContainsContext="true" ExportDate="Thu Mar 02 13:56:24 2023" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Orkla_Line1">
 <DataTypes Use="Context">
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="Pigging_AOI" Class="Standard" Revision="1.0" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-08-24T06:11:32.089Z" CreatedBy="WPI\tom.reit" EditedDate="2022-08-25T14:17:09.251Z" EditedBy="WPI\tom.reit"
+<AddOnInstructionDefinition Use="Target" Name="Pigging_AOI" Class="Standard" Revision="1.1" ExecutePrescan="true" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2022-08-24T06:11:32.089Z" CreatedBy="WPI\tom.reit" EditedDate="2023-03-02T11:56:05.903Z" EditedBy="WPI\tom.reit"
  SoftwareRevision="v33.00">
+<RevisionNote>
+<![CDATA[Outp_Catcher_Request_Propellant stays open longer while pigball is moving back in pitcher]]>
+</RevisionNote>
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
 <Description>
@@ -107,7 +110,7 @@
 </Parameter>
 <Parameter Name="Sts_Pitcher_Pigball_ShootPos" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
 <Description>
-<![CDATA[Pigging ball is in shoot position. ]]>
+<![CDATA[Pigging ball is in shoot position.]]>
 </Description>
 <DefaultData Format="L5K">
 <![CDATA[0]]>
@@ -240,6 +243,28 @@
 <Parameter Name="Err_Catcher_BallShoot_Faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
 <Description>
 <![CDATA[tried to shoot ball, but the ball did not leave the catcher station]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Err_Pitcher_ShootPos_faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Tried to prepare pigging ball to shoot pos, but one of the sensor wasnt active intime]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Err_Pitcher_RestPos_faulted" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Tried to prepare pigging ball to rest pos, but one of the sensor wasnt active intime]]>
 </Description>
 <DefaultData Format="L5K">
 <![CDATA[0]]>
@@ -547,7 +572,7 @@
 <DataValue DataType="DINT" Radix="Decimal" Value="60"/>
 </DefaultData>
 </LocalTag>
-<LocalTag Name="Sts_CurrentStatus" DataType="STRING" ExternalAccess="None">
+<LocalTag Name="Sts_CurrentStatus" DataType="STRING" ExternalAccess="Read Only">
 <Description>
 <![CDATA[text display only for HMI]]>
 </Description>
@@ -660,6 +685,60 @@
 <DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
 </DefaultData>
 </LocalTag>
+<LocalTag Name="ShootPosFaulted_Timer" DataType="TIMER" Dimensions="5" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[[[0,3000,0],[0,3000,0],[0,0,0],[0,0,0],[0,0,0]]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Array DataType="TIMER" Dimensions="5">
+<Element Index="[0]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="3000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+<Element Index="[1]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="3000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+<Element Index="[2]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+<Element Index="[3]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+<Element Index="[4]">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Element>
+</Array>
+</DefaultData>
+</LocalTag>
 </LocalTags>
 <Routines>
 <Routine Name="Logic" Type="RLL">
@@ -709,12 +788,12 @@
 </Rung>
 <Rung Number="7" Type="N">
 <Text>
-<![CDATA[XIC(Inp_LockpinA_Out)XIC(Inp_LockpinB_Out)OTE(Sts_Pitcher_Lockpins_Locked);]]>
+<![CDATA[XIO(Inp_LockpinA_Out)XIO(Inp_LockpinB_Out)OTE(Sts_Pitcher_Lockpins_Locked);]]>
 </Text>
 </Rung>
 <Rung Number="8" Type="N">
 <Text>
-<![CDATA[XIO(Inp_LockpinA_Out)XIO(Inp_LockpinB_Out)OTE(Sts_Pitcher_Lockpins_Unlocked);]]>
+<![CDATA[XIC(Inp_LockpinA_Out)XIC(Inp_LockpinB_Out)OTE(Sts_Pitcher_Lockpins_Unlocked);]]>
 </Text>
 </Rung>
 <Rung Number="9" Type="N">
@@ -754,7 +833,7 @@ Start pigging]]>
 Check if pigging is in rest status and may be started]]>
 </Comment>
 <Text>
-<![CDATA[EQU(1,SEQ_Statemodel)[XIO(Force_Start) XIC(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(10,SEQ_Statemodel) ,XIO(Force_Start) XIO(Sts_Pitcher_Pigball_RestPos) OTU(Start) XIO(wrk_HoldStep) MOV(0,SEQ_Statemodel) ,XIC(Force_Start) XIO(wrk_HoldStep) MOV(10,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(1,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,XIO(Force_Start) XIC(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(10,SEQ_Statemodel) ,XIO(Force_Start) XIO(Sts_Pitcher_Pigball_RestPos) OTU(Start) XIO(wrk_HoldStep) MOV(0,SEQ_Statemodel) ,XIC(Force_Start) XIO(wrk_HoldStep) MOV(10,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="15" Type="N">
@@ -766,7 +845,7 @@ Unlocking lock pins
 if lock pins do not open within fault time, end pig seq]]>
 </Comment>
 <Text>
-<![CDATA[EQU(10,SEQ_Statemodel)[OTL(Outp_Pitcher_Request_Unlock) ,XIC(Sts_Pitcher_Lockpins_Unlocked) TON(UnlockTimer,?,?) XIC(UnlockTimer.DN) XIO(wrk_HoldStep) MOV(20,SEQ_Statemodel) ,XIO(Sts_Pitcher_Lockpins_Unlocked) TON(UnlockFaulted_Timer,?,?) XIC(UnlockFaulted_Timer.DN) OTU(Outp_Pitcher_Request_Unlock) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(10,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,OTL(Outp_Pitcher_Request_Unlock) ,XIC(Sts_Pitcher_Lockpins_Unlocked) TON(UnlockTimer,?,?) XIC(UnlockTimer.DN) XIO(wrk_HoldStep) MOV(20,SEQ_Statemodel) ,XIO(Sts_Pitcher_Lockpins_Unlocked) TON(UnlockFaulted_Timer,?,?) XIC(UnlockFaulted_Timer.DN) OTU(Outp_Pitcher_Request_Unlock) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="16" Type="N">
@@ -777,7 +856,7 @@ Arming pigging, prepare for shoot
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(20,SEQ_Statemodel)[OTL(Outp_Pitcher_Request_Arm_Out) ,XIC(Inp_Arm_Out) XIO(wrk_HoldStep) MOV(25,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(20,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,OTL(Outp_Pitcher_Request_Arm_Out) ,XIC(Sts_Pitcher_Pigball_ShootPos) XIO(wrk_HoldStep) MOV(25,SEQ_Statemodel) ,XIO(Sts_Pitcher_Pigball_ShootPos) TON(ShootPosFaulted_Timer[0],?,?) XIC(ShootPosFaulted_Timer[0].DN) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="17" Type="N">
@@ -787,7 +866,7 @@ Arming pigging, prepare for shoot
 ready for shoot, wait for Confirm]]>
 </Comment>
 <Text>
-<![CDATA[EQU(25,SEQ_Statemodel)[XIC(Start_Shoot) OTU(Start_Shoot) XIO(wrk_HoldStep) MOV(30,SEQ_Statemodel) ,XIC(Stop_Shoot) OTU(Stop_Shoot) XIO(wrk_HoldStep) MOV(65,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(25,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,XIC(Start_Shoot) OTU(Start_Shoot) XIO(wrk_HoldStep) MOV(30,SEQ_Statemodel) ,XIC(Stop_Shoot) OTU(Stop_Shoot) XIO(wrk_HoldStep) MOV(65,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="18" Type="N">
@@ -797,7 +876,7 @@ ready for shoot, wait for Confirm]]>
 Shoot pig ball]]>
 </Comment>
 <Text>
-<![CDATA[EQU(30,SEQ_Statemodel)OTL(Outp_Pitcher_Request_Propellant)TON(Propellant_Valve_Timer,?,?)XIC(Propellant_Valve_Timer.DN)XIO(wrk_HoldStep)MOV(35,SEQ_Statemodel);]]>
+<![CDATA[EQU(30,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,OTL(Outp_Pitcher_Request_Propellant) TON(Propellant_Valve_Timer,?,?) XIC(Propellant_Valve_Timer.DN) XIO(wrk_HoldStep) MOV(35,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="19" Type="N">
@@ -807,7 +886,7 @@ Shoot pig ball]]>
 check if Pigging is traveling]]>
 </Comment>
 <Text>
-<![CDATA[EQU(35,SEQ_Statemodel)[XIC(Sts_Pitcher_Ball_NotAtStation) MOV(0.0,Sts_Pigging_TravelTime) XIO(wrk_HoldStep) MOV(40,SEQ_Statemodel) ,XIC(Sts_Pitcher_Ball_AtStation) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(35,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,XIC(Sts_Pitcher_Ball_NotAtStation) MOV(0.0,Sts_Pigging_TravelTime) XIO(wrk_HoldStep) MOV(40,SEQ_Statemodel) ,XIC(Sts_Pitcher_Ball_AtStation) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="20" Type="N">
@@ -819,7 +898,7 @@ Shoot pigging ball
 if timer reached DN state. pigball is lost somewhere?]]>
 </Comment>
 <Text>
-<![CDATA[EQU(40,SEQ_Statemodel)[CPT(Sts_Pigging_TravelTime,T_PiggingTraveling.ACC / 1000) ,XIC(Sts_Catcher_Ball_AtStation) TON(T_ShootingDelay[0],?,?) XIC(T_ShootingDelay[0].DN) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(45,SEQ_Statemodel) ,XIO(Inp_Catcher_DetectPiggingBall) XIC(T_PiggingTraveling.DN) OTL(Sts_LostBall_ToCatcher) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(40,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,CPT(Sts_Pigging_TravelTime,T_PiggingTraveling.ACC / 1000) ,XIC(Sts_Catcher_Ball_AtStation) TON(T_ShootingDelay[0],?,?) XIC(T_ShootingDelay[0].DN) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(45,SEQ_Statemodel) ,XIO(Inp_Catcher_DetectPiggingBall) XIC(T_PiggingTraveling.DN) OTL(Sts_LostBall_ToCatcher) OTU(Outp_Pitcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="21" Type="N">
@@ -829,7 +908,7 @@ if timer reached DN state. pigball is lost somewhere?]]>
 Wait before shooting back]]>
 </Comment>
 <Text>
-<![CDATA[EQU(45,SEQ_Statemodel)TON(WaitTime_shootback,?,?)XIC(WaitTime_shootback.DN)XIO(wrk_HoldStep)MOV(50,SEQ_Statemodel);]]>
+<![CDATA[EQU(45,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,TON(WaitTime_shootback,?,?) XIC(WaitTime_shootback.DN) XIO(wrk_HoldStep) MOV(50,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="22" Type="N">
@@ -839,7 +918,7 @@ Wait before shooting back]]>
 Shoot pigball back]]>
 </Comment>
 <Text>
-<![CDATA[EQU(50,SEQ_Statemodel)OTL(Outp_Catcher_Request_Propellant)TON(Propellant_Valve_Timer2,?,?)XIC(Propellant_Valve_Timer2.DN)XIO(wrk_HoldStep)MOV(55,SEQ_Statemodel);]]>
+<![CDATA[EQU(50,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,OTL(Outp_Catcher_Request_Propellant) TON(Propellant_Valve_Timer2,?,?) XIC(Propellant_Valve_Timer2.DN) XIO(wrk_HoldStep) MOV(55,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="23" Type="N">
@@ -849,7 +928,7 @@ Shoot pigball back]]>
 check if Pigging is traveling]]>
 </Comment>
 <Text>
-<![CDATA[EQU(55,SEQ_Statemodel)[XIC(Sts_catcher_Ball_NotAtStation) MOV(0.0,Sts_Pigging_TravelBackTime) XIO(wrk_HoldStep) MOV(60,SEQ_Statemodel) ,XIC(Sts_Catcher_Ball_AtStation) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(55,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,XIC(Sts_catcher_Ball_NotAtStation) MOV(0.0,Sts_Pigging_TravelBackTime) XIO(wrk_HoldStep) MOV(60,SEQ_Statemodel) ,XIC(Sts_Catcher_Ball_AtStation) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="24" Type="N">
@@ -861,7 +940,7 @@ Shoot pigging ball
 if timer reached DN state. pigball is lost somewhere?]]>
 </Comment>
 <Text>
-<![CDATA[EQU(60,SEQ_Statemodel)[CPT(Sts_Pigging_TravelBackTime,T_PiggingTraveling2.ACC / 1000) ,XIC(Sts_Pitcher_Ball_AtStation) TON(T_ShootingDelay[1],?,?) XIC(T_ShootingDelay[1].DN) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(65,SEQ_Statemodel) ,XIO(Sts_Pitcher_Ball_AtStation) XIC(T_PiggingTraveling.DN) OTL(Sts_LostBall_ToPitcher) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(60,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,CPT(Sts_Pigging_TravelBackTime,T_PiggingTraveling2.ACC / 1000) ,XIC(Sts_Pitcher_Ball_AtStation) TON(T_ShootingDelay[1],?,?) XIC(T_ShootingDelay[1].DN) XIO(wrk_HoldStep) MOV(65,SEQ_Statemodel) ,XIO(Sts_Pitcher_Ball_AtStation) XIC(T_PiggingTraveling.DN) OTL(Sts_LostBall_ToPitcher) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="25" Type="N">
@@ -872,7 +951,7 @@ dearming pigging, retracting
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(65,SEQ_Statemodel)[OTU(Outp_Pitcher_Request_Arm_Out) ,XIC(Inp_Arm_Retracted) XIO(wrk_HoldStep) MOV(70,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(65,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,OTU(Outp_Pitcher_Request_Arm_Out) ,XIC(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(70,SEQ_Statemodel) ,XIO(Sts_Pitcher_Pigball_RestPos) TON(ShootPosFaulted_Timer[1],?,?) XIC(ShootPosFaulted_Timer[1].DN) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="26" Type="N">
@@ -883,7 +962,7 @@ Check if pigging is back in rest position
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(70,SEQ_Statemodel)[XIC(Sts_Pitcher_Pigball_RestPos) TON(T_armBackUp_Delay,?,?) XIC(T_armBackUp_Delay.DN) XIO(wrk_HoldStep) MOV(75,SEQ_Statemodel) ,XIO(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(70,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,XIC(Sts_Pitcher_Pigball_RestPos) TON(T_armBackUp_Delay,?,?) XIC(T_armBackUp_Delay.DN) OTU(Outp_Catcher_Request_Propellant) XIO(wrk_HoldStep) MOV(75,SEQ_Statemodel) ,XIO(Sts_Pitcher_Pigball_RestPos) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="27" Type="N">
@@ -895,7 +974,7 @@ locking lock pins
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(75,SEQ_Statemodel)[OTU(Outp_Pitcher_Request_Unlock) ,XIC(Sts_Pitcher_Lockpins_Locked) TON(UnlockTimer2,?,?) XIC(UnlockTimer2.DN) XIO(wrk_HoldStep) MOV(0,SEQ_Statemodel) ,XIO(Sts_Pitcher_Lockpins_Locked) TON(UnlockFaulted_Timer2,?,?) XIC(UnlockFaulted_Timer2.DN) OTL(Outp_Pitcher_Request_Unlock) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
+<![CDATA[EQU(75,SEQ_Statemodel)[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem) ,OTU(Outp_Pitcher_Request_Unlock) ,XIC(Sts_Pitcher_Lockpins_Locked) TON(UnlockTimer2,?,?) XIC(UnlockTimer2.DN) XIO(wrk_HoldStep) MOV(0,SEQ_Statemodel) ,XIO(Sts_Pitcher_Lockpins_Locked) TON(UnlockFaulted_Timer2,?,?) XIC(UnlockFaulted_Timer2.DN) OTL(Outp_Pitcher_Request_Unlock) XIO(wrk_HoldStep) MOV(999,SEQ_Statemodel) ];]]>
 </Text>
 </Rung>
 <Rung Number="28" Type="N">
@@ -911,30 +990,22 @@ End of statemodel
 </Rung>
 <Rung Number="29" Type="N">
 <Comment>
-<![CDATA[Statemodel memory]]>
-</Comment>
-<Text>
-<![CDATA[NEQ(SEQ_Statemodel,wrk_SEQ_Statemodel_mem)NEQ(SEQ_Statemodel,999)MOV(SEQ_Statemodel,wrk_SEQ_Statemodel_mem);]]>
-</Text>
-</Rung>
-<Rung Number="30" Type="N">
-<Comment>
 <![CDATA[Errors
 indicators]]>
 </Comment>
 <Text>
-<![CDATA[EQU(999,SEQ_Statemodel)[OTE(ERR_Pigging_Faulted) ,[EQU(wrk_SEQ_Statemodel_mem,10) ,EQU(wrk_SEQ_Statemodel_mem,75) ] XIO(Sts_Pitcher_Pigball_RestPos) OTE(Err_Pitcher_Lockpins_faulted) ,EQU(wrk_SEQ_Statemodel_mem,35) OTE(Err_Pitcher_BallShoot_Faulted) ,EQU(wrk_SEQ_Statemodel_mem,55) OTE(Err_Catcher_BallShoot_Faulted) ,[EQU(wrk_SEQ_Statemodel_mem,40) XIC(Sts_LostBall_ToCatcher) ,EQU(wrk_SEQ_Statemodel_mem,60) XIC(Sts_LostBall_ToPitcher) ] OTE(Err_LostBall) ];]]>
+<![CDATA[EQU(999,SEQ_Statemodel)[OTE(ERR_Pigging_Faulted) ,[EQU(wrk_SEQ_Statemodel_mem,10) ,EQU(wrk_SEQ_Statemodel_mem,75) ] XIO(Sts_Pitcher_Pigball_RestPos) OTE(Err_Pitcher_Lockpins_faulted) ,EQU(wrk_SEQ_Statemodel_mem,20) OTE(Err_Pitcher_ShootPos_faulted) ,EQU(wrk_SEQ_Statemodel_mem,65) OTE(Err_Pitcher_RestPos_faulted) ,EQU(wrk_SEQ_Statemodel_mem,35) OTE(Err_Pitcher_BallShoot_Faulted) ,EQU(wrk_SEQ_Statemodel_mem,55) OTE(Err_Catcher_BallShoot_Faulted) ,[EQU(wrk_SEQ_Statemodel_mem,40) XIC(Sts_LostBall_ToCatcher) ,EQU(wrk_SEQ_Statemodel_mem,60) XIC(Sts_LostBall_ToPitcher) ] OTE(Err_LostBall) ];]]>
 </Text>
 </Rung>
-<Rung Number="31" Type="N">
+<Rung Number="30" Type="N">
 <Comment>
 <![CDATA[Reset sequences]]>
 </Comment>
 <Text>
-<![CDATA[EQU(999,SEQ_Statemodel)XIC(Reset)[EQU(wrk_SEQ_Statemodel_mem,10) XIC(Sts_Pitcher_Pigball_RestPos) MOV(1,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,35) MOV(30,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,40) MOV(30,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,55) MOV(50,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,60) MOV(50,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,70) OTL(Outp_Pitcher_Request_Arm_Out) TON(T_retryArming,?,?) XIC(T_retryArming.DN) MOV(65,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,75) XIC(Sts_Pitcher_Pigball_RestPos) MOV(75,SEQ_Statemodel) ,OTU(Sts_LostBall_ToPitcher) OTU(Sts_LostBall_ToCatcher) ];]]>
+<![CDATA[EQU(999,SEQ_Statemodel)XIC(Reset)[EQU(wrk_SEQ_Statemodel_mem,10) XIC(Sts_Pitcher_Pigball_RestPos) MOV(1,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,20) MOV(20,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,35) MOV(30,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,40) MOV(30,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,55) MOV(50,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,60) MOV(50,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,65) MOV(65,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,70) OTL(Outp_Pitcher_Request_Arm_Out) TON(T_retryArming,?,?) XIC(T_retryArming.DN) MOV(65,SEQ_Statemodel) ,EQU(wrk_SEQ_Statemodel_mem,75) XIC(Sts_Pitcher_Pigball_RestPos) MOV(75,SEQ_Statemodel) ,OTU(Sts_LostBall_ToPitcher) OTU(Sts_LostBall_ToCatcher) ];]]>
 </Text>
 </Rung>
-<Rung Number="32" Type="N">
+<Rung Number="31" Type="N">
 <Comment>
 <![CDATA[Force the pig ball somewhere, disregarding all conditions.
 
@@ -944,22 +1015,22 @@ just go]]>
 <![CDATA[NOP();]]>
 </Text>
 </Rung>
-<Rung Number="33" Type="N">
+<Rung Number="32" Type="N">
 <Text>
 <![CDATA[XIC(Force_Shoot_To_Pitcher)OTL(Outp_Catcher_Request_Propellant)RES(T_PiggingTraveling)RES(T_PiggingTraveling2)MOV(60,SEQ_Statemodel)OTU(Force_Shoot_To_Pitcher);]]>
 </Text>
 </Rung>
-<Rung Number="34" Type="N">
+<Rung Number="33" Type="N">
 <Text>
 <![CDATA[XIC(Force_Shoot_To_Catcher)OTL(Outp_Pitcher_Request_Propellant)RES(T_PiggingTraveling)RES(T_PiggingTraveling2)MOV(40,SEQ_Statemodel)OTU(Force_Shoot_To_Catcher);]]>
 </Text>
 </Rung>
-<Rung Number="35" Type="N">
+<Rung Number="34" Type="N">
 <Text>
 <![CDATA[NOP();]]>
 </Text>
 </Rung>
-<Rung Number="36" Type="N">
+<Rung Number="35" Type="N">
 <Comment>
 <![CDATA[State to text for HMI]]>
 </Comment>
